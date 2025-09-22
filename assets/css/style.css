@@ -883,11 +883,6 @@ button.icon-btn:active { transform: translateY(0); }
 }
 
 /* הסר !important כאן אם נשארים עם גרדיאנטים */
-.btn.add, #mAdd,
-.btn.whats, #mWhats{
-  /* background: transparent;  // בלי !important */
-  /* ...שאר הכללים... */
-}
 
 .icon-btn:focus-visible,
 .drawer .item .icon-btn:focus-visible{
@@ -897,4 +892,181 @@ button.icon-btn:active { transform: translateY(0); }
 
 :root[data-theme="light"] .drawer{
   box-shadow: 0 12px 28px rgba(13,19,33,.14);
+}
+
+
+/*  */
+/* ===== Hero slider ===== */
+.slider{
+  max-width:1200px; margin:.6rem auto 1rem; padding:0 1rem; position:relative;
+}
+.slider::before,.slider::after{
+  content:""; position:absolute; top:0; bottom:0; width:28px; z-index:1; pointer-events:none;
+}
+.slider::before{ left:0; background:linear-gradient(90deg,var(--bg),transparent); }
+.slider::after { right:0; background:linear-gradient(270deg,var(--bg),transparent); }
+
+.slider .s-track{
+  display:flex; gap:.6rem; overflow-x:auto; scroll-snap-type:x mandatory;
+  padding-bottom:.4rem; -webkit-overflow-scrolling:touch; scrollbar-width:none;
+}
+.slider .s-track::-webkit-scrollbar{ display:none; }
+
+.s-card{
+  flex:0 0 auto; width:clamp(160px,44vw,240px);
+  background:var(--card); border:1px solid rgba(255,255,255,.08);
+  border-radius:14px; overflow:hidden; scroll-snap-align:start; text-decoration:none; color:inherit;
+}
+:root[data-theme="light"] .s-card{ border-color:rgba(0,0,0,.08); }
+
+.s-card img{ width:100%; aspect-ratio:3/4; object-fit:cover; object-position:center; display:block; }
+.s-info{ padding:.5rem .6rem; display:flex; align-items:center; justify-content:space-between; gap:.6rem; }
+.s-title{ font-weight:800; font-size:.95rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.s-price{ font-weight:800; font-size:.9rem; }
+
+.s-nav{
+  position:absolute; top:50%; transform:translateY(-50%);
+  width:34px; height:34px; border-radius:999px; display:grid; place-items:center;
+  border:1px solid rgba(255,255,255,.2); background:rgba(0,0,0,.35);
+  backdrop-filter:blur(6px); color:var(--text); cursor:pointer; z-index:2;
+}
+.s-nav.prev{ left:8px; } .s-nav.next{ right:8px; }
+:root[data-theme="light"] .s-nav{ border-color:rgba(0,0,0,.12); background:rgba(255,255,255,.85); }
+
+@media (max-width:520px){
+  .slider{ padding:0 .6rem; }
+  .s-card{ width:68vw; }         /* קל לגלילה באצבע */
+  .s-nav{ display:none; }        /* במובייל משתמשים בסווייפ */
+}
+
+/* Recommended badge on slider cards */
+.s-card{ position: relative; }
+.s-badge{
+  position: absolute;
+  inset-inline-end: 8px;   /* ימין ב-RTL, שמאל ב-LTR */
+  inset-block-start: 8px;
+  padding: .14rem .48rem;
+  font-size: .72rem;
+  font-weight: 800;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--brand,#d4af37), #ffd166);
+  color: #221a00;
+  border: 1px solid rgba(0,0,0,.08);
+  box-shadow: 0 4px 10px rgba(0,0,0,.25);
+}
+:root[data-theme="light"] .s-badge{
+  background: linear-gradient(135deg, #ffe08a, #ffd166);
+  color:#3b2a00;
+}
+
+/* === Slider mobile centering & RTL fix === */
+@media (max-width:520px){
+  /* נורמליזציה לגלילה אופקית במובייל/RTL */
+  .slider .s-track{
+    direction: ltr;             /* מונע התחלה מצד ימין ב-RTL */
+    padding-inline: 16vw;       /* מרכז את הכרטיס הראשון/האחרון */
+    scroll-padding-inline: 16vw;/* משפר Snap למרכז */
+  }
+
+  /* כרטיסים במרכז, רוחב נוח לסווייפ */
+  .s-card{
+    width: 68vw;                /* זה חייב להתאים ל-padding-inline למעלה */
+    scroll-snap-align: center;  /* חיבור לכיוון המרכז */
+    direction: rtl;             /* התוכן בתוך הכרטיס נשאר RTL */
+  }
+
+  /* חצים מוסתרים במובייל (סווייפ) — אם תרצה להשאירם, הסר את זה */
+  .s-nav{ display:none; }
+}
+
+/*  */
+/* ========= Chips (קטגוריות) – כהה/בהיר ========= */
+:root{
+  --chip-bg:#0f111a;
+  --chip-stroke:rgba(255,255,255,.12);
+  --chip-grad-1:#9b87f5;   /* סגול רך */
+  --chip-grad-2:#22d3ee;   /* תכלת */
+}
+:root[data-theme="light"]{
+  --chip-bg:#fff;
+  --chip-stroke:rgba(0,0,0,.12);
+}
+
+.controls{ gap:.6rem; }
+.chip{
+  position:relative;
+  display:inline-flex; align-items:center; justify-content:center;
+  padding:.52rem .9rem;
+  border-radius:999px;
+  background:var(--chip-bg);
+  border:1px solid var(--chip-stroke);
+  color:var(--text);
+  font-weight:600; font-size:.92rem;
+  transition:border-color .2s, box-shadow .2s, transform .12s;
+  user-select:none; cursor:pointer;
+}
+.chip:hover{ border-color:rgba(255,255,255,.22); }
+:root[data-theme="light"] .chip:hover{ border-color:rgba(0,0,0,.18); }
+
+.chip.active{
+  /* טבעת צבעונית עדינה */
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)) padding-box,
+    linear-gradient(135deg, var(--chip-grad-1), var(--chip-grad-2)) border-box;
+  border:1px solid transparent;
+  box-shadow:0 0 0 3px rgba(155,135,245,.25);
+}
+:root[data-theme="light"] .chip.active{
+  background:
+    linear-gradient(180deg, #fff, #fff) padding-box,
+    linear-gradient(135deg, var(--chip-grad-1), var(--chip-grad-2)) border-box;
+  box-shadow:0 0 0 3px rgba(80,72,170,.18);
+}
+.chip:focus-visible{ outline:none; box-shadow:0 0 0 3px var(--ring); transform:translateY(-1px); }
+
+/* ========= Cart badge – שלא ייחתך במובייל ========= */
+.cart-btn{ position:relative; overflow:visible; }
+.cart-count{
+  position:absolute; inset-block-start:-6px; inset-inline-start:-6px;
+  background:var(--brand); color:#111; border-radius:999px;
+  font-size:.75rem; padding:.1rem .45rem; border:1px solid #111;
+}
+@media (max-width:520px){
+  /* בתוך הכפתור, לא יוצא למעלה – לא נחתך */
+  .cart-count{
+    inset-block-start:2px;
+    inset-inline-start:auto; inset-inline-end:2px;
+    border-width:0; box-shadow:0 0 0 1px rgba(0,0,0,.25);
+  }
+}
+
+/* ========= Slider title + price ========= */
+.s-info{ padding:.55rem .65rem; }
+.s-title{
+  font-weight:900;
+  font-size:clamp(.92rem, 3.2vw, 1rem);
+  letter-spacing:.2px;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.s-price{
+  font-weight:800;
+  font-size:.9rem;
+  padding:.18rem .5rem;
+  border-radius:999px;
+  border:1px solid rgba(0,0,0,.08);
+  background:linear-gradient(135deg, #d4af37, #ffd166);
+  color:#221a00;
+}
+:root:not([data-theme="light"]) .s-price{
+  border-color:rgba(255,255,255,.08);
+  background:linear-gradient(135deg, #caa74a, #ffcc66);
+  color:#1a1200;
+}
+
+/* קצת הידוק במובייל */
+@media (max-width:520px){
+  .controls{ padding-inline:.6rem; gap:.5rem; }
+  .chip{ padding:.46rem .75rem; font-size:.88rem; }
+  .s-title{ font-size:.9rem; }
+  .s-price{ font-size:.85rem; padding:.14rem .44rem; }
 }

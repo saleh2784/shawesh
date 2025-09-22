@@ -146,10 +146,10 @@ function normalizeProducts(arr, srcFile=''){
     description_ar: p.description_ar ?? '',
     price: parsePrice(p.price ?? p.cost ?? 0),
     category: (p.category || p.type || defCat || 'other').toLowerCase(),
-    image: (p.image || p.img || '').trim() || FALLBACK_IMG,
     image: p.image || p.img || '',
     related: Array.isArray(p.related) ? p.related : [],
-    _src: srcFile, // למעקב/דיבאג
+    recommended: Boolean(p.recommended ?? p.featured ?? p.is_recommended ?? p.highlight ?? false), // ← כאן
+    _src: srcFile,
   }));
 }
 
@@ -276,6 +276,64 @@ function render(items){
   grid.appendChild(frag);
 }
 
+// 
+
+function pickFeatured(list, count=12){
+  const preferred = list.filter(p => p.recommended);
+  const rest = list.filter(p => !p.recommended);
+  return [...preferred, ...rest].slice(0, count);
+}
+
+function buildHeroSlider(products){
+  const wrap  = document.getElementById('heroSlider');
+  const track = document.getElementById('heroTrack');
+  if (!wrap || !track) return;
+
+  // רק מוצרים מסומנים recommended
+  const featured = products.filter(p => p.recommended);
+
+  // אם אין — מסתירים את הסליידר
+  if (!featured.length) {
+    wrap.style.display = 'none';
+    return;
+  }
+  wrap.style.display = ''; // לוודא שהוא נראה כשיש
+
+  track.innerHTML = '';
+  featured.forEach(p => {
+    const a = document.createElement('a');
+    a.href = '#';
+    a.className = 's-card';
+    a.setAttribute('role','listitem');
+    a.setAttribute('aria-label', pName(p));
+
+    const badge = state.lang === 'ar' ? 'موصى به' : 'מומלץ';
+
+    a.innerHTML = `
+      <img src="${p.image || (typeof FALLBACK_IMG!=='undefined'?FALLBACK_IMG:'')}"
+           alt="${pName(p)}" loading="lazy" decoding="async"
+           onerror="this.onerror=null; ${typeof FALLBACK_IMG!=='undefined' ? `this.src='${FALLBACK_IMG}'` : ''}">
+      <span class="s-badge" aria-hidden="true">${badge}</span>
+      <div class="s-info">
+        <div class="s-title">${pName(p)}</div>
+        <div class="s-price">${formatPrice(p.price)}</div>
+      </div>
+    `;
+    a.addEventListener('click', (e)=>{ e.preventDefault(); openModalProd(p); });
+    track.appendChild(a);
+  });
+
+  // ניווט חצים כמו שהיה
+  const prev = wrap.querySelector('.s-nav.prev');
+  const next = wrap.querySelector('.s-nav.next');
+  const step = () => Math.min(track.clientWidth * 0.8, 340);
+  prev?.addEventListener('click', ()=> track.scrollBy({ left: -step(), behavior: 'smooth' }));
+  next?.addEventListener('click', ()=> track.scrollBy({ left:  step(), behavior: 'smooth' }));
+}
+
+
+
+// 
 
 // ====== MODAL ======
 const modal = document.getElementById('modal');
@@ -677,6 +735,7 @@ function flyToCartFrom(imgEl){
   state.filtered = state.products;
   render(state.filtered);
   updateCartUI();
+  buildHeroSlider(state.products);
 })();
 
 // שמור את האחרון שהיה בפוקוס לפני פתיחת העגלה
@@ -726,3 +785,4 @@ document.addEventListener('keydown', (e) => {
     closeDrawer();
   }
 });
+
