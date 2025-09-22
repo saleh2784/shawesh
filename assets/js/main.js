@@ -4,9 +4,24 @@
    ========================= */
 
 // ====== CONFIG ======
-const PHONE = '972505320456'; // WhatsApp (ללא אפסים/סימנים)
-const DATA_URL = 'products.json'; // הנתונים המקומיים
 
+
+
+const PHONE = '972505320456'; // WhatsApp (ללא אפסים/סימנים)
+const DATA_FILES = [
+   'products.json',
+   'women_perfumes_ar.json',
+]
+function inferCategoryFromFilename(fname=''){
+  const f = fname.toLowerCase();
+  if (f.includes('men')) return 'men';
+  if (f.includes('women') || f.includes('lady') || f.includes('ladies')) return 'women';
+  if (f.includes('air')) return 'air';
+  if (f.includes('cream')) return 'cream';
+  if (f.includes('maklot')) return 'maklotim';
+  return 'other';
+}
+const FALLBACK_IMG = '/images/cat/logo.jpg';
 // אייקון וואטסאפ חדש (SVG), ניתן לשלוט בגודל
 const WA_ICON = (size=18) => `
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
@@ -118,11 +133,11 @@ function formatPrice(val){
 }
 
 // ====== DATA NORMALIZATION (supports name_he/ar, description_he/ar) ======
-function normalizeProducts(arr){
+function normalizeProducts(arr, srcFile=''){
   if (!Array.isArray(arr)) return [];
+  const defCat = inferCategoryFromFilename(srcFile);
   return arr.map(p => ({
     id: p.id ?? (crypto.randomUUID ? crypto.randomUUID() : String(Math.random()).slice(2)),
-    // keep originals + multilingual fields
     name: p.name ?? '',
     name_he: p.name_he ?? '',
     name_ar: p.name_ar ?? '',
@@ -130,11 +145,14 @@ function normalizeProducts(arr){
     description_he: p.description_he ?? '',
     description_ar: p.description_ar ?? '',
     price: parsePrice(p.price ?? p.cost ?? 0),
-    category: (p.category || p.type || 'other').toLowerCase(),
+    category: (p.category || p.type || defCat || 'other').toLowerCase(),
+    image: (p.image || p.img || '').trim() || FALLBACK_IMG,
     image: p.image || p.img || '',
     related: Array.isArray(p.related) ? p.related : [],
+    _src: srcFile, // למעקב/דיבאג
   }));
 }
+
 function pName(p){
   return (state.lang === 'ar' ? (p.name_ar || p.name_he || p.name) : (p.name_he || p.name_ar || p.name)) || '';
 }
@@ -145,22 +163,43 @@ function pDesc(p){
 
 // ====== LOAD PRODUCTS ======
 async function loadProducts(){
+  // אם רוצים לבחור דרך ה-URL: index.html?data=men.json,women.json
+  const param = new URLSearchParams(location.search).get('data');
+  const files = param
+    ? param.split(',').map(s=>s.trim()).filter(Boolean)
+    : DATA_FILES;
+
   try{
-    const res = await fetch(DATA_URL, { cache: 'no-store' });
-    if(!res.ok) throw new Error('missing file');
-    const data = await res.json();
-    return Array.isArray(data) ? data : (data.products || []);
+    const batches = await Promise.all(files.map(async file => {
+      const res = await fetch(file, { cache: 'no-store' });
+      if (!res.ok) throw new Error(`fetch ${file} failed`);
+      const json = await res.json();
+      const list = Array.isArray(json) ? json : (json.products || []);
+      return normalizeProducts(list, file);
+    }));
+
+    // מיזוג + הורדת כפילויות לפי id
+    const merged = batches.flat();
+    const seen = new Set();
+    const uniq = [];
+    for (const p of merged) {
+      if (seen.has(p.id)) continue;
+      seen.add(p.id);
+      uniq.push(p);
+    }
+    return uniq;
   }catch(e){
-    // fallback from inline <script id="products-fallback">
+    console.warn('שגיאה בטעינת קבצים, נופל ל-fallback', e);
     try{
       const raw = document.getElementById('products-fallback')?.textContent?.trim() || '';
       const data = JSON.parse(raw);
-      return data.products || [];
+      return normalizeProducts(data.products || [], 'fallback');
     }catch{
       return [];
     }
   }
 }
+
 
 // ====== FILTERS ======
 function byCategory(p, cat){ return cat === 'all' ? true : p.category === cat; }
@@ -196,8 +235,10 @@ function render(items){
     el.className = 'card card-compact';
     el.innerHTML = `
       <a href="#" class="thumb" aria-label="${name}">
-        <img src="${p.image}" alt="${name}" loading="lazy" decoding="async"
-             onerror="this.src='https://dummyimage.com/600x800/222/fff&text=No+Image'">
+      <img
+      src="${p.image || FALLBACK_IMG}"
+      alt="${name}" loading="lazy" decoding="async"
+      onerror="this.onerror=null; this.src='${FALLBACK_IMG}'">
       </a>
       <div class="info">
         <div class="title-row" style="display:flex;justify-content:space-between;align-items:center;gap:.6rem">
@@ -251,7 +292,8 @@ const waIcon = WA_ICON(18);
 
 function openModalProd(p){
   state.modalProd = p;
-  mImg.src = p.image; mImg.alt = pName(p);
+  mImg.src = p.image || FALLBACK_IMG;
+  mImg.onerror = () => { mImg.onerror = null; mImg.src = FALLBACK_IMG; };
   mTitle.textContent = pName(p);
   mCat.textContent = catLabel(p.category);
   mDesc.textContent = pDesc(p);
@@ -325,7 +367,10 @@ function updateCartUI(){
       const row = document.createElement('div');
       row.className = 'item';
       row.innerHTML = `
-        <img src="${x.image}" alt="${x.name}" style="width:64px;height:64px;object-fit:cover;border-radius:8px">
+        <img src="${x.image || FALLBACK_IMG}" alt="${x.name}"
+        onerror="this.onerror=null; this.src='${FALLBACK_IMG}'"
+        style="width:64px;height:64px;object-fit:cover;border-radius:8px">
+ 
         <div>
           <div style="font-weight:700; color:var(--text)">${x.name}</div>
           <div style="color:var(--muted)">${formatPrice(x.price)}</div>
