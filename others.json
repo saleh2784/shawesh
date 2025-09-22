@@ -1,0 +1,16 @@
+[
+    {
+      "id": "3001",
+      "name": "מכשיר הפצת ריח",
+      "name_he": " מכשיר הפצת ריח חשמלי",
+      "name_ar": "معطر جو كهربائي",
+      "price": "₪ 350",
+      "type": "elctro",
+      "recommended": true,
+      "image": "/images/products/123.jpg",
+      "description": "A deep, woody scent for the sophisticated man.",
+      "description_he": "מכשיר הפצת ריח חשמלי",
+      "description_ar": " جهاز معطر جو  كهربائي",
+      "related": ["2"]
+    }
+]

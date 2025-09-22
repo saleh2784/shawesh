@@ -1070,3 +1070,144 @@ button.icon-btn:active { transform: translateY(0); }
   .s-title{ font-size:.9rem; }
   .s-price{ font-size:.85rem; padding:.14rem .44rem; }
 }
+
+/* Cart badge inline (no clipping) */
+.cart-btn{
+  display:inline-flex; align-items:center; gap:.45rem;
+  position:relative; overflow:visible;
+}
+.cart-count{
+  position: static !important;   /* לא אבסולוטי */
+  display:inline-flex; align-items:center; justify-content:center;
+  min-width: 18px; height: 18px; padding: 0 .4rem;
+  font-size:.78rem; line-height:1; border-radius:999px;
+  background: var(--brand); color:#111; border: none;
+  box-shadow: 0 0 0 1px rgba(0,0,0,.25);
+}
+
+
+.s-info{ padding:.55rem .65rem; display:flex; align-items:center; justify-content:space-between; gap:.6rem; }
+.s-title{
+  font-weight:900; letter-spacing:.2px;
+  font-size:clamp(.92rem, 3.2vw, 1rem);
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.s-price{
+  font-weight:800; font-size:.9rem; padding:.18rem .5rem; border-radius:999px;
+  border:1px solid rgba(0,0,0,.08);
+  background:linear-gradient(135deg, #d4af37, #ffd166); color:#221a00;
+}
+:root:not([data-theme="light"]) .s-price{
+  border-color:rgba(255,255,255,.08);
+  background:linear-gradient(135deg, #caa74a, #ffcc66); color:#1a1200;
+}
+
+/* Center brand in navbar, actions on the right (robust grid) */
+.nav .wrap{
+  display: grid;
+  grid-template-columns: 1fr auto 1fr; /* filler | BRAND | MENU/ACTIONS */
+  align-items: center;
+  gap: .8rem;
+}
+
+/* מיקומים מפורשים בעמודות */
+.nav .wrap .brand{
+  grid-column: 2;           /* באמצע */
+  justify-self: center;
+}
+.nav .wrap .menu{
+  grid-column: 3;           /* ימין */
+  justify-self: end;
+  display: flex;
+  gap: .4rem;
+  align-items: center;
+}
+.nav .wrap .spacer{         /* שמאל – רק ממלא מקום */
+  grid-column: 1;
+}
+
+/* לוודא שהגובה מספיק שלא ייחתך שום באדג' */
+.nav{ min-height: 56px; }
+
+
+/* ========= NAV: Brand centered, actions RTL, no overflow ========= */
+/* פריסת גריד יציבה */
+.nav .wrap{
+  display:grid !important;
+  grid-template-columns: 1fr auto 1fr; /* שמאל | BRAND | ימין */
+  align-items:center;
+  gap:.6rem;
+  padding-inline: .8rem;
+}
+
+/* המותג במרכז */
+.nav .wrap .brand{
+  grid-column:2;
+  justify-self:center;
+  min-width: 0; /* למנוע דחיפה */
+}
+
+/* פעולות (תפריט/עגלה/מצב) בצד ימין, סדר RTL בתוך הקונטיינר */
+.nav .wrap .menu{
+  grid-column:3;
+  justify-self:end;
+  display:flex !important;
+  flex-wrap:wrap;            /* שבירה לשורה חדשה אם צפוף */
+  gap:.4rem .5rem;
+  align-items:center;
+  direction: rtl;            /* סדר מימין לשמאל */
+  max-width: min(100%, 100vw - 16px);
+}
+.nav .wrap .menu > *{ white-space:nowrap; } /* בלי שבירת כפתורים */
+
+/* מונע חיתוך של המונה/כפתורים בשוליים צרים */
+.nav{ min-height:56px; }
+
+/* ===== מובייל: שומרים על הניראות, בלי חריגות ===== */
+@media (max-width: 620px){
+  .nav .wrap{
+    grid-template-columns: 1fr auto 1fr;
+    grid-template-rows: auto auto;   /* שורה נוספת לכפתורים אם צריך */
+  }
+  /* המותג נשאר באמצע בשורה 1 */
+  .nav .wrap .brand{
+    grid-row:1; grid-column:2;
+  }
+  /* התפריט יורד לשורה 2, תופס רוחב מלא, RTL, בלי גלילה */
+  .nav .wrap .menu{
+    grid-row:2; grid-column:1 / -1;
+    justify-self:stretch;
+    justify-content: space-between;  /* חלוקה יפה ברוחב מלא */
+    padding-block: .35rem .25rem;
+    border-top: 1px solid rgba(255,255,255,.08);
+  }
+  :root[data-theme="light"] .nav .wrap .menu{
+    border-top-color: rgba(0,0,0,.08);
+  }
+}
+
+/* אם היה לך כלל ישן שמסתיר תפריט במובייל – נטרל אותו */
+@media (max-width: 520px){
+  .menu{ display:flex !important; }
+}
+
+/* ===== מונה ליד העגלה — גרסת inline (לא נחתך) ===== */
+.cart-btn{
+  display:inline-flex; align-items:center; gap:.45rem;
+  position:relative; overflow:visible;
+}
+.cart-count{
+  position: static !important;
+  display:inline-flex; align-items:center; justify-content:center;
+  min-width:18px; height:18px; padding:0 .4rem;
+  font-size:.78rem; line-height:1; border-radius:999px;
+  background: var(--brand); color:#111; border:none;
+  box-shadow:0 0 0 1px rgba(0,0,0,.25);
+}
+
+/* פוקוס נגיש לכל כפתורי התפריט */
+.menu a:focus-visible, .menu .icon-btn:focus-visible, .cart-btn:focus-visible{
+  outline:none;
+  box-shadow:0 0 0 3px var(--ring);
+  border-radius:12px;
+}

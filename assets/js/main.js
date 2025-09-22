@@ -11,6 +11,7 @@ const PHONE = '972505320456'; // WhatsApp (ללא אפסים/סימנים)
 const DATA_FILES = [
    'products.json',
    'women_perfumes_ar.json',
+   'others.json',
 ]
 function inferCategoryFromFilename(fname=''){
   const f = fname.toLowerCase();
@@ -74,10 +75,10 @@ const state = {
 
 // 
 // === Hero slider autoplay ===
+// === Hero slider autoplay ===
 let _heroAutoId = null;
-function stopHeroAutoplay(){
-  if (_heroAutoId){ clearInterval(_heroAutoId); _heroAutoId = null; }
-}
+function stopHeroAutoplay(){ if (_heroAutoId){ clearInterval(_heroAutoId); _heroAutoId = null; } }
+
 function startHeroAutoplay(track, {delay=5000} = {}){
   stopHeroAutoplay();
   if (!track) return;
@@ -85,25 +86,34 @@ function startHeroAutoplay(track, {delay=5000} = {}){
   if (track.children.length <= 1) return;
 
   const stepPx = () => Math.min(track.clientWidth * 0.8, 360);
-  const go = () => track.scrollBy({ left: stepPx(), behavior: 'smooth' });
+
+  const go = () => {
+    const atEnd = Math.ceil(track.scrollLeft + track.clientWidth) >= track.scrollWidth;
+    if (atEnd){
+      track.scrollTo({ left: 0, behavior: 'smooth' });   // התחלה מחדש
+    } else {
+      track.scrollBy({ left: stepPx(), behavior: 'smooth' });
+    }
+  };
 
   _heroAutoId = setInterval(go, delay);
 
-  // השהייה בעת אינטראקציה
-  const pause = () => stopHeroAutoplay();
-  const resume = () => startHeroAutoplay(track, {delay});
-
-  track.addEventListener('pointerdown', pause, { passive:true });
-  track.addEventListener('mouseenter', pause, { passive:true });
-  track.addEventListener('mouseleave', resume, { passive:true });
-  track.addEventListener('touchstart', pause, { passive:true });
-  track.addEventListener('touchend', () => setTimeout(resume, 900), { passive:true });
-
-  // אם הדף עבר לרקע – עצור; חזור כשחוזרים
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) stopHeroAutoplay(); else resume();
-  });
+  // מאזיני pause/resume פעם אחת
+  if (!track.dataset.autoListeners){
+    const pause = () => stopHeroAutoplay();
+    const resume = () => startHeroAutoplay(track, {delay});
+    track.addEventListener('pointerdown', pause, { passive:true });
+    track.addEventListener('mouseenter', pause, { passive:true });
+    track.addEventListener('mouseleave', resume, { passive:true });
+    track.addEventListener('touchstart', pause, { passive:true });
+    track.addEventListener('touchend', () => setTimeout(resume, 900), { passive:true });
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) stopHeroAutoplay(); else resume();
+    });
+    track.dataset.autoListeners = '1';
+  }
 }
+
 
 // 
 // ====== I18N (Hebrew + Arabic) ======
@@ -548,34 +558,53 @@ searchInput?.addEventListener('input', (e)=>{
 });
 
 // ====== THEME TOGGLE (existing) ======
+// --- THEME (ברירת מחדל: כהה) ---
 const root = document.documentElement;
-const themeToggle = document.getElementById('themeToggle');
-
 function applyTheme(theme){
-  if(theme === 'light'){
+  if (theme === 'light'){
     root.setAttribute('data-theme','light');
     if (themeToggle) themeToggle.textContent = '☀️';
     localStorage.setItem('theme','light');
-    if (themeToggle) themeToggle.setAttribute('aria-pressed','true');
+    themeToggle?.setAttribute('aria-pressed','true');
   } else {
+    // כהה = להסיר את המאפיין (כך מוגדר ה-CSS שלך)
     root.removeAttribute('data-theme');
     if (themeToggle) themeToggle.textContent = '🌙';
     localStorage.setItem('theme','dark');
-    if (themeToggle) themeToggle.setAttribute('aria-pressed','false');
+    themeToggle?.setAttribute('aria-pressed','false');
   }
 }
+
+// נרמול אם שמו פעם data-theme="dark" ב-HTML
+if (root.getAttribute('data-theme') === 'dark') {
+  root.removeAttribute('data-theme');
+}
+
+// ברירת מחדל: כהה אם אין שמור
 (function initTheme(){
   const saved = localStorage.getItem('theme');
-  if(saved){ applyTheme(saved); }
-  else {
-    const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
-    applyTheme(prefersLight ? 'light' : 'dark');
-  }
+  applyTheme(saved || 'dark');
 })();
 themeToggle?.addEventListener('click', ()=>{
   const isLight = root.getAttribute('data-theme') === 'light';
   applyTheme(isLight ? 'dark' : 'light');
 });
+
+
+// --- LANGUAGE (ברירת מחדל: ערבית) ---
+function setLang(lang){
+  state.lang = (lang === 'ar') ? 'ar' : 'he';
+  localStorage.setItem('lang', state.lang);
+  applyLang();
+  applyFilters();
+  updateCartUI();
+  buildHeroSlider?.(state.products); // אם יש לך סליידר
+}
+
+(function initLang(){
+  const savedLang = localStorage.getItem('lang');
+  setLang(savedLang || 'ar');   // ← ברירת מחדל: ערבית
+})();
 
 // 
 // ===== Inline Contact Overlay (loads contact-us.html inside the page) =====
@@ -666,6 +695,7 @@ function setLang(lang){
   applyLang();
   applyFilters();        // רנדר מוצרים בשפה הנכונה
   updateCartUI();        // עדכון טקסטים בעגלה
+  buildHeroSlider(state.products);
 }
 function applyLang(){
   // html lang/dir (שתיהן RTL, אבל נשים ערך נכון)
