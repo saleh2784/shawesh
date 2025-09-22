@@ -21,6 +21,7 @@ function inferCategoryFromFilename(fname=''){
   if (f.includes('cream')) return 'cream';
   if (f.includes('maklot')) return 'maklotim';
   if (f.includes('electro') || f.includes('elctro') || f.includes('device')) return 'elctro';
+  if (f.includes('mabakher') || f.includes('mabakher') || f.includes('mabakher')) return 'elctro';
   return 'other';
 }
 
@@ -45,6 +46,7 @@ const CATEGORY_ALIASES = {
     'מכשיר','מכשירים','חשמל','אלקטרוניקה',
     'اجهزة','أجهزة','الكترونيات','إلكترونيات'
   ],
+  mabakher: ['mabakher','مباخر)'],
   other:     ['other','misc','כללי','אחר','אחרים','متنوع']
 };
 
@@ -58,8 +60,9 @@ function canonicalCategory(input='') {
   if (/women|lady|ladies|نساء|للنساء/.test(s)) return 'women';
   if (/air|freshener|מטהר|ריחן|معطر/.test(s)) return 'air';
   if (/cream|كريم|קרם/.test(s)) return 'cream';
-  if (/maklot/.test(s) || /מקלוט/.test(s) || /بخور|عود/.test(s)) return 'maklotim';
+  if (/maklot/.test(s) || /מקלות/.test(s) || /بخور|عود/.test(s)) return 'maklotim';
   if (/electro|device|electron|מכשיר|אלקטרו|חשמל|جهاز|أجهزة|الكترون/.test(s)) return 'elctro';
+  if (/mabakher|مباخر/.test(s)) return 'mabakher';
   return 'other';
 }
 
@@ -74,7 +77,85 @@ const state = {
 };
 
 // 
-// === Hero slider autoplay ===
+
+// --- קבלת שם מוצר לפי שפה (נשען על הנתונים שב-state.products)
+function nameByLang(p, lang='he'){
+  if (!p) return '';
+  if (lang === 'ar') return p.name_ar || p.name_he || p.name || '';
+  return p.name_he || p.name_ar || p.name || '';
+}
+function findProdById(id){
+  return state.products.find(x => String(x.id) === String(id));
+}
+
+// --- הודעה דו-לשונית להזמנת מוצר יחיד
+function buildWAProductMessageBilingual(p){
+  const priceFmt = formatPrice(p.price);
+  const nameAR = nameByLang(p, 'ar');
+  const nameHE = nameByLang(p, 'he');
+  // כותרות וברכה
+  const ar = `مرحباً،
+أرغب بالطلب:
+• ${nameAR} — ${priceFmt}`;
+
+  const he = `שלום,
+אני מעוניין להזמין:
+• ${nameHE} — ${priceFmt}`;
+
+  return `${ar}
+
+———
+
+${he}`;
+}
+
+// --- הודעה דו-לשונית להזמנת עגלה (כל מוצר בשורה)
+function buildWACartMessageBilingual(items){
+  // חבר את שמות המוצרים המקוריים לפי ID כדי להביא name_ar/name_he
+  const arLines = [];
+  const heLines = [];
+  let total = 0;
+
+  for (const it of items){
+    const p = findProdById(it.id);
+    const qty = it.qty || 1;
+    const unit = parsePrice(it.price);
+    const lineTotal = unit * qty;
+    total += lineTotal;
+
+    const nameAR = p ? nameByLang(p, 'ar') : (it.name || '');
+    const nameHE = p ? nameByLang(p, 'he') : (it.name || '');
+    const unitFmt = formatPrice(unit);
+
+    // כל מוצר בשורה — שם × כמות — מחיר (ליחידה)
+    arLines.push(`• ${nameAR} × ${qty} — ${unitFmt}`);
+    heLines.push(`• ${nameHE} × ${qty} — ${unitFmt}`);
+  }
+
+  const totalFmt = formatPrice(total);
+
+  const ar = `مرحباً،
+أرغب بالطلب:
+${arLines.join('\n')}
+
+الإجمالي: ${totalFmt}`;
+
+  const he = `שלום,
+אני מעוניין להזמין:
+${heLines.join('\n')}
+
+סה״כ: ${totalFmt}`;
+
+  // מפריד עדין בין השפות
+  return `${ar}
+
+———
+
+${he}`;
+}
+
+
+// 
 // === Hero slider autoplay ===
 let _heroAutoId = null;
 function stopHeroAutoplay(){ if (_heroAutoId){ clearInterval(_heroAutoId); _heroAutoId = null; } }
@@ -135,6 +216,7 @@ const I18N = {
       cream: 'קרם',
       maklotim: 'מקלוטים',
       elctro: 'מכשירים',
+      mabakher: 'מבערי קטורת',
     },
     about: {
       title: 'עלינו',
@@ -168,6 +250,7 @@ const I18N = {
       cream: 'كريم',
       maklotim: 'مكلوتيم',
       elctro: 'اجهزة',
+      mabakher: 'مباخر',
     },
     empty: 'لا توجد منتجات.',
     btn: {
@@ -408,9 +491,6 @@ function buildHeroSlider(products){
   startHeroAutoplay(track, { delay: 5000 });
 }
 
-
-
-
 // 
 
 // ====== MODAL ======
@@ -443,7 +523,15 @@ function openModalProd(p){
     flyToCartFrom(mImg);      // ✈️
   };
   
-  
+  // === וואטסאפ דו-לשוני למוצר יחיד ===
+  const waMsg = buildWAProductMessageBilingual(p);
+  mWhats.textContent = t('btn.order');
+  mWhats.classList.add('whats');
+  mWhats.href = `https://wa.me/${PHONE}?text=${encodeURIComponent(waMsg)}`;
+  mWhats.innerHTML = `${WA_ICON(18)} ${t('btn.order')}`;
+
+  modal.style.display = 'flex';
+  modal.setAttribute('aria-hidden', 'false');
   mWhats.classList.add('whats');
   mWhats.href = `https://wa.me/${PHONE}?text=${encodeURIComponent(i18nMsgProduct(pName(p), formatPrice(p.price)))}`;
   mWhats.innerHTML = `${WA_ICON(18)} ${t('btn.order')}`;
@@ -532,8 +620,9 @@ function updateCartUI(){
   if (cartCountEl()) cartCountEl().textContent = count;
 
   const msg = items.length
-    ? i18nMsgCart(items, formatPrice(sumCart(items)))
-    : (state.lang === 'ar' ? 'مرحبًا! أود تقديم طلب.' : 'שלום! אני מעוניין לבצע הזמנה.');
+    ? buildWACartMessageBilingual(items)
+    : (state.lang === 'ar' ? 'مرحباً! أود تقديم طلب.' : 'שלום! אני מעוניין לבצע הזמנה.');
+
   checkoutBtn.href = `https://wa.me/${PHONE}?text=${encodeURIComponent(msg)}`;
 }
 openCartBtn?.addEventListener('click', ()=> { drawer.classList.add('open'); drawer.setAttribute('aria-hidden','false'); });

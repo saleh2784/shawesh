@@ -12,5 +12,47 @@
       "description_he": "מכשיר הפצת ריח חשמלי",
       "description_ar": " جهاز معطر جو  كهربائي",
       "related": ["2"]
+    },
+    {
+    "id": "3002",
+    "name": "מקלות הפצת ריח",
+    "name_he": " מקלות הפצת ריח חשמלי",
+    "name_ar": "معطر جو عيدان",
+    "price": "₪ 30",
+    "type": "maklotim",
+    "recommended": true,
+    "image": "/images/products/1111.jpg",
+    "description": "A deep, woody scent for the sophisticated man.",
+    "description_he": "מקלות הפצת ריח בניחוח אורקיד",
+    "description_ar": " معطر جو عيدان برائحة أوركيد",
+    "related": ["2"]
+    },
+    {
+    "id": "3003",
+    "name": "מבער הפצת ריח",
+    "name_he": " מבער הפצת ריח חשמלי",
+    "name_ar": "مبخرة معطر جو ",
+    "price": "₪ 50",
+    "type": "mabakher",
+    "recommended": true,
+    "image": "/images/products/444.jpg",
+    "description": "A deep, woody scent for the sophisticated man.",
+    "description_he": "מבער הפצת ריח  ",
+    "description_ar": " مبخرة معطر جو",
+    "related": ["2"]
+    },
+    {
+    "id": "3004",
+    "name": "מטהר אוויר",
+    "name_he": "מטהר אוויר",
+    "name_ar": "معطر جو",
+    "price": "₪ 30",
+    "type": "air",
+    "recommended": true,
+    "image": "/images/products/555.jpeg",
+    "description": "A deep, woody scent for the sophisticated man.",
+    "description_he": " מטהר אוויר בניחוח לבנדר",
+    "description_ar": " معطر جو برائحة لفندر",
+    "related": ["2"]
     }
 ]
