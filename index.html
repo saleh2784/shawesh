@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" data-theme="dark">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css?v=6"/>
+  <link rel="stylesheet" href="assets/css/style.css?v=7"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
 
 
@@ -48,8 +48,8 @@
   <!-- CONTROLS -->
   <div class="controls" id="catalog">
     <div class="chip active" data-cat="all">הכל</div>
-    <div class="chip" data-cat="men">בשמים לגברים</div>
     <div class="chip" data-cat="women">בשמים לנשים</div>
+    <div class="chip" data-cat="men">בשמים לגברים</div>
     <div class="chip" data-cat="air">מטהרי אוויר</div>
     <div class="chip" data-cat="cream">קרם</div>
     <div class="chip" data-cat="maklotim">מקלוטים</div>
@@ -87,19 +87,24 @@
   </div>
 
   <!-- CART DRAWER -->
-  <aside class="drawer" id="drawer" aria-hidden="true">
+  <!-- CART DRAWER -->
+<aside class="drawer" id="drawer" aria-hidden="true">
     <header>
-      <strong>העגלה</strong>
-      <button class="icon-btn" id="closeCart">סגור</button>
+      <strong>העגלה | السلة</strong>
+      <button class="icon-btn" id="closeCart" aria-label="סגור / إغلاق">סגור | إغلاق</button>
     </header>
     <div class="items" id="cartItems"></div>
     <footer>
       <div style="display:flex;justify-content:space-between">
-        <span>סה"כ:</span><strong id="cartTotal">₪0</strong>
+        <span>סה"כ | المجموع:</span>
+        <strong id="cartTotal">₪0</strong>
       </div>
-      <a class="btn primary" id="checkoutBtn" target="_blank" rel="noopener">הזמנה בוואטסאפ</a>
+      <a class="btn primary" id="checkoutBtn" target="_blank" rel="noopener">
+        הזמנה בוואטסאפ | طلب عبر واتساب
+      </a>
     </footer>
   </aside>
+  
 <!-- Contact Inline Overlay -->
 <div id="contactOverlay" class="contact-overlay" aria-hidden="true">
     <div class="contact-sheet" role="dialog" aria-modal="true" aria-labelledby="contactTitle">
@@ -117,5 +122,7 @@
   </script>
 
   <script src="assets/js/main.js"></script>
+
+  
 </body>
 </html>
