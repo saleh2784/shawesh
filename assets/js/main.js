@@ -1,18 +1,21 @@
 /* =========================
    الشاوِيش للعطور — main.js
-   Hebrew/Arabic i18n + Cart + Modal + WA
+   RTL, i18n (HE/AR), Cart, Modal, WhatsApp, Slider
    ========================= */
 
 // ====== CONFIG ======
-
-
-
 const PHONE = '972505320456'; // WhatsApp (ללא אפסים/סימנים)
-const DATA_FILES = [
-   'products.json',
-   'women_perfumes_ar.json',
-   'others.json',
-]
+const DATA_FILES = ['products.json', 'women_perfumes_ar.json', 'others.json'];
+const FALLBACK_IMG = '/images/cat/logo.jpg';
+
+// אייקון וואטסאפ (SVG)
+const WA_ICON = (size=18)=>`
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+  width="${size}" height="${size}" fill="currentColor" aria-hidden="true">
+  <path d="M20.52 3.5a11 11 0 0 0-17.05 12.5L2 21.5l5.6-1.46A11 11 0 0 0 21 11a10.9 10.9 0 0 0-.48-7.5zM12 19.9a8 8 0 0 1-4.12-1.13l-.3-.18-3.33.86.89-3.24-.19-.33A8 8 0 1 1 12 19.9zm4.49-6.06c-.24-.12-1.43-.7-1.65-.78s-.38-.12-.54.12-.62.78-.76.95-.28.18-.5.06a6.6 6.6 0 0 1-3.5-3 .41.41 0 0 1 .05-.5c.1-.12.24-.31.36-.45s.16-.24.24-.4a.86.86 0 0 0 .05-.44c0-.12-.54-1.3-.74-1.78s-.39-.42-.54-.43h-.46a.9.9 0 0 0-.65.3A2.75 2.75 0 0 0 7 8.27a4.8 4.8 0 0 0 1 2.53A10.9 10.9 0 0 0 12.2 14a9.1 9.1 0 0 0 1.56.44 1.33 1.33 0 0 0 .92-.3 3.63 3.63 0 0 0 .77-1.02.77.77 0 0 0-.04-.7c-.08-.14-.22-.2-.44-.33z"/>
+</svg>`;
+
+// ====== CATEGORY HELPERS ======
 function inferCategoryFromFilename(fname=''){
   const f = fname.toLowerCase();
   if (f.includes('men')) return 'men';
@@ -21,48 +24,31 @@ function inferCategoryFromFilename(fname=''){
   if (f.includes('cream')) return 'cream';
   if (f.includes('maklot')) return 'maklotim';
   if (f.includes('electro') || f.includes('elctro') || f.includes('device')) return 'elctro';
-  if (f.includes('mabakher') || f.includes('mabakher') || f.includes('mabakher')) return 'elctro';
+  if (f.includes('mabakher') || f.includes('incense') || f.includes('bakhour')) return 'mabakher';
   return 'other';
 }
-
-const FALLBACK_IMG = '/images/cat/logo.jpg';
-// אייקון וואטסאפ חדש (SVG), ניתן לשלוט בגודל
-const WA_ICON = (size=18) => `
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-       width="${size}" height="${size}" fill="currentColor" aria-hidden="true">
-    <path d="M20.52 3.5a11 11 0 0 0-17.05 12.5L2 21.5l5.6-1.46A11 11 0 0 0 21 11a10.9 10.9 0 0 0-.48-7.5zM12 19.9a8 8 0 0 1-4.12-1.13l-.3-.18-3.33.86.89-3.24-.19-.33A8 8 0 1 1 12 19.9zm4.49-6.06c-.24-.12-1.43-.7-1.65-.78s-.38-.12-.54.12-.62.78-.76.95-.28.18-.5.06a6.6 6.6 0 0 1-3.5-3 .41.41 0 0 1 .05-.5c.1-.12.24-.31.36-.45s.16-.24.24-.4a.86.86 0 0 0 .05-.44c0-.12-.54-1.3-.74-1.78s-.39-.42-.54-.43h-.46a.9.9 0 0 0-.65.3A2.75 2.75 0 0 0 7 8.27a4.8 4.8 0 0 0 1 2.53A10.9 10.9 0 0 0 12.2 14a9.1 9.1 0 0 0 1.56.44 1.33 1.33 0 0 0 .92-.3 3.63 3.63 0 0 0 .77-1.02.77.77 0 0 0-.04-.7c-.08-.14-.22-.2-.44-.33z"/>
-  </svg>`;
-
-
-  // === Category aliases (canonicalization) ===
 const CATEGORY_ALIASES = {
   men:       ['men','male','גברים','זכר','رجال','للرجال'],
   women:     ['women','woman','ladies','lady','נשים','נקבה','نساء','للنساء'],
   air:       ['air','airfreshener','air-freshener','freshener','מטהרי אוויר','מטהר','ריחן','معطر','معطرات','معطرات الجو'],
   cream:     ['cream','קרם','مرهم','كريم'],
-  maklotim:  ['maklotim','מקלוטים','מקלוט','بخور','بخّور','عود'], // עדכן אם צריך
-  elctro:    [
-    'elctro','electro','electronics','electronic','device','devices',
-    'מכשיר','מכשירים','חשמל','אלקטרוניקה',
-    'اجهزة','أجهزة','الكترونيات','إلكترونيات'
-  ],
-  mabakher: ['mabakher','مباخر)'],
+  maklotim:  ['maklotim','מקלוטים','מקלוט','بخور','بخّور','عود'],
+  elctro:    ['elctro','electro','electronics','electronic','device','devices','מכשיר','מכשירים','חשמל','אלקטרוניקה','اجهزة','أجهزة','الكترونيات','إلكترونيات'],
+  mabakher:  ['mabakher','incense','بخور','مباخر','عود'],
   other:     ['other','misc','כללי','אחר','אחרים','متنوع']
 };
-
 function canonicalCategory(input='') {
   const s = String(input).toLowerCase().trim();
   for (const [canon, variants] of Object.entries(CATEGORY_ALIASES)) {
     if (variants.includes(s)) return canon;
   }
-  // לא נמצא: נסה לזהות לפי הכללה במחרוזת
   if (/men|male|رجال|للرجال/.test(s)) return 'men';
   if (/women|lady|ladies|نساء|للنساء/.test(s)) return 'women';
   if (/air|freshener|מטהר|ריחן|معطر/.test(s)) return 'air';
   if (/cream|كريم|קרם/.test(s)) return 'cream';
-  if (/maklot/.test(s) || /מקלות/.test(s) || /بخور|عود/.test(s)) return 'maklotim';
+  if (/maklot|מקלוט|مباخر|بخور|عود/.test(s)) return 'maklotim';
   if (/electro|device|electron|מכשיר|אלקטרו|חשמל|جهاز|أجهزة|الكترون/.test(s)) return 'elctro';
-  if (/mabakher|مباخر/.test(s)) return 'mabakher';
+  if (/mabakher|incense|مباخر|بخور/.test(s)) return 'mabakher';
   return 'other';
 }
 
@@ -73,200 +59,28 @@ const state = {
   category: 'all',
   q: '',
   modalProd: null,
-  lang: 'he',  // 'he' | 'ar'
+  lang: 'he',  // 'he' | 'ar' (יוחלף בערך שמור/ברירת מחדל בהמשך)
 };
 
-// 
-
-// --- קבלת שם מוצר לפי שפה (נשען על הנתונים שב-state.products)
-function nameByLang(p, lang='he'){
-  if (!p) return '';
-  if (lang === 'ar') return p.name_ar || p.name_he || p.name || '';
-  return p.name_he || p.name_ar || p.name || '';
-}
-function findProdById(id){
-  return state.products.find(x => String(x.id) === String(id));
-}
-
-// --- הודעה דו-לשונית להזמנת מוצר יחיד
-function buildWAProductMessageBilingual(p){
-  const priceFmt = formatPrice(p.price);
-  const nameAR = nameByLang(p, 'ar');
-  const nameHE = nameByLang(p, 'he');
-  // כותרות וברכה
-  const ar = `مرحباً،
-أرغب بالطلب:
-• ${nameAR} — ${priceFmt}`;
-
-  const he = `שלום,
-אני מעוניין להזמין:
-• ${nameHE} — ${priceFmt}`;
-
-  return `${ar}
-
-———
-
-${he}`;
-}
-
-// --- הודעה דו-לשונית להזמנת עגלה (כל מוצר בשורה)
-function buildWACartMessageBilingual(items){
-  // חבר את שמות המוצרים המקוריים לפי ID כדי להביא name_ar/name_he
-  const arLines = [];
-  const heLines = [];
-  let total = 0;
-
-  for (const it of items){
-    const p = findProdById(it.id);
-    const qty = it.qty || 1;
-    const unit = parsePrice(it.price);
-    const lineTotal = unit * qty;
-    total += lineTotal;
-
-    const nameAR = p ? nameByLang(p, 'ar') : (it.name || '');
-    const nameHE = p ? nameByLang(p, 'he') : (it.name || '');
-    const unitFmt = formatPrice(unit);
-
-    // כל מוצר בשורה — שם × כמות — מחיר (ליחידה)
-    arLines.push(`• ${nameAR} × ${qty} — ${unitFmt}`);
-    heLines.push(`• ${nameHE} × ${qty} — ${unitFmt}`);
-  }
-
-  const totalFmt = formatPrice(total);
-
-  const ar = `مرحباً،
-أرغب بالطلب:
-${arLines.join('\n')}
-
-الإجمالي: ${totalFmt}`;
-
-  const he = `שלום,
-אני מעוניין להזמין:
-${heLines.join('\n')}
-
-סה״כ: ${totalFmt}`;
-
-  // מפריד עדין בין השפות
-  return `${ar}
-
-———
-
-${he}`;
-}
-
-
-// 
-// === Hero slider autoplay ===
-let _heroAutoId = null;
-function stopHeroAutoplay(){ if (_heroAutoId){ clearInterval(_heroAutoId); _heroAutoId = null; } }
-
-function startHeroAutoplay(track, {delay=5000} = {}){
-  stopHeroAutoplay();
-  if (!track) return;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  if (track.children.length <= 1) return;
-
-  const stepPx = () => Math.min(track.clientWidth * 0.8, 360);
-
-  const go = () => {
-    const atEnd = Math.ceil(track.scrollLeft + track.clientWidth) >= track.scrollWidth;
-    if (atEnd){
-      track.scrollTo({ left: 0, behavior: 'smooth' });   // התחלה מחדש
-    } else {
-      track.scrollBy({ left: stepPx(), behavior: 'smooth' });
-    }
-  };
-
-  _heroAutoId = setInterval(go, delay);
-
-  // מאזיני pause/resume פעם אחת
-  if (!track.dataset.autoListeners){
-    const pause = () => stopHeroAutoplay();
-    const resume = () => startHeroAutoplay(track, {delay});
-    track.addEventListener('pointerdown', pause, { passive:true });
-    track.addEventListener('mouseenter', pause, { passive:true });
-    track.addEventListener('mouseleave', resume, { passive:true });
-    track.addEventListener('touchstart', pause, { passive:true });
-    track.addEventListener('touchend', () => setTimeout(resume, 900), { passive:true });
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden) stopHeroAutoplay(); else resume();
-    });
-    track.dataset.autoListeners = '1';
-  }
-}
-
-
-// 
 // ====== I18N (Hebrew + Arabic) ======
 const I18N = {
   he: {
     menu: { catalog: 'מוצרים', contact: 'יצירת קשר', about: 'עלינו', cart: 'העגלה' },
-    hero: { 
-      title: 'ניחוחות שמספרים סיפור',
-      subtitle: 'לחיצה על מוצר תפתח כרטיס פרטים מלא עם תמונה, מחיר, הוסף לעגלה, והזמנה בוואטסאפ.'
-    },
-    
+    hero: { title: 'ניחוחות שמספרים סיפור', subtitle: 'לחיצה על מוצר תפתח כרטיס פרטים מלא עם תמונה, מחיר, הוסף לעגלה, והזמנה בוואטסאפ.' },
     controls: { searchPH: 'חיפוש לפי שם / תיאור...' },
-
-    categories: {
-      all: 'הכל',
-      men: 'בשמים לגברים',
-      women: 'בשמים לנשים',
-      air: 'מטהרי אוויר',
-      cream: 'קרם',
-      maklotim: 'מקלוטים',
-      elctro: 'מכשירים',
-      mabakher: 'מבערי קטורת',
-    },
-    about: {
-      title: 'עלינו',
-      body: 'אנחנו מאמינים שכל ריח מספר סיפור. איכות, אלגנטיות, ומצוינות — בכל בקבוק.'
-    },
+    categories: { all:'הכל', men:'בשמים לגברים', women:'בשמים לנשים', air:'מטהרי אוויר', cream:'קרם', maklotim:'מקלוטים', elctro:'מכשירים', mabakher:'מבערי קטורת' },
+    about: { title:'עלינו', body:'אנחנו מאמינים שכל ריח מספר סיפור. איכות, אלגנטיות, ומצוינות — בכל בקבוק.' },
     empty: 'לא נמצאו מוצרים.',
-    btn: {
-      add: 'הוסף לעגלה',
-      whats: 'הזמן עכשיו',
-      order: 'הזמן עכשיו',
-      close: 'סגור',
-      remove: 'הסר',
-    },
-   
-    waMsgProduct: (name, price) => `שלום! אני מעוניין במוצר ${name} במחיר ${price}`,
-    waMsgCart: (items, totalFmt) =>
-      `שלום! אני רוצה להזמין: ${items.map(i => `${i.qty}× ${i.name}`).join(', ')} | סה"כ ${totalFmt}`,
-    },
+    btn: { add:'הוסף לעגלה', whats:'הזמן עכשיו', order:'הזמן עכשיו', close:'סגור', remove:'הסר' },
+  },
   ar: {
     menu: { catalog: 'المنتجات', contact: 'تواصل معنا', about: 'عنّا', cart: 'السلة' },
-    hero: {
-      title: 'عطور تحكي قصة' ,
-      subtitle: 'بالنقر على المنتج ستُفتح بطاقة تفاصيل كاملة تحتوي على صورة وسعر وزر «أضف إلى السلة» وخيار الطلب عبر واتساب.'
-    },
-    controls: { searchPH: 'ابحث بالاسم / الوصف...' },
-    categories: {
-      all: 'الكل',
-      men: 'عطور للرجال',
-      women: 'عطور للنساء',
-      air: 'معطرات الجو',
-      cream: 'كريم',
-      maklotim: 'مكلوتيم',
-      elctro: 'اجهزة',
-      mabakher: 'مباخر',
-    },
+    hero: { title:'عطور تحكي قصة', subtitle:'بالنقر على المنتج ستُفتح بطاقة تفاصيل كاملة تحتوي على صورة وسعر وزر «أضف إلى السلة» وخيار الطلب عبر واتساب.' },
+    controls: { searchPH:'ابحث بالاسم / الوصف...' },
+    categories: { all:'الكل', men:'عطور للرجال', women:'عطور للنساء', air:'معطرات الجو', cream:'كريم', maklotim:'مكلوتيم', elctro:'اجهزة', mabakher:'مباخر' },
+    about: { title:'عنّا', body:'نحن نؤمن بأن كل رائحة تحكي قصة. جودة، أناقة، وتميّز — في كل زجاجة.' },
     empty: 'لا توجد منتجات.',
-    btn: {
-      add: 'أضف إلى السلة',
-      whats: 'اطلب الان',
-      order: 'اطلب الان',
-      close: 'إغلاق',
-      remove: 'حذف',
-    },
-    about: {
-      title: 'عنّا',
-      body: 'نحن نؤمن بأن كل رائحة تحكي قصة. جودة، أناقة، وتميّز — في كل زجاجة.'
-    },
-    waMsgProduct: (name, price) => `مرحبًا! أرغب في المنتج ${name} بسعر ${price}`,
-    waMsgCart: (items, totalFmt) =>
-      `مرحبًا! أود الطلب: ${items.map(i => `${i.qty}× ${i.name}`).join('، ')} | المجموع ${totalFmt}`,
+    btn: { add:'أضف إلى السلة', whats:'اطلب الان', order:'اطلب الان', close:'إغلاق', remove:'حذف' },
   }
 };
 function t(path) {
@@ -291,7 +105,7 @@ function formatPrice(val){
   return `₪${Math.round(n).toLocaleString('he-IL')}`;
 }
 
-// ====== DATA NORMALIZATION (supports name_he/ar, description_he/ar) ======
+// ====== DATA NORMALIZATION ======
 function normalizeProducts(arr, srcFile=''){
   if (!Array.isArray(arr)) return [];
   const defCat = inferCategoryFromFilename(srcFile);
@@ -306,7 +120,7 @@ function normalizeProducts(arr, srcFile=''){
       description_he: p.description_he ?? '',
       description_ar: p.description_ar ?? '',
       price: parsePrice(p.price ?? p.cost ?? 0),
-      category: canonicalCategory(rawCat), // ← כאן הקסם
+      category: canonicalCategory(rawCat),
       image: (p.image || p.img || '').trim() || (typeof FALLBACK_IMG !== 'undefined' ? FALLBACK_IMG : ''),
       related: Array.isArray(p.related) ? p.related : [],
       recommended: Boolean(p.recommended ?? p.featured ?? p.is_recommended ?? p.highlight ?? false),
@@ -314,23 +128,18 @@ function normalizeProducts(arr, srcFile=''){
     };
   });
 }
-
-
 function pName(p){
   return (state.lang === 'ar' ? (p.name_ar || p.name_he || p.name) : (p.name_he || p.name_ar || p.name)) || '';
 }
 function pDesc(p){
-  return (state.lang === 'ar' ? (p.description_ar || p.description_he || p.description) :
-                                (p.description_he || p.description_ar || p.description)) || '';
+  return (state.lang === 'ar' ? (p.description_ar || p.description_he || p.description)
+                              : (p.description_he || p.description_ar || p.description)) || '';
 }
 
 // ====== LOAD PRODUCTS ======
 async function loadProducts(){
-  // אם רוצים לבחור דרך ה-URL: index.html?data=men.json,women.json
   const param = new URLSearchParams(location.search).get('data');
-  const files = param
-    ? param.split(',').map(s=>s.trim()).filter(Boolean)
-    : DATA_FILES;
+  const files = param ? param.split(',').map(s=>s.trim()).filter(Boolean) : DATA_FILES;
 
   try{
     const batches = await Promise.all(files.map(async file => {
@@ -341,15 +150,10 @@ async function loadProducts(){
       return normalizeProducts(list, file);
     }));
 
-    // מיזוג + הורדת כפילויות לפי id
+    // Merge + unique by id
     const merged = batches.flat();
-    const seen = new Set();
-    const uniq = [];
-    for (const p of merged) {
-      if (seen.has(p.id)) continue;
-      seen.add(p.id);
-      uniq.push(p);
-    }
+    const seen = new Set(), uniq = [];
+    for (const p of merged) { if (!seen.has(p.id)) { seen.add(p.id); uniq.push(p); } }
     return uniq;
   }catch(e){
     console.warn('שגיאה בטעינת קבצים, נופל ל-fallback', e);
@@ -363,16 +167,66 @@ async function loadProducts(){
   }
 }
 
-
 // ====== FILTERS ======
-function byCategory(p, cat){
-  if (cat === 'all') return true;
-  return canonicalCategory(p.category) === canonicalCategory(cat);
-}
+function byCategory(p, cat){ return cat === 'all' ? true : canonicalCategory(p.category) === canonicalCategory(cat); }
 function byQuery(p, q){
   if(!q) return true;
   const text = (pName(p) + ' ' + pDesc(p)).toLowerCase();
   return text.includes(q.toLowerCase());
+}
+
+// ====== WHATSAPP MESSAGES (single language) ======
+function nameByLang(p, lang='he'){
+  if (!p) return '';
+  if (lang === 'ar') return p.name_ar || p.name_he || p.name || '';
+  return p.name_he || p.name_ar || p.name || '';
+}
+function findProdById(id){ return state.products.find(x => String(x.id) === String(id)); }
+
+// מוצר יחיד
+function buildWAProductMessage(lang, p){
+  const priceFmt = formatPrice(p.price);
+  const nm = nameByLang(p, lang);
+  if (lang === 'ar'){
+    return `مرحباً،
+أرغب بالطلب:
+• ${nm} + الكمية: 1 + السعر: ${priceFmt}
+
+الإجمالي: ${priceFmt}`;
+  }
+  return `שלום,
+אני מעוניין להזמין:
+• ${nm} + כמות: 1 + מחיר: ${priceFmt}
+
+סה״כ: ${priceFmt}`;
+}
+
+// עגלה
+function buildWACartMessage(lang, items){
+  let total = 0;
+  const lines = items.map(it => {
+    const p = findProdById(it.id);
+    const qty = it.qty || 1;
+    const unit = parsePrice(it.price);
+    total += unit * qty;
+    const unitFmt = formatPrice(unit);
+    const nm = nameByLang(p || it, lang);
+    return (lang === 'ar')
+      ? `• ${nm} + الكمية: ${qty} + السعر: ${unitFmt}`
+      : `• ${nm} + כמות: ${qty} + מחיר: ${unitFmt}`;
+  });
+  const totalFmt = formatPrice(total);
+  return (lang === 'ar')
+    ? `مرحباً،
+أرغب بالطلب:
+${lines.join('\n')}
+
+الإجمالي: ${totalFmt}`
+    : `שלום,
+אני מעוניין להזמין:
+${lines.join('\n')}
+
+סה״כ: ${totalFmt}`;
 }
 
 // ====== RENDER GRID ======
@@ -388,23 +242,23 @@ function render(items){
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="width:18px;height:18px;margin-inline-start:.3rem">
       <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2S15.9 22 17 22s2-.9 2-2-.9-2-2-2zM7.16 14.26l-.03.04c-.3.39-.78.7-1.31.7H4v-2h1.12l2.76-6.59C8.1 5.16 8.53 5 8.99 5H19c.55 0 1 .45 1 1s-.45 1-1 1H9.84l-.9 2h8.73c.75 0 1.41.45 1.7 1.11l2.36 5.3c.16.36.25.76.25 1.18 0 1.65-1.35 3-3 3H8c-.55 0-1-.45-1-1s.45-1 1-1h9.98c.55 0 1-.45 1-1 0-.14-.03-.27-.08-.39l-1.84-4.11H8.53l-1.37 3.26z"/>
     </svg>`;
-  const waIcon = WA_ICON(18); // אייקון וואטסאפ החדש
+  const waIcon = WA_ICON(18);
 
   const frag = document.createDocumentFragment();
 
   items.forEach(p => {
     const name = pName(p);
     const priceFmt = formatPrice(p.price);
-    const waLink = `https://wa.me/${PHONE}?text=${encodeURIComponent(i18nMsgProduct(name, priceFmt))}`;
+    const waMsg = buildWAProductMessage(state.lang, p);
+    const waLink = `https://wa.me/${PHONE}?text=${encodeURIComponent(waMsg)}`;
 
     const el = document.createElement('article');
     el.className = 'card card-compact';
     el.innerHTML = `
       <a href="#" class="thumb" aria-label="${name}">
-      <img
-      src="${p.image || FALLBACK_IMG}"
-      alt="${name}" loading="lazy" decoding="async"
-      onerror="this.onerror=null; this.src='${FALLBACK_IMG}'">
+        <img src="${p.image || FALLBACK_IMG}"
+             alt="${name}" loading="lazy" decoding="async"
+             onerror="this.onerror=null; this.src='${FALLBACK_IMG}'">
       </a>
       <div class="info">
         <div class="title-row" style="display:flex;justify-content:space-between;align-items:center;gap:.6rem">
@@ -432,9 +286,8 @@ function render(items){
       pressAnim(e.currentTarget);
       bumpCart();
       const imgEl = el.querySelector('.thumb img');
-      flyToCartFrom(imgEl);     // ✈️
+      flyToCartFrom(imgEl);
     });
-    
 
     frag.appendChild(el);
   });
@@ -442,12 +295,41 @@ function render(items){
   grid.appendChild(frag);
 }
 
-// 
-
+// ====== HERO SLIDER ======
 function pickFeatured(list, count=12){
   const preferred = list.filter(p => p.recommended);
   const rest = list.filter(p => !p.recommended);
   return [...preferred, ...rest].slice(0, count);
+}
+
+// Autoplay
+let _heroAutoId = null;
+function stopHeroAutoplay(){ if (_heroAutoId){ clearInterval(_heroAutoId); _heroAutoId = null; } }
+function startHeroAutoplay(track, {delay=5000} = {}){
+  stopHeroAutoplay();
+  if (!track) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (track.children.length <= 1) return;
+
+  const stepPx = () => Math.min(track.clientWidth * 0.8, 360);
+  const go = () => {
+    const atEnd = Math.ceil(track.scrollLeft + track.clientWidth) >= track.scrollWidth;
+    if (atEnd){ track.scrollTo({ left: 0, behavior: 'smooth' }); }
+    else { track.scrollBy({ left: stepPx(), behavior: 'smooth' }); }
+  };
+  _heroAutoId = setInterval(go, delay);
+
+  if (!track.dataset.autoListeners){
+    const pause = () => stopHeroAutoplay();
+    const resume = () => startHeroAutoplay(track, {delay});
+    track.addEventListener('pointerdown', pause, { passive:true });
+    track.addEventListener('mouseenter', pause, { passive:true });
+    track.addEventListener('mouseleave', resume, { passive:true });
+    track.addEventListener('touchstart', pause, { passive:true });
+    track.addEventListener('touchend', () => setTimeout(resume, 900), { passive:true });
+    document.addEventListener('visibilitychange', () => { if (document.hidden) stopHeroAutoplay(); else resume(); });
+    track.dataset.autoListeners = '1';
+  }
 }
 
 function buildHeroSlider(products){
@@ -468,9 +350,9 @@ function buildHeroSlider(products){
     a.setAttribute('aria-label', pName(p));
     const badge = state.lang === 'ar' ? 'موصى به' : 'מומלץ';
     a.innerHTML = `
-      <img src="${p.image || (typeof FALLBACK_IMG!=='undefined'?FALLBACK_IMG:'')}"
+      <img src="${p.image || FALLBACK_IMG}"
            alt="${pName(p)}" loading="lazy" decoding="async"
-           onerror="this.onerror=null; ${typeof FALLBACK_IMG!=='undefined' ? `this.src='${FALLBACK_IMG}'` : ''}">
+           onerror="this.onerror=null; this.src='${FALLBACK_IMG}'">
       <span class="s-badge" aria-hidden="true">${badge}</span>
       <div class="s-info">
         <div class="s-title">${pName(p)}</div>
@@ -480,18 +362,14 @@ function buildHeroSlider(products){
     track.appendChild(a);
   });
 
-  // ניווט חצים (אם קיים בדסקטופ)
   const prev = wrap.querySelector('.s-nav.prev');
   const next = wrap.querySelector('.s-nav.next');
   const step = () => Math.min(track.clientWidth * 0.8, 360);
   prev?.addEventListener('click', ()=> track.scrollBy({ left: -step(), behavior: 'smooth' }));
   next?.addEventListener('click', ()=> track.scrollBy({ left:  step(), behavior: 'smooth' }));
 
-  // ← הפעלה אוטומטית
   startHeroAutoplay(track, { delay: 5000 });
 }
-
-// 
 
 // ====== MODAL ======
 const modal = document.getElementById('modal');
@@ -503,8 +381,6 @@ const mPrice = document.getElementById('mPrice');
 const mAdd = document.getElementById('mAdd');
 const mWhats = document.getElementById('mWhats');
 const closeModalBtn = document.getElementById('closeModal');
-const waIcon = WA_ICON(18);
-
 
 function openModalProd(p){
   state.modalProd = p;
@@ -514,26 +390,19 @@ function openModalProd(p){
   mCat.textContent = catLabel(p.category);
   mDesc.textContent = pDesc(p);
   mPrice.textContent = formatPrice(p.price);
+
   mAdd.textContent = t('btn.add');
   mAdd.classList.add('add');
   mAdd.onclick = () => {
     addToCart(p);
     pressAnim(mAdd);
     bumpCart();
-    flyToCartFrom(mImg);      // ✈️
+    flyToCartFrom(mImg);
   };
-  
-  // === וואטסאפ דו-לשוני למוצר יחיד ===
-  const waMsg = buildWAProductMessageBilingual(p);
-  mWhats.textContent = t('btn.order');
+
+  const waMsg = buildWAProductMessage(state.lang, p);
   mWhats.classList.add('whats');
   mWhats.href = `https://wa.me/${PHONE}?text=${encodeURIComponent(waMsg)}`;
-  mWhats.innerHTML = `${WA_ICON(18)} ${t('btn.order')}`;
-
-  modal.style.display = 'flex';
-  modal.setAttribute('aria-hidden', 'false');
-  mWhats.classList.add('whats');
-  mWhats.href = `https://wa.me/${PHONE}?text=${encodeURIComponent(i18nMsgProduct(pName(p), formatPrice(p.price)))}`;
   mWhats.innerHTML = `${WA_ICON(18)} ${t('btn.order')}`;
 
   modal.style.display = 'flex';
@@ -553,8 +422,8 @@ const openCartBtn = document.getElementById('openCart');
 const closeCart = document.getElementById('closeCart');
 const cartItems = document.getElementById('cartItems');
 const cartTotal = document.getElementById('cartTotal');
-function cartCountEl(){ return document.getElementById('cartCount'); }
 const checkoutBtn = document.getElementById('checkoutBtn');
+function cartCountEl(){ return document.getElementById('cartCount'); }
 
 function getCart(){ try{ return JSON.parse(localStorage.getItem('cart') || '[]'); }catch{return []} }
 function setCart(items){ localStorage.setItem('cart', JSON.stringify(items)); updateCartUI(); }
@@ -577,10 +446,10 @@ function sumCart(items){ return items.reduce((s,x)=> s + parsePrice(x.price)*x.q
 function updateCartUI(){
   const items = getCart();
   cartItems.innerHTML = '';
-  // header title translate
+
+  // כותרות בעגלה
   const hdrTitle = drawer?.querySelector('header strong');
   if(hdrTitle) hdrTitle.textContent = t('menu.cart');
-  // close button translate
   const btnClose = drawer?.querySelector('header .icon-btn');
   if(btnClose) btnClose.textContent = t('btn.close');
 
@@ -592,9 +461,8 @@ function updateCartUI(){
       row.className = 'item';
       row.innerHTML = `
         <img src="${x.image || FALLBACK_IMG}" alt="${x.name}"
-        onerror="this.onerror=null; this.src='${FALLBACK_IMG}'"
-        style="width:64px;height:64px;object-fit:cover;border-radius:8px">
- 
+             onerror="this.onerror=null; this.src='${FALLBACK_IMG}'"
+             style="width:64px;height:64px;object-fit:cover;border-radius:8px">
         <div>
           <div style="font-weight:700; color:var(--text)">${x.name}</div>
           <div style="color:var(--muted)">${formatPrice(x.price)}</div>
@@ -615,18 +483,38 @@ function updateCartUI(){
       cartItems.appendChild(row);
     });
   }
+
   cartTotal.textContent = formatPrice(sumCart(items));
   const count = items.reduce((c,x)=> c + x.qty, 0);
   if (cartCountEl()) cartCountEl().textContent = count;
 
+  // הודעת וואטסאפ בשפה הפעילה בלבד
   const msg = items.length
-    ? buildWACartMessageBilingual(items)
+    ? buildWACartMessage(state.lang, items)
     : (state.lang === 'ar' ? 'مرحباً! أود تقديم طلب.' : 'שלום! אני מעוניין לבצע הזמנה.');
-
   checkoutBtn.href = `https://wa.me/${PHONE}?text=${encodeURIComponent(msg)}`;
 }
-openCartBtn?.addEventListener('click', ()=> { drawer.classList.add('open'); drawer.setAttribute('aria-hidden','false'); });
-closeCart?.addEventListener('click', ()=> { drawer.classList.remove('open'); drawer.setAttribute('aria-hidden','true'); });
+
+// Drawer A11y: שימוש ב-inert במקום aria-hidden על רכיב עם פוקוס
+let lastFocusBeforeDrawer = null;
+function openDrawer() {
+  lastFocusBeforeDrawer = document.activeElement;
+  drawer.inert = false;
+  drawer.classList.add('open');
+  drawer.removeAttribute('aria-hidden');
+  requestAnimationFrame(() => { closeCart?.focus(); });
+}
+function closeDrawer() {
+  openCartBtn?.focus();
+  drawer.classList.remove('open');
+  requestAnimationFrame(() => {
+    drawer.setAttribute('aria-hidden', 'true');
+    drawer.inert = true;
+  });
+}
+openCartBtn?.addEventListener('click', (e) => { e.preventDefault(); openDrawer(); });
+closeCart?.addEventListener('click', (e) => { e.preventDefault(); closeDrawer(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && drawer?.classList.contains('open')) closeDrawer(); });
 
 // ====== CONTROLS (chips + search) ======
 const chips = [...document.querySelectorAll('.chip')];
@@ -641,14 +529,11 @@ chips.forEach(chip => chip.addEventListener('click', ()=>{
   state.category = chip.dataset.cat;
   applyFilters();
 }));
-searchInput?.addEventListener('input', (e)=>{
-  state.q = e.target.value;
-  applyFilters();
-});
+searchInput?.addEventListener('input', (e)=>{ state.q = e.target.value; applyFilters(); });
 
-// ====== THEME TOGGLE (existing) ======
-// --- THEME (ברירת מחדל: כהה) ---
+// ====== THEME (ברירת מחדל: כהה) ======
 const root = document.documentElement;
+const themeToggle = document.getElementById('themeToggle');
 function applyTheme(theme){
   if (theme === 'light'){
     root.setAttribute('data-theme','light');
@@ -656,47 +541,90 @@ function applyTheme(theme){
     localStorage.setItem('theme','light');
     themeToggle?.setAttribute('aria-pressed','true');
   } else {
-    // כהה = להסיר את המאפיין (כך מוגדר ה-CSS שלך)
-    root.removeAttribute('data-theme');
+    root.removeAttribute('data-theme'); // כהה
     if (themeToggle) themeToggle.textContent = '🌙';
     localStorage.setItem('theme','dark');
     themeToggle?.setAttribute('aria-pressed','false');
   }
 }
-
-// נרמול אם שמו פעם data-theme="dark" ב-HTML
-if (root.getAttribute('data-theme') === 'dark') {
-  root.removeAttribute('data-theme');
-}
-
-// ברירת מחדל: כהה אם אין שמור
+if (root.getAttribute('data-theme') === 'dark') root.removeAttribute('data-theme'); // נרמול
 (function initTheme(){
   const saved = localStorage.getItem('theme');
-  applyTheme(saved || 'dark');
+  applyTheme(saved || 'dark'); // ברירת מחדל: כהה
 })();
 themeToggle?.addEventListener('click', ()=>{
   const isLight = root.getAttribute('data-theme') === 'light';
   applyTheme(isLight ? 'dark' : 'light');
 });
 
-
-// --- LANGUAGE (ברירת מחדל: ערבית) ---
+// ====== LANGUAGE (ברירת מחדל: ערבית) ======
+function ensureLangToggle(){
+  let btn = document.getElementById('langToggle');
+  const menu = document.querySelector('.menu');
+  if(!btn && menu){
+    btn = document.createElement('button');
+    btn.id = 'langToggle';
+    btn.className = 'icon-btn';
+    menu.appendChild(btn);
+  }
+  if(btn){ btn.onclick = ()=>{ setLang(state.lang === 'he' ? 'ar' : 'he'); }; }
+  updateLangToggleLabel();
+}
+function updateLangToggleLabel(){
+  const btn = document.getElementById('langToggle');
+  if(!btn) return;
+  btn.textContent = (state.lang === 'he') ? 'AR' : 'HE';
+  btn.title = (state.lang === 'he') ? 'עבר לערבית' : 'التبديل إلى العبرية';
+}
 function setLang(lang){
   state.lang = (lang === 'ar') ? 'ar' : 'he';
   localStorage.setItem('lang', state.lang);
   applyLang();
   applyFilters();
   updateCartUI();
-  buildHeroSlider?.(state.products); // אם יש לך סליידר
+  buildHeroSlider(state.products);
+}
+function applyLang(){
+  document.documentElement.lang = (state.lang === 'ar') ? 'ar' : 'he';
+  document.documentElement.dir = 'rtl';
+
+  const heroTitle = document.querySelector('.hero h1');
+  if(heroTitle) heroTitle.textContent = t('hero.title');
+  if(searchInput) searchInput.placeholder = t('controls.searchPH');
+
+  chips.forEach(chip=>{ const k = chip.dataset.cat || 'all'; chip.textContent = catLabel(k); });
+
+  const linkCatalog = document.querySelector('.menu a[href="#catalog"]');
+  if(linkCatalog) linkCatalog.textContent = t('menu.catalog');
+  const linkContact = document.querySelector('.menu a[href*="contact"]');
+  if(linkContact) linkContact.textContent = t('menu.contact');
+  const linkAbout = document.querySelector('.menu a[href="#about"]');
+  if(linkAbout) linkAbout.textContent = t('menu.about');
+
+  const aboutTitleEl = document.querySelector('#about h2');
+  const aboutBodyEl  = document.querySelector('#about p');
+  if (aboutTitleEl) aboutTitleEl.textContent = t('about.title');
+  if (aboutBodyEl)  aboutBodyEl.textContent  = t('about.body');
+
+  const heroSub = document.querySelector('.hero p');
+  if (heroSub) heroSub.textContent = t('hero.subtitle');
+
+  if(openCartBtn){
+    const count = cartCountEl();
+    openCartBtn.textContent = `🛒 ${t('menu.cart')} `;
+    if(count) openCartBtn.appendChild(count);
+  }
+  if (mAdd) mAdd.textContent = t('btn.add');
+  if (mWhats) mWhats.innerHTML = `${WA_ICON(18)} ${t('btn.order')}`;
+
+  // Contact overlay title (אם נטען)
+  const contactTitle = document.getElementById('contactTitle');
+  if(contactTitle) contactTitle.textContent = (state.lang === 'ar') ? 'تواصل معنا' : 'יצירת קשר';
+
+  updateLangToggleLabel();
 }
 
-(function initLang(){
-  const savedLang = localStorage.getItem('lang');
-  setLang(savedLang || 'ar');   // ← ברירת מחדל: ערבית
-})();
-
-// 
-// ===== Inline Contact Overlay (loads contact-us.html inside the page) =====
+// ===== Inline Contact Overlay (load contact-us.html inside page) =====
 const contactLink = document.querySelector('.menu a[href="contact-us.html"]') || document.querySelector('.menu a[href="#contact"]');
 const contactOverlay = document.getElementById('contactOverlay');
 const contactContent = document.getElementById('contactContent');
@@ -710,144 +638,34 @@ async function openContactInline(e){
       if(!res.ok) throw new Error('failed to fetch contact');
       const html = await res.text();
       const doc = new DOMParser().parseFromString(html, 'text/html');
-      const section = doc.querySelector('#contact') || doc.body; // מעדיף רק את הסקשן אם קיים
+      const section = doc.querySelector('#contact') || doc.body;
       contactContent.innerHTML = section.innerHTML;
       contactContent.dataset.loaded = '1';
     }
-    // כותרת לפי שפה
     const contactTitle = document.getElementById('contactTitle');
-    if(contactTitle) contactTitle.textContent = (state.lang === 'ar') ? ' تواصل معنا' : 'יצירת קשר';
-
+    if(contactTitle) contactTitle.textContent = (state.lang === 'ar') ? 'تواصل معنا' : 'יצירת קשר';
     contactOverlay.classList.add('open');
     contactOverlay.setAttribute('aria-hidden','false');
   }catch(err){
-    // אם יש בעיה ב-fetch ננווט לעמוד הרגיל (פרוגרסיבי)
     window.location.href = 'contact-us.html';
   }
 }
-
-if(contactLink){
-  contactLink.addEventListener('click', openContactInline);
-}
+if(contactLink){ contactLink.addEventListener('click', openContactInline); }
 closeContactBtn?.addEventListener('click', ()=>{
   contactOverlay.classList.remove('open');
   contactOverlay.setAttribute('aria-hidden','true');
 });
-contactOverlay?.addEventListener('click', (e)=>{
-  if(e.target === contactOverlay) closeContactBtn.click();
-});
-document.addEventListener('keydown', (e)=>{
-  if(e.key === 'Escape' && contactOverlay?.classList.contains('open')) closeContactBtn.click();
-});
-
-// Prefetch בזמן סרק – כדי שזה ייפתח “כמעט מייד”
+contactOverlay?.addEventListener('click', (e)=>{ if(e.target === contactOverlay) closeContactBtn.click(); });
 if('requestIdleCallback' in window){
   requestIdleCallback(()=>{ fetch('contact-us.html', { credentials:'same-origin' }).catch(()=>{}); });
 }else{
   setTimeout(()=>{ fetch('contact-us.html', { credentials:'same-origin' }).catch(()=>{}); }, 1200);
 }
 
-// 
-// ====== LANGUAGE TOGGLE ======
-function i18nMsgProduct(name, priceFmt){
-  return I18N[state.lang].waMsgProduct(name, priceFmt);
-}
-function i18nMsgCart(items, totalFmt){
-  return I18N[state.lang].waMsgCart(items, totalFmt);
-}
-function ensureLangToggle(){
-  let btn = document.getElementById('langToggle');
-  const menu = document.querySelector('.menu');
-  if(!btn && menu){
-    btn = document.createElement('button');
-    btn.id = 'langToggle';
-    btn.className = 'icon-btn';
-    menu.appendChild(btn);
-  }
-  if(btn){
-    btn.onclick = ()=>{
-      setLang(state.lang === 'he' ? 'ar' : 'he');
-    };
-  }
-  updateLangToggleLabel();
-}
-function updateLangToggleLabel(){
-  const btn = document.getElementById('langToggle');
-  if(!btn) return;
-  // מציג את השפה הבאה שניתן לעבור אליה
-  btn.textContent = (state.lang === 'he') ? 'AR' : 'HE';
-  btn.title = (state.lang === 'he') ? 'עבר לערבית' : 'التبديل إلى العبرية';
-}
-function setLang(lang){
-  state.lang = (lang === 'ar') ? 'ar' : 'he';
-  localStorage.setItem('lang', state.lang);
-  applyLang();
-  applyFilters();        // רנדר מוצרים בשפה הנכונה
-  updateCartUI();        // עדכון טקסטים בעגלה
-  buildHeroSlider(state.products);
-}
-function applyLang(){
-  // html lang/dir (שתיהן RTL, אבל נשים ערך נכון)
-  document.documentElement.lang = (state.lang === 'ar') ? 'ar' : 'he';
-  document.documentElement.dir = 'rtl';
-
-  
-  // hero title
-  const heroTitle = document.querySelector('.hero h1');
-  if(heroTitle) heroTitle.textContent = t('hero.title');
-
-  // search placeholder
-  if(searchInput) searchInput.placeholder = t('controls.searchPH');
-
-  // chips labels
-  chips.forEach(chip=>{
-    const k = chip.dataset.cat || 'all';
-    chip.textContent = catLabel(k);
-  });
-
-  // menu links
-  const linkCatalog = document.querySelector('.menu a[href="#catalog"]');
-  if(linkCatalog) linkCatalog.textContent = t('menu.catalog');
-  const linkContact = document.querySelector('.menu a[href*="contact"]');
-  if(linkContact) linkContact.textContent = t('menu.contact');
-  const linkAbout = document.querySelector('.menu a[href="#about"]');
-  if(linkAbout) linkAbout.textContent = t('menu.about');
-  const aboutTitleEl = document.querySelector('#about h2');
-  const aboutBodyEl  = document.querySelector('#about p');
-  if (aboutTitleEl) aboutTitleEl.textContent = t('about.title');
-  if (aboutBodyEl)  aboutBodyEl.textContent  = t('about.body');
-  const heroSub = document.querySelector('.hero p');
-  if (heroSub) heroSub.textContent = t('hero.subtitle');
-
-  // cart button (שומר את ה-span של המונה)
-  if(openCartBtn){
-    const count = cartCountEl();
-    openCartBtn.textContent = `🛒 ${t('menu.cart')} `;
-    if(count) openCartBtn.appendChild(count);
-  }
-
-  // drawer header + close מתעדכנים ב-updateCartUI()
-
-  // modal buttons text (אם פתוח)
-  if(mAdd){ mAdd.textContent = t('btn.add'); }
-  if (mWhats) mWhats.innerHTML = `${WA_ICON(18)} ${t('btn.order')}`;
-
-  // contact section (אם קיים)
-  const contactH2 = document.querySelector('#contact h2');
-  if(contactH2) contactH2.textContent = (state.lang === 'ar') ? 'صفحة تواصل' : 'דף יצירת קשר';
-  const contactOpenMap = document.getElementById('openMap');
-  if(contactOpenMap) contactOpenMap.textContent = (state.lang === 'ar') ? 'افتح الموقع على الخريطة' : 'פתח המיקום על המפה';
-
-  updateLangToggleLabel();
-}
-
-
-//help
-
+// ===== Effects =====
 function pressAnim(el){
   if(!el) return;
   el.classList.remove('btn-pressed');
-  // reflow כדי להפעיל שוב אם לוחצים מהר כמה פעמים
   void el.offsetWidth;
   el.classList.add('btn-pressed');
   setTimeout(()=>el.classList.remove('btn-pressed'), 220);
@@ -859,19 +677,6 @@ function bumpCart(){
   void c.offsetWidth;
   c.classList.add('bump');
 }
-
-// 
-function pressAnim(el){
-  if(!el) return;
-  el.classList.remove('btn-pressed'); void el.offsetWidth;
-  el.classList.add('btn-pressed');
-  setTimeout(()=>el.classList.remove('btn-pressed'), 220);
-}
-function bumpCart(){
-  const c = cartCountEl && cartCountEl();
-  if(!c) return; c.classList.remove('bump'); void c.offsetWidth; c.classList.add('bump');
-}
-// טיסת תמונה מנקודת מקור (img) אל העגלה
 function flyToCartFrom(imgEl){
   try{
     if(!imgEl) return;
@@ -883,12 +688,9 @@ function flyToCartFrom(imgEl){
     const ghost = imgEl.cloneNode(true);
     ghost.className = 'fly-ghost';
     Object.assign(ghost.style, {
-      top: `${src.top}px`,
-      left: `${src.left}px`,
-      width: `${src.width}px`,
-      height: `${src.height}px`,
-      transform: 'translate3d(0,0,0) scale(1)',
-      opacity: '1'
+      position:'fixed', top: `${src.top}px`, left: `${src.left}px`,
+      width: `${src.width}px`, height: `${src.height}px`,
+      borderRadius:'10px', zIndex: 1000, pointerEvents:'none'
     });
     document.body.appendChild(ghost);
 
@@ -906,17 +708,17 @@ function flyToCartFrom(imgEl){
 
 // ====== INIT ======
 (async function init(){
-  // init language
+  // שפה — ברירת מחדל AR אם אין שמור
   const savedLang = localStorage.getItem('lang');
-  state.lang = (savedLang === 'ar' || savedLang === 'he') ? savedLang : 'he';
+  state.lang = (savedLang === 'ar' || savedLang === 'he') ? savedLang : 'ar';
   ensureLangToggle();
   applyLang();
 
-  // year
+  // שנה נוכחית
   const yr = document.getElementById('year');
   if(yr) yr.textContent = new Date().getFullYear();
 
-  // products
+  // מוצרים
   const raw = await loadProducts();
   state.products = normalizeProducts(raw);
   state.filtered = state.products;
@@ -924,52 +726,3 @@ function flyToCartFrom(imgEl){
   updateCartUI();
   buildHeroSlider(state.products);
 })();
-
-// שמור את האחרון שהיה בפוקוס לפני פתיחת העגלה
-let lastFocusBeforeDrawer = null;
-
-function openDrawer() {
-  lastFocusBeforeDrawer = document.activeElement;
-
-  // המגירה אינה מוסתרת ואינה ניתנת לפוקוס-חוץ
-  drawer.inert = false;                       // עדיף על aria-hidden כדי גם לחסום פוקוס
-  drawer.classList.add('open');
-  drawer.removeAttribute('aria-hidden');
-
-  // העבר פוקוס פנימה (לכפתור סגירה)
-  requestAnimationFrame(() => { closeCart?.focus(); });
-}
-
-function closeDrawer() {
-  // 1) העבר פוקוס החוצה (לכפתור פתיחה)
-  openCartBtn?.focus();
-
-  // 2) סגור ואלמן לפוקוס
-  drawer.classList.remove('open');
-
-  // המתן טיק אחד כדי לאפשר לפוקוס לעזוב את הצאצא,
-  // ואז סמן שהמגירה מוסתרת ואינה ניתנת לפוקוס
-  requestAnimationFrame(() => {
-    drawer.setAttribute('aria-hidden', 'true');
-    drawer.inert = true;
-  });
-}
-
-// מאזינים חדשים
-openCartBtn?.addEventListener('click', (e) => {
-  e.preventDefault();
-  openDrawer();
-});
-
-closeCart?.addEventListener('click', (e) => {
-  e.preventDefault();
-  closeDrawer();
-});
-
-// ESC סוגר גם כן
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && drawer?.classList.contains('open')) {
-    closeDrawer();
-  }
-});
-

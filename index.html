@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css?v=10"/>
+  <link rel="stylesheet" href="assets/css/style.css?v=11"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
 
 
@@ -22,9 +22,7 @@
       </a>
       <div class="spacer"></div>
       <div class="menu">
-        <a href="#catalog">קטלוג</a>
         <a href="contact-us.html">יצירת קשר</a>
-        <!-- <a href="#about">عنّا</a> -->
         <button class="icon-btn cart-btn" id="openCart">🛒 עגלה <span class="cart-count" id="cartCount">0</span></button>
         <button id="themeToggle" class="icon-btn" aria-pressed="false" title="החלפת מצב">🌙</button>
       </div>
@@ -71,12 +69,6 @@
   <!-- GRID -->
   <main class="grid" id="grid" aria-live="polite"></main>
 
-
-
-  <!-- ABOUT -->
-
-  
-
   <footer>© <span id="year"></span> الشاوِيش للعطور — כל הזכויות שמורות.</footer>
 
   <!-- PRODUCT MODAL -->
@@ -96,8 +88,6 @@
       </div>
     </div>
   </div>
-
-  <!-- CART DRAWER -->
   <!-- CART DRAWER -->
 <aside class="drawer" id="drawer" aria-hidden="true">
     <header>
@@ -127,11 +117,6 @@
     </div>
   </div>
   
-  <!-- Fallback (אם אין products.json) -->
-  <script id="products-fallback" type="application/json">
-  {"products":[{"id":1,"name":"גבריות קלאסית","description":"ניחוח עצי ועמוק.","price":199,"category":"men","image":"https://images.unsplash.com/photo-1605979257913-1702be9ec3e1?q=80&w=1200&auto=format&fit=crop"}]}
-  </script>
-
   <script src="assets/js/main.js"></script>
 
 </body>
