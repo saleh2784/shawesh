@@ -53,7 +53,7 @@ const I18N = {
     btn: {
       add: 'הוסף לעגלה',
       whats: 'הזמן עכשיו',
-      order: 'הזמנה בוואטסאפ',
+      order: 'הזמן עכשיו',
       close: 'סגור',
       remove: 'הסר',
     },
@@ -82,7 +82,7 @@ const I18N = {
     btn: {
       add: 'أضف إلى السلة',
       whats: 'اطلب الان',
-      order: 'اطلب عبر واتساب',
+      order: 'اطلب الان',
       close: 'إغلاق',
       remove: 'حذف',
     },
@@ -181,62 +181,52 @@ function render(items){
 
   const cartIcon = `
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="width:18px;height:18px;margin-inline-start:.3rem">
-      <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10
-        0c-1.1 0-1.99.9-1.99 2S15.9 22 17 22s2-.9 2-2-.9-2-2-2zM7.16 14.26l-.03.04
-        c-.3.39-.78.7-1.31.7H4v-2h1.12l2.76-6.59C8.1 5.16 8.53 5 8.99 5H19
-        c.55 0 1 .45 1 1s-.45 1-1 1H9.84l-.9 2h8.73c.75 0 1.41.45 1.7 1.11l2.36 5.3
-        c.16.36.25.76.25 1.18 0 1.65-1.35 3-3 3H8c-.55 0-1-.45-1-1s.45-1 1-1h9.98
-        c.55 0 1-.45 1-1 0-.14-.03-.27-.08-.39l-1.84-4.11H8.53l-1.37 3.26z"/>
+      <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2S15.9 22 17 22s2-.9 2-2-.9-2-2-2zM7.16 14.26l-.03.04c-.3.39-.78.7-1.31.7H4v-2h1.12l2.76-6.59C8.1 5.16 8.53 5 8.99 5H19c.55 0 1 .45 1 1s-.45 1-1 1H9.84l-.9 2h8.73c.75 0 1.41.45 1.7 1.11l2.36 5.3c.16.36.25.76.25 1.18 0 1.65-1.35 3-3 3H8c-.55 0-1-.45-1-1s.45-1 1-1h9.98c.55 0 1-.45 1-1 0-.14-.03-.27-.08-.39l-1.84-4.11H8.53l-1.37 3.26z"/>
     </svg>`;
-  // בתוך render(), במקום ההגדרה הישנה של waIcon
-  const waIcon = WA_ICON(18);
-
+  const waIcon = WA_ICON(18); // אייקון וואטסאפ החדש
 
   const frag = document.createDocumentFragment();
+
   items.forEach(p => {
     const name = pName(p);
-    const desc = pDesc(p);
     const priceFmt = formatPrice(p.price);
     const waLink = `https://wa.me/${PHONE}?text=${encodeURIComponent(i18nMsgProduct(name, priceFmt))}`;
 
     const el = document.createElement('article');
-    el.className = 'card';
+    el.className = 'card card-compact';
     el.innerHTML = `
-      <div class="thumb">
-        <img src="${p.image}" alt="${name}" onerror="this.src='https://dummyimage.com/600x600/222/fff&text=No+Image'">
-      </div>
+      <a href="#" class="thumb" aria-label="${name}">
+        <img src="${p.image}" alt="${name}" loading="lazy" decoding="async"
+             onerror="this.src='https://dummyimage.com/600x800/222/fff&text=No+Image'">
+      </a>
       <div class="info">
         <div class="title-row" style="display:flex;justify-content:space-between;align-items:center;gap:.6rem">
           <div class="title">${name}</div>
           <span class="price-pill">${priceFmt}</span>
         </div>
         <div class="meta">${catLabel(p.category)}</div>
-        <div class="meta desc">${desc}</div>
-        <div class="actions">
-          <button class="btn add" data-add="${p.id}" aria-label="${t('btn.add')}">
+        <div class="actions compact">
+          <button class="btn add compact" data-add="${p.id}" aria-label="${t('btn.add')}">
             ${cartIcon} ${t('btn.add')}
           </button>
-          <a class="btn whats" href="${waLink}" target="_blank" rel="noopener" aria-label="${t('btn.whats')}">
-            ${waIcon} ${t('btn.whats')}
+          <a class="btn whats compact" href="${waLink}" target="_blank" rel="noopener" aria-label="${t('btn.order')}">
+            ${waIcon} ${t('btn.order')}
           </a>
         </div>
       </div>
     `;
-    // open modal unless clicking buttons
-    el.addEventListener('click', (e)=>{
-      if(e.target.closest('[data-add]') || e.target.closest('.btn.whats')) return;
-      openModalProd(p);
-    });
-    // add to cart
-    el.querySelector('[data-add]').addEventListener('click', (e)=>{
-      e.stopPropagation();
-      addToCart(p);
-    });
+
+    // פתיחת מודאל (התיאור יופיע רק שם)
+    el.querySelector('.thumb').addEventListener('click', (e)=>{ e.preventDefault(); openModalProd(p); });
+    el.addEventListener('click', (e)=>{ if(e.target.closest('[data-add],.btn.whats')) return; openModalProd(p); });
+    el.querySelector('[data-add]').addEventListener('click', (e)=>{ e.stopPropagation(); addToCart(p); });
 
     frag.appendChild(el);
   });
+
   grid.appendChild(frag);
 }
+
 
 // ====== MODAL ======
 const modal = document.getElementById('modal');
