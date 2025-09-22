@@ -1,0 +1,1691 @@
+[
+  {
+    "id": "2001",
+    "name": "Royal Oud",
+    "name_he": "רויאל אוד",
+    "name_ar": "رويال عود",
+    "price": "₪ 150",
+    "type": "men",
+    "recommended": true,
+    "image": "/images/products/1.jpeg",
+    "description": "A deep, woody scent for the sophisticated man.",
+    "description_he": "ניחוח עמוק ועצי לגבר מתוחכם.",
+    "description_ar": "عبير خشبي عميق للرجل الأنيق.",
+    "related": ["2", "3", "4"]
+  },
+  {
+    "id": "2002",
+    "name": "Amber Night",
+    "name_he": "אמבר נייט",
+    "name_ar": "عنبر نايت",
+    "price": "₪ 130",
+    "type": "men",
+    "recommended": true,
+    "image": "https://www.deraahstore.com/dw/image/v2/BJFS_PRD/on/demandware.static/-/Sites-deraah-master/default/dw5995e41d/images/10411131013100-1008-1.png?sw=2000&sh=2000",
+    "description": "Bold amber notes perfect for evening wear.",
+    "description_he": "ניחוחות ענבר נועזים – מושלם לערב.",
+    "description_ar": "نفحات عنبر جريئة مثالية لأمسيات السهر.",
+    "related": ["1", "3", "4"]
+  },
+  {
+    "id": "2003",
+    "name": "Khamrah",
+    "name_he": "ח'מרה",
+    "name_ar": "خمرة",
+    "price": "₪ 180",
+    "type": "men",
+    "recommended": true,
+    "image": "https://img.ksp.co.il/item/288086/b_1.jpg?v=1703753162",
+    "description": "Bold amber notes perfect for evening wear.",
+    "description_he": "ניחוחות ענבר נועזים – מושלם לערב.",
+    "description_ar": "نفحات عنبر جريئة مثالية لأمسيات السهر.",
+    "related": ["1", "2", "4"]
+  },
+  {
+    "id": "2004",
+    "name": "Maahir",
+    "name_he": "מאהר",
+    "name_ar": "ماهر",
+    "price": "₪ 160",
+    "type": "men",
+    "recommended": true,
+    "image": "https://img.ksp.co.il/item/245548/b_2.jpg?v=1674742601",
+    "description": "Bold amber notes perfect for evening wear.",
+    "description_he": "ניחוחות ענבר נועזים – מושלם לערב.",
+    "description_ar": "نفحات عنبر جريئة مثالية لأمسيات السهر.",
+    "related": ["1", "2", "3"]
+  },
+    {
+      "id": "1",
+      "name": "شانيل بلو دي شانيل",
+      "name_he": "שאנל בלו די שאניל",
+      "name_ar": "شانيل بلو دي شانيل",
+      "price": "₪ 300",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "2",
+        "3"
+      ]
+    },
+    {
+      "id": "2",
+      "name": "شانيل إيغوست بلاتينوم",
+      "name_he": "שאנל איע'וסת בלאתינומ",
+      "name_ar": "شانيل إيغوست بلاتينوم",
+      "price": "₪ 220",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "3",
+        "4"
+      ]
+    },
+    {
+      "id": "3",
+      "name": "شانيل ألور أوم سبورت",
+      "name_he": "שאנל אלור אומ סבורת",
+      "name_ar": "شانيل ألور أوم سبورت",
+      "price": "₪ 200",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "4",
+        "5"
+      ]
+    },
+    {
+      "id": "4",
+      "name": "شانيل ألور أوم سبورت أو إكستريم",
+      "name_he": "שאנל אלור אומ סבורת או אכסתרימ",
+      "name_ar": "شانيل ألور أوم سبورت أو إكستريم",
+      "price": "₪ 220",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "5",
+        "6"
+      ]
+    },
+    {
+      "id": "5",
+      "name": "شانيل بورهوم",
+      "name_he": "שאנל בורהומ",
+      "name_ar": "شانيل بورهوم",
+      "price": "₪ 220",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "6",
+      "name": "ديور سوفاج",
+      "name_he": "דיור סופאג'",
+      "name_ar": "ديور سوفاج",
+      "price": "₪ 150",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "7",
+        "8"
+      ]
+    },
+    {
+      "id": "7",
+      "name": "ديور أوم إنتنس",
+      "name_he": "דיור אומ אנתנס",
+      "name_ar": "ديور أوم إنتنس",
+      "price": "₪ 250",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "8",
+        "9"
+      ]
+    },
+    {
+      "id": "8",
+      "name": "ديور أوم سبورت",
+      "name_he": "דיור אומ סבורת",
+      "name_ar": "ديور أوم سبورت",
+      "price": "₪ 180",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "9",
+        "10"
+      ]
+    },
+    {
+      "id": "9",
+      "name": "ديور فهرنهايت",
+      "name_he": "דיור פהרנהאית",
+      "name_ar": "ديور فهرنهايت",
+      "price": "₪ 200",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "10",
+        "11"
+      ]
+    },
+    {
+      "id": "10",
+      "name": "ديور أوم بارفان",
+      "name_he": "דיור אומ בארפאנ",
+      "name_ar": "ديور أوم بارفان",
+      "price": "₪ 250",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "11",
+        "12"
+      ]
+    },
+    {
+      "id": "11",
+      "name": "إيف سان لوران لا نوي دو لوم",
+      "name_he": "איב סן לורן לא נוי דו לומ",
+      "name_ar": "إيف سان لوران لا نوي دو لوم",
+      "price": "₪ 150",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "12",
+        "13"
+      ]
+    },
+    {
+      "id": "12",
+      "name": "إيف سان لوران لوم",
+      "name_he": "איב סן לורן לומ",
+      "name_ar": "إيف سان لوران لوم",
+      "price": "₪ 220",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "13",
+        "14"
+      ]
+    },
+    {
+      "id": "13",
+      "name": "إيف سان لوران كوايروس",
+      "name_he": "איב סן לורן כואירוס",
+      "name_ar": "إيف سان لوران كوايروس",
+      "price": "₪ 220",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "14",
+        "15"
+      ]
+    },
+    {
+      "id": "14",
+      "name": "إيف سان لوران إيف",
+      "name_he": "איב סן לורן איפ",
+      "name_ar": "إيف سان لوران إيف",
+      "price": "₪ 250",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "15",
+        "16"
+      ]
+    },
+    {
+      "id": "15",
+      "name": "غوتشي جيلتي بور أوم",
+      "name_he": "גוצ'י ג'ילתי בור אומ",
+      "name_ar": "غوتشي جيلتي بور أوم",
+      "price": "₪ 150",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "16",
+        "17"
+      ]
+    },
+    {
+      "id": "16",
+      "name": "غوتشي بور أوم 2",
+      "name_he": "גוצ'י בור אומ 2",
+      "name_ar": "غوتشي بور أوم 2",
+      "price": "₪ 180",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "17",
+        "18"
+      ]
+    },
+    {
+      "id": "17",
+      "name": "غوتشي إنتنس أود",
+      "name_he": "גוצ'י אנתנס אוד",
+      "name_ar": "غوتشي إنتنس أود",
+      "price": "₪ 250",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "18",
+        "19"
+      ]
+    },
+    {
+      "id": "18",
+      "name": "أرماني كود",
+      "name_he": "ארמני כוד",
+      "name_ar": "أرماني كود",
+      "price": "₪ 300",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "19",
+        "20"
+      ]
+    },
+    {
+      "id": "19",
+      "name": "أرماني أكوا دي جيو",
+      "name_he": "ארמני אכוא די ג'יו",
+      "name_ar": "أرماني أكوا دي جيو",
+      "price": "₪ 200",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "20",
+        "21"
+      ]
+    },
+    {
+      "id": "20",
+      "name": "أرماني سترونغر ويذ يو",
+      "name_he": "ארמני סתרונע'ר ויד' יו",
+      "name_ar": "أرماني سترونغر ويذ يو",
+      "price": "₪ 180",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "21",
+        "22"
+      ]
+    },
+    {
+      "id": "21",
+      "name": "فيرساتشي إيروس",
+      "name_he": "ורסאצ'ה אירוס",
+      "name_ar": "فيرساتشي إيروس",
+      "price": "₪ 220",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "22",
+        "23"
+      ]
+    },
+    {
+      "id": "22",
+      "name": "فيرساتشي بور أوم",
+      "name_he": "ורסאצ'ה בור אומ",
+      "name_ar": "فيرساتشي بور أوم",
+      "price": "₪ 180",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "23",
+        "24"
+      ]
+    },
+    {
+      "id": "23",
+      "name": "فيرساتشي ديلان بلو",
+      "name_he": "ורסאצ'ה דילאנ בלו",
+      "name_ar": "فيرساتشي ديلان بلو",
+      "price": "₪ 220",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "24",
+        "25"
+      ]
+    },
+    {
+      "id": "24",
+      "name": "جيفنشي جنتلمان",
+      "name_he": "ז'יבנשי ג'נתלמאנ",
+      "name_ar": "جيفنشي جنتلمان",
+      "price": "₪ 180",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "25",
+        "26"
+      ]
+    },
+    {
+      "id": "25",
+      "name": "جيفنشي بلاي",
+      "name_he": "ז'יבנשי בלאי",
+      "name_ar": "جيفنشي بلاي",
+      "price": "₪ 300",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "26",
+        "27"
+      ]
+    },
+    {
+      "id": "26",
+      "name": "جيفنشي إكس إيريسستبل",
+      "name_he": "ז'יבנשי אכס איריססתבל",
+      "name_ar": "جيفنشي إكس إيريسستبل",
+      "price": "₪ 150",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "27",
+        "28"
+      ]
+    },
+    {
+      "id": "27",
+      "name": "برادا لوم",
+      "name_he": "פרדה לומ",
+      "name_ar": "برادا لوم",
+      "price": "₪ 150",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "28",
+        "29"
+      ]
+    },
+    {
+      "id": "28",
+      "name": "برادا أمبر بور أوم",
+      "name_he": "פרדה אמבר בור אומ",
+      "name_ar": "برادا أمبر بور أوم",
+      "price": "₪ 200",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "29",
+        "30"
+      ]
+    },
+    {
+      "id": "29",
+      "name": "بيربري بريت رذم",
+      "name_he": "בורברי ברית רד'מ",
+      "name_ar": "بيربري بريت رذم",
+      "price": "₪ 150",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "30",
+        "31"
+      ]
+    },
+    {
+      "id": "30",
+      "name": "بيربري مستر بيربري",
+      "name_he": "בורברי מסתר בירברי",
+      "name_ar": "بيربري مستر بيربري",
+      "price": "₪ 250",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "31",
+        "32"
+      ]
+    },
+    {
+      "id": "31",
+      "name": "كالفن كلاين إتيرنِتي فور من",
+      "name_he": "קלווין קליין אתירנתי פור מנ",
+      "name_ar": "كالفن كلاين إتيرنِتي فور من",
+      "price": "₪ 220",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "32",
+        "33"
+      ]
+    },
+    {
+      "id": "32",
+      "name": "كالفن كلاين أوبسيشن",
+      "name_he": "קלווין קליין אובסישנ",
+      "name_ar": "كالفن كلاين أوبسيشن",
+      "price": "₪ 300",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "33",
+        "34"
+      ]
+    },
+    {
+      "id": "33",
+      "name": "كالفن كلاين سي كي ون شوك",
+      "name_he": "קלווין קליין סי כי ונ שוכ",
+      "name_ar": "كالفن كلاين سي كي ون شوك",
+      "price": "₪ 200",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "34",
+        "35"
+      ]
+    },
+    {
+      "id": "34",
+      "name": "كالفن كلاين إيفوريا إنتنس",
+      "name_he": "קלווין קליין איפוריא אנתנס",
+      "name_ar": "كالفن كلاين إيفوريا إنتنس",
+      "price": "₪ 200",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "35",
+        "36"
+      ]
+    },
+    {
+      "id": "35",
+      "name": "هوغو بوس بوتلد",
+      "name_he": "הוגו בוס בותלד",
+      "name_ar": "هوغو بوس بوتلد",
+      "price": "₪ 150",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "36",
+        "37"
+      ]
+    },
+    {
+      "id": "36",
+      "name": "هوغو بوس ذا سنت",
+      "name_he": "הוגו בוס ד'א סנת",
+      "name_ar": "هوغو بوس ذا سنت",
+      "price": "₪ 300",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "37",
+        "38"
+      ]
+    },
+    {
+      "id": "37",
+      "name": "هوغو بوس أورانج مان",
+      "name_he": "הוגו בוס אוראנג' מאנ",
+      "name_ar": "هوغو بوس أورانج مان",
+      "price": "₪ 300",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "38",
+        "39"
+      ]
+    },
+    {
+      "id": "38",
+      "name": "هوغو بوس إن موشن",
+      "name_he": "הוגו בוס אנ מושנ",
+      "name_ar": "هوغو بوس إن موشن",
+      "price": "₪ 300",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "39",
+        "40"
+      ]
+    },
+    {
+      "id": "39",
+      "name": "باكو رابان ون مليون",
+      "name_he": "פקו רבאן ונ מליונ",
+      "name_ar": "باكو رابان ون مليون",
+      "price": "₪ 300",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "40",
+        "41"
+      ]
+    },
+    {
+      "id": "40",
+      "name": "باكو رابان إنفيكتوس",
+      "name_he": "פקו רבאן אנפיכתוס",
+      "name_ar": "باكو رابان إنفيكتوس",
+      "price": "₪ 200",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "41",
+        "42"
+      ]
+    },
+    {
+      "id": "41",
+      "name": "باكو رابان بلاك إكس إس",
+      "name_he": "פקו רבאן בלאכ אכס אס",
+      "name_ar": "باكو رابان بلاك إكس إس",
+      "price": "₪ 220",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "42",
+        "43"
+      ]
+    },
+    {
+      "id": "42",
+      "name": "باكو رابان ألترا فيولنت",
+      "name_he": "פקו רבאן אלתרא פיולנת",
+      "name_ar": "باكو رابان ألترا فيولنت",
+      "price": "₪ 150",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "43",
+        "44"
+      ]
+    },
+    {
+      "id": "43",
+      "name": "مونت بلانك إكسبلورر",
+      "name_he": "מונט בלאן אכסבלורר",
+      "name_ar": "مونت بلانك إكسبلورر",
+      "price": "₪ 250",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "44",
+        "45"
+      ]
+    },
+    {
+      "id": "44",
+      "name": "مونت بلانك إنديفيدوال",
+      "name_he": "מונט בלאן אנדיפידואל",
+      "name_ar": "مونت بلانك إنديفيدوال",
+      "price": "₪ 200",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "45",
+        "46"
+      ]
+    },
+    {
+      "id": "45",
+      "name": "مونت بلانك ليجيند",
+      "name_he": "מונט בלאן ליג'ינד",
+      "name_ar": "مونت بلانك ليجيند",
+      "price": "₪ 200",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "46",
+        "47"
+      ]
+    },
+    {
+      "id": "46",
+      "name": "هيرمس تير دي هيرمس",
+      "name_he": "הרמס תיר די הירמס",
+      "name_ar": "هيرمس تير دي هيرمس",
+      "price": "₪ 250",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "47",
+        "48"
+      ]
+    },
+    {
+      "id": "47",
+      "name": "هيرمس إيكويبايج",
+      "name_he": "הרמס איכויבאיג'",
+      "name_ar": "هيرمس إيكويبايج",
+      "price": "₪ 150",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "48",
+        "49"
+      ]
+    },
+    {
+      "id": "48",
+      "name": "جان بول غوتييه لو مال",
+      "name_he": "ז'אן פול גוטייה לו מאל",
+      "name_ar": "جان بول غوتييه لو مال",
+      "price": "₪ 200",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "49",
+        "50"
+      ]
+    },
+    {
+      "id": "49",
+      "name": "جان بول غوتييه ألترا مال",
+      "name_he": "ז'אן פול גוטייה אלתרא מאל",
+      "name_ar": "جان بول غوتييه ألترا مال",
+      "price": "₪ 180",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "50",
+        "51"
+      ]
+    },
+    {
+      "id": "50",
+      "name": "توم فورد عود وود",
+      "name_he": "טום פורד עוד ווד",
+      "name_ar": "توم فورد عود وود",
+      "price": "₪ 300",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "51",
+        "52"
+      ]
+    },
+    {
+      "id": "51",
+      "name": "توم فورد نوار إكستريم",
+      "name_he": "טום פורד נואר אכסתרימ",
+      "name_ar": "توم فورد نوار إكستريم",
+      "price": "₪ 180",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "52",
+        "53"
+      ]
+    },
+    {
+      "id": "52",
+      "name": "توم فورد طوباكو فانيلا",
+      "name_he": "טום פורד טובאכו פאנילא",
+      "name_ar": "توم فورد طوباكو فانيلا",
+      "price": "₪ 150",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "53",
+        "54"
+      ]
+    },
+    {
+      "id": "53",
+      "name": "موجلر أوم",
+      "name_he": "מוגלר אומ",
+      "name_ar": "موجلر أوم",
+      "price": "₪ 250",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "54",
+        "55"
+      ]
+    },
+    {
+      "id": "54",
+      "name": "موجلر أ مين",
+      "name_he": "מוגלר א מינ",
+      "name_ar": "موجلر أ مين",
+      "price": "₪ 180",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "55",
+        "56"
+      ]
+    },
+    {
+      "id": "55",
+      "name": "موجلر بيور هافان",
+      "name_he": "מוגלר ביור האפאנ",
+      "name_ar": "موجلر بيور هافان",
+      "price": "₪ 150",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "56",
+        "57"
+      ]
+    },
+    {
+      "id": "56",
+      "name": "كريد أفنتوس",
+      "name_he": "קריד אפנתוס",
+      "name_ar": "كريد أفنتوس",
+      "price": "₪ 250",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "57",
+        "58"
+      ]
+    },
+    {
+      "id": "57",
+      "name": "كريد جرين آيريش تويد",
+      "name_he": "קריד ג'רינ איריש תויד",
+      "name_ar": "كريد جرين آيريش تويد",
+      "price": "₪ 220",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "58",
+        "59"
+      ]
+    },
+    {
+      "id": "58",
+      "name": "كريد سيلفر ماونتن ووتر",
+      "name_he": "קריד סילפר מאונתנ וותר",
+      "name_ar": "كريد سيلفر ماونتن ووتر",
+      "price": "₪ 200",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "59",
+        "60"
+      ]
+    },
+    {
+      "id": "59",
+      "name": "عبد الصمد القرشي دهن عود",
+      "name_he": "עבד אל צמד אל-קורשי דהנ עוד",
+      "name_ar": "عبد الصمد القرشي دهن عود",
+      "price": "₪ 250",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "60",
+        "61"
+      ]
+    },
+    {
+      "id": "60",
+      "name": "عبد الصمد القرشي مسك",
+      "name_he": "עבד אל צמד אל-קורשי מסכ",
+      "name_ar": "عبد الصمد القرشي مسك",
+      "price": "₪ 150",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "61",
+        "62"
+      ]
+    },
+    {
+      "id": "61",
+      "name": "العربية للعود مجانين",
+      "name_he": "ערביאן אוד מג'אנינ",
+      "name_ar": "العربية للعود مجانين",
+      "price": "₪ 300",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "62",
+        "63"
+      ]
+    },
+    {
+      "id": "62",
+      "name": "العربية للعود فخر",
+      "name_he": "ערביאן אוד פח'ר",
+      "name_ar": "العربية للعود فخر",
+      "price": "₪ 300",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "63",
+        "64"
+      ]
+    },
+    {
+      "id": "63",
+      "name": "العربية للعود سيد الرجال",
+      "name_he": "ערביאן אוד סיד אלרג'אל",
+      "name_ar": "العربية للعود سيد الرجال",
+      "price": "₪ 220",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "64",
+        "65"
+      ]
+    },
+    {
+      "id": "64",
+      "name": "أجمل كوهينور",
+      "name_he": "אג'מל כוהינור",
+      "name_ar": "أجمل كوهينور",
+      "price": "₪ 180",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "65",
+        "66"
+      ]
+    },
+    {
+      "id": "65",
+      "name": "أجمل إيفوك أوم",
+      "name_he": "אג'מל איפוכ אומ",
+      "name_ar": "أجمل إيفوك أوم",
+      "price": "₪ 250",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "66",
+        "67"
+      ]
+    },
+    {
+      "id": "66",
+      "name": "الرصاصي شموخ",
+      "name_he": "אל-רסאסי שמוח'",
+      "name_ar": "الرصاصي شموخ",
+      "price": "₪ 300",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "67",
+        "68"
+      ]
+    },
+    {
+      "id": "67",
+      "name": "الرصاصي بور أوم",
+      "name_he": "אל-רסאסי בור אומ",
+      "name_ar": "الرصاصي بور أوم",
+      "price": "₪ 150",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "68",
+        "69"
+      ]
+    },
+    {
+      "id": "68",
+      "name": "لطافة راجح",
+      "name_he": "לטאפה ראג'ח",
+      "name_ar": "لطافة راجح",
+      "price": "₪ 250",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "69",
+        "70"
+      ]
+    },
+    {
+      "id": "69",
+      "name": "لطافة رجل",
+      "name_he": "לטאפה רג'ל",
+      "name_ar": "لطافة رجل",
+      "price": "₪ 220",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "70",
+        "71"
+      ]
+    },
+    {
+      "id": "70",
+      "name": "نبيل برايد أوم",
+      "name_he": "נביל בראיד אומ",
+      "name_ar": "نبيل برايد أوم",
+      "price": "₪ 200",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "71",
+        "72"
+      ]
+    },
+    {
+      "id": "71",
+      "name": "نبيل عود إنتنس",
+      "name_he": "נביל עוד אנתנס",
+      "name_ar": "نبيل عود إنتنس",
+      "price": "₪ 300",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "72",
+        "73"
+      ]
+    },
+    {
+      "id": "72",
+      "name": "سويِس أرابيان شوغون",
+      "name_he": "סוויס ערביין שוע'ונ",
+      "name_ar": "سويِس أرابيان شوغون",
+      "price": "₪ 250",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "73",
+        "74"
+      ]
+    },
+    {
+      "id": "73",
+      "name": "سويِس أرابيان كشمير",
+      "name_he": "סוויס ערביין כשמיר",
+      "name_ar": "سويِس أرابيان كشمير",
+      "price": "₪ 300",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "74",
+        "75"
+      ]
+    },
+    {
+      "id": "74",
+      "name": "أراميس كلاسيك",
+      "name_he": "ארמיס כלאסיכ",
+      "name_ar": "أراميس كلاسيك",
+      "price": "₪ 300",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "75",
+        "76"
+      ]
+    },
+    {
+      "id": "75",
+      "name": "أزارو كروم",
+      "name_he": "אזארו כרומ",
+      "name_ar": "أزارو كروم",
+      "price": "₪ 220",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "76",
+        "77"
+      ]
+    },
+    {
+      "id": "76",
+      "name": "أزارو ونتيد",
+      "name_he": "אזארו ונתיד",
+      "name_ar": "أزارو ونتيد",
+      "price": "₪ 300",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "77",
+        "78"
+      ]
+    },
+    {
+      "id": "77",
+      "name": "أزارو بور أوم",
+      "name_he": "אזארו בור אומ",
+      "name_ar": "أزارو بور أوم",
+      "price": "₪ 250",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "78",
+        "79"
+      ]
+    },
+    {
+      "id": "78",
+      "name": "بولغاري مان إن بلاك",
+      "name_he": "בולגרי מאנ אנ בלאכ",
+      "name_ar": "بولغاري مان إن بلاك",
+      "price": "₪ 220",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "79",
+        "80"
+      ]
+    },
+    {
+      "id": "79",
+      "name": "بولغاري أكوا بور أوم",
+      "name_he": "בולגרי אכוא בור אומ",
+      "name_ar": "بولغاري أكوا بور أوم",
+      "price": "₪ 180",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "80",
+        "81"
+      ]
+    },
+    {
+      "id": "80",
+      "name": "بولغاري تايغر",
+      "name_he": "בולגרי תאיע'ר",
+      "name_ar": "بولغاري تايغر",
+      "price": "₪ 180",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "81",
+        "82"
+      ]
+    },
+    {
+      "id": "81",
+      "name": "لاكوست بلانك",
+      "name_he": "לאקוסט בלאנכ",
+      "name_ar": "لاكوست بلانك",
+      "price": "₪ 200",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "82",
+        "83"
+      ]
+    },
+    {
+      "id": "82",
+      "name": "لاكوست إيسينشيال",
+      "name_he": "לאקוסט איסינשיאל",
+      "name_ar": "لاكوست إيسينشيال",
+      "price": "₪ 250",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "83",
+        "84"
+      ]
+    },
+    {
+      "id": "83",
+      "name": "كارتييه ديكلاراسيون",
+      "name_he": "קרטייה דיכלאראסיונ",
+      "name_ar": "كارتييه ديكلاراسيون",
+      "price": "₪ 200",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "84",
+        "85"
+      ]
+    },
+    {
+      "id": "84",
+      "name": "كارتييه باشا",
+      "name_he": "קרטייה באשא",
+      "name_ar": "كارتييه باشا",
+      "price": "₪ 200",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "85",
+        "86"
+      ]
+    },
+    {
+      "id": "85",
+      "name": "دنهل أيكون",
+      "name_he": "דנהיל איכונ",
+      "name_ar": "دنهل أيكون",
+      "price": "₪ 300",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "86",
+        "87"
+      ]
+    },
+    {
+      "id": "86",
+      "name": "دنهل ديزاير رِد",
+      "name_he": "דנהיל דיזאיר רד",
+      "name_ar": "دنهل ديزاير رِد",
+      "price": "₪ 220",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "87",
+        "88"
+      ]
+    },
+    {
+      "id": "87",
+      "name": "إس تي دوبون بور أوم",
+      "name_he": "אס.טי. דופון בור אומ",
+      "name_ar": "إس تي دوبون بور أوم",
+      "price": "₪ 300",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "88",
+        "89"
+      ]
+    },
+    {
+      "id": "88",
+      "name": "فندي فيوري",
+      "name_he": "פנדי פיורי",
+      "name_ar": "فندي فيوري",
+      "price": "₪ 200",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "89",
+        "90"
+      ]
+    },
+    {
+      "id": "89",
+      "name": "لانفين أوم",
+      "name_he": "לנבאן אומ",
+      "name_ar": "لانفين أوم",
+      "price": "₪ 250",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "90",
+        "91"
+      ]
+    },
+    {
+      "id": "90",
+      "name": "لانكوم أوم",
+      "name_he": "לנקום אומ",
+      "name_ar": "لانكوم أوم",
+      "price": "₪ 180",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "91",
+        "92"
+      ]
+    },
+    {
+      "id": "91",
+      "name": "بنهاليغونز بلاسكنوتس",
+      "name_he": "פנהליוגנס בלאסכנותס",
+      "name_ar": "بنهاليغونز بلاسكنوتس",
+      "price": "₪ 200",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "92",
+        "93"
+      ]
+    },
+    {
+      "id": "92",
+      "name": "بنهاليغونز سارترال",
+      "name_he": "פנהליוגנס סארתראל",
+      "name_ar": "بنهاليغونز سارترال",
+      "price": "₪ 200",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "93",
+        "94"
+      ]
+    },
+    {
+      "id": "93",
+      "name": "ميمو أيرلاند",
+      "name_he": "ממו אירלאנד",
+      "name_ar": "ميمو أيرلاند",
+      "price": "₪ 180",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "94",
+        "95"
+      ]
+    },
+    {
+      "id": "94",
+      "name": "لو لابو سانتال 33",
+      "name_he": "לו לאבו סאנתאל 33",
+      "name_ar": "لو لابو سانتال 33",
+      "price": "₪ 250",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "95",
+        "96"
+      ]
+    },
+    {
+      "id": "95",
+      "name": "ديبتيك فيتي فير",
+      "name_he": "דיפטיק פיתי פיר",
+      "name_ar": "ديبتيك فيتي فير",
+      "price": "₪ 300",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "96",
+        "97"
+      ]
+    },
+    {
+      "id": "96",
+      "name": "أميواج إنترلود مان",
+      "name_he": "אמואז' אנתרלוד מאנ",
+      "name_ar": "أميواج إنترلود مان",
+      "price": "₪ 300",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "97",
+        "98"
+      ]
+    },
+    {
+      "id": "97",
+      "name": "أميواج ريفلكشن مان",
+      "name_he": "אמואז' ריפלכשנ מאנ",
+      "name_ar": "أميواج ريفلكشن مان",
+      "price": "₪ 150",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "98",
+        "99"
+      ]
+    },
+    {
+      "id": "98",
+      "name": "نيشان هاسيفات",
+      "name_he": "נישאן האסיפאת",
+      "name_ar": "نيشان هاسيفات",
+      "price": "₪ 180",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "99",
+        "100"
+      ]
+    },
+    {
+      "id": "99",
+      "name": "فريدرِك مال فرنسي بوير",
+      "name_he": "פרדריק מאל פרנסי בויר",
+      "name_ar": "فريدرِك مال فرنسي بوير",
+      "price": "₪ 200",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "100",
+        "101"
+      ]
+    },
+    {
+      "id": "100",
+      "name": "جورمالون وود سيج",
+      "name_he": "ג'ו מלון ווד סיג'",
+      "name_ar": "جورمالون وود سيج",
+      "price": "₪ 200",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "101",
+        "102"
+      ]
+    },
+    {
+      "id": "101",
+      "name": "ميزون فرانسيس كركديجان أميريس",
+      "name_he": "מזון פרנסיס קורקז'אן אמיריס",
+      "name_ar": "ميزون فرانسيس كركديجان أميريس",
+      "price": "₪ 150",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "102",
+        "1"
+      ]
+    },
+    {
+      "id": "102",
+      "name": "ميزون فرانسيس كركديجان جنتل فلويدتي سيلفر",
+      "name_he": "מזון פרנסיס קורקז'אן ג'נתל פלוידתי סילפר",
+      "name_ar": "ميزون فرانسيس كركديجان جنتل فلويدتي سيلفر",
+      "price": "₪ 300",
+      "type": "men",
+      
+      "description": "Distinctive masculine fragrance with powerful notes.",
+      "description_he": "בושם ייחודי לגבר עם ניחוחות עוצמתיים.",
+      "description_ar": "عطر رجالي مميز ذو نفحات قوية.",
+      "related": [
+        "1",
+        "2"
+      ]
+    }
+
+]
