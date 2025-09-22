@@ -304,13 +304,7 @@ button.icon-btn:active { transform: translateY(0); }
 .meta.desc{color:var(--muted)}
 
 /* ==== Light mode: אל תדרוס את הכפתורים המיוחדים ==== */
-:root[data-theme="light"] .btn.add,
-:root[data-theme="light"] #mAdd{
-  background: linear-gradient(135deg, var(--cart-amber), #ffd166) !important;
-  color: #221a00;
-  border-color: transparent;
-  font-weight: 800;
-}
+
 
 :root[data-theme="light"] .btn.whats,
 :root[data-theme="light"] #mWhats{
@@ -451,12 +445,7 @@ button.icon-btn:active { transform: translateY(0); }
 }
 
 /* מצב יום – שמור על הגרדיאנטים המיוחדים למרות כלל הבסיס ללבן */
-:root[data-theme="light"] .btn.add,
-:root[data-theme="light"] #mAdd{
-  background: linear-gradient(135deg, var(--cart-amber), #ffd166) !important;
-  color: #221a00;
-  border-color: transparent;
-}
+
 :root[data-theme="light"] .btn.whats,
 :root[data-theme="light"] #mWhats{
   background: linear-gradient(135deg, var(--wa), #79e9a0) !important;
@@ -715,11 +704,7 @@ button.icon-btn:active { transform: translateY(0); }
 }
 
 /* מצב יום – שמור את הגרדיאנטים בכפתורים */
-:root[data-theme="light"] .btn.add,
-:root[data-theme="light"] #mAdd{
-  background: linear-gradient(135deg, var(--cart-amber), #ffd166) !important;
-  color:#221a00; border-color:transparent;
-}
+
 :root[data-theme="light"] .btn.whats,
 :root[data-theme="light"] #mWhats{
   background: linear-gradient(135deg, var(--wa), #79e9a0) !important;
@@ -778,10 +763,63 @@ button.icon-btn:active { transform: translateY(0); }
   }
 }
 
-/* אם נשארו גרדיאנטים מלפני זה – בטל אותם בלייט */
-:root[data-theme="light"] .btn.add,
-:root[data-theme="light"] #mAdd,
-:root[data-theme="light"] .btn.whats,
-:root[data-theme="light"] #mWhats{
-  background: transparent !important;
+
+
+
+/* ===== Bigger product modal ===== */
+.modal{
+  width: min(96vw, 1100px);
+  max-width: 1100px;
+  height: min(92vh, 860px);
+  grid-template-columns: 1.1fr 1fr;    /* תמונה + פרטים */
+}
+.modal .pic{ background:#0b0d13; }
+.modal .body{ overflow:auto; }
+
+/* מובייל – כמעט מסך מלא, גלילה נוחה לתיאור */
+@media (max-width:720px){
+  .modal{
+    width: 96vw;
+    height: 92vh;
+    grid-template-columns: 1fr;
+  }
+  .modal .pic{ height: 48vh; }        /* תמונה גדולה */
+  .modal .body{
+    max-height: 44vh;
+    overflow:auto;
+  }
+}
+
+/* ===== Button press micro-interaction ===== */
+.btn-pressed{ animation: btnPress .18s ease-out; }
+@keyframes btnPress{
+  0%{ transform: scale(1); }
+  50%{ transform: scale(.96); }
+  100%{ transform: scale(1); }
+}
+
+/* Bounce קטן למונה בעגלה */
+.cart-count.bump{ animation: bump .35s ease; }
+@keyframes bump{
+  0%{ transform: scale(1); }
+  20%{ transform: scale(1.2); }
+  100%{ transform: scale(1); }
+}
+
+/* ===== Fly-to-cart ghost ===== */
+.fly-ghost{
+  position: fixed; z-index: 1000; pointer-events: none;
+  border-radius: 12px; overflow: hidden;
+  box-shadow: 0 10px 24px rgba(0,0,0,.35);
+  will-change: transform, opacity;
+}
+/* עדינות לאנימציית לחיצה ומונה (כבר הוספת, משאיר פה למקרה) */
+.btn-pressed{ animation: btnPress .18s ease-out; }
+@keyframes btnPress{ 0%{transform:scale(1)}50%{transform:scale(.96)}100%{transform:scale(1)} }
+.cart-count.bump{ animation: bump .35s ease; }
+@keyframes bump{ 0%{transform:scale(1)}20%{transform:scale(1.2)}100%{transform:scale(1)} }
+
+/* כיבוד נגישות – אם המשתמש מבקש פחות אנימציות */
+@media (prefers-reduced-motion: reduce){
+  .fly-ghost{ transition: none!important; animation: none!important; }
 }

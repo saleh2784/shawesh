@@ -219,7 +219,15 @@ function render(items){
     // פתיחת מודאל (התיאור יופיע רק שם)
     el.querySelector('.thumb').addEventListener('click', (e)=>{ e.preventDefault(); openModalProd(p); });
     el.addEventListener('click', (e)=>{ if(e.target.closest('[data-add],.btn.whats')) return; openModalProd(p); });
-    el.querySelector('[data-add]').addEventListener('click', (e)=>{ e.stopPropagation(); addToCart(p); });
+    el.querySelector('[data-add]').addEventListener('click', (e)=>{
+      e.stopPropagation();
+      addToCart(p);
+      pressAnim(e.currentTarget);
+      bumpCart();
+      const imgEl = el.querySelector('.thumb img');
+      flyToCartFrom(imgEl);     // ✈️
+    });
+    
 
     frag.appendChild(el);
   });
@@ -250,7 +258,14 @@ function openModalProd(p){
   mPrice.textContent = formatPrice(p.price);
   mAdd.textContent = t('btn.add');
   mAdd.classList.add('add');
-  mAdd.onclick = () => addToCart(p);
+  mAdd.onclick = () => {
+    addToCart(p);
+    pressAnim(mAdd);
+    bumpCart();
+    flyToCartFrom(mImg);      // ✈️
+  };
+  
+  
   mWhats.classList.add('whats');
   mWhats.href = `https://wa.me/${PHONE}?text=${encodeURIComponent(i18nMsgProduct(pName(p), formatPrice(p.price)))}`;
   mWhats.innerHTML = `${WA_ICON(18)} ${t('btn.order')}`;
@@ -533,6 +548,69 @@ function applyLang(){
   if(contactOpenMap) contactOpenMap.textContent = (state.lang === 'ar') ? 'افتح الموقع على الخريطة' : 'פתח המיקום על המפה';
 
   updateLangToggleLabel();
+}
+
+
+//help
+
+function pressAnim(el){
+  if(!el) return;
+  el.classList.remove('btn-pressed');
+  // reflow כדי להפעיל שוב אם לוחצים מהר כמה פעמים
+  void el.offsetWidth;
+  el.classList.add('btn-pressed');
+  setTimeout(()=>el.classList.remove('btn-pressed'), 220);
+}
+function bumpCart(){
+  const c = cartCountEl && cartCountEl();
+  if(!c) return;
+  c.classList.remove('bump');
+  void c.offsetWidth;
+  c.classList.add('bump');
+}
+
+// 
+function pressAnim(el){
+  if(!el) return;
+  el.classList.remove('btn-pressed'); void el.offsetWidth;
+  el.classList.add('btn-pressed');
+  setTimeout(()=>el.classList.remove('btn-pressed'), 220);
+}
+function bumpCart(){
+  const c = cartCountEl && cartCountEl();
+  if(!c) return; c.classList.remove('bump'); void c.offsetWidth; c.classList.add('bump');
+}
+// טיסת תמונה מנקודת מקור (img) אל העגלה
+function flyToCartFrom(imgEl){
+  try{
+    if(!imgEl) return;
+    const src = imgEl.getBoundingClientRect();
+    const destEl = cartCountEl() || document.getElementById('openCart');
+    if(!destEl) return;
+    const dest = destEl.getBoundingClientRect();
+
+    const ghost = imgEl.cloneNode(true);
+    ghost.className = 'fly-ghost';
+    Object.assign(ghost.style, {
+      top: `${src.top}px`,
+      left: `${src.left}px`,
+      width: `${src.width}px`,
+      height: `${src.height}px`,
+      transform: 'translate3d(0,0,0) scale(1)',
+      opacity: '1'
+    });
+    document.body.appendChild(ghost);
+
+    const dx = dest.left + dest.width/2 - (src.left + src.width/2);
+    const dy = dest.top  + dest.height/2 - (src.top  + src.height/2);
+
+    const anim = ghost.animate([
+      { transform: 'translate3d(0,0,0) scale(1)', opacity: 1 },
+      { transform: `translate3d(${dx}px, ${dy}px, 0) scale(.2)`, opacity: .25 }
+    ], { duration: 700, easing: 'cubic-bezier(.2,.7,.2,1)' });
+
+    anim.onfinish = () => ghost.remove();
+  }catch(e){ /* no-op */ }
 }
 
 // ====== INIT ======
