@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>الشاوِيش للعطور | חנות הבשמים</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css?v=4"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+
+</head>
+<body>
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="wrap">
+      <a class="brand" href="#home">
+        <img src="/images/cat/logo.jpg" alt="לוגו" onerror="this.src='/images/cat/logo.jpg'">
+        <span class="title">الشاوِيش للعطور</span>
+      </a>
+      <div class="spacer"></div>
+      <div class="menu">
+        <a href="#catalog">קטלוג</a>
+        <a href="contact-us.html">יצירת קשר</a>
+        <!-- <a href="#about">عنّا</a> -->
+        <button class="icon-btn cart-btn" id="openCart">🛒 עגלה <span class="cart-count" id="cartCount">0</span></button>
+        <button id="themeToggle" class="icon-btn" aria-pressed="false" title="החלפת מצב">🌙</button>
+      </div>
+      
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header id="home" class="hero">
+    <div>
+      <h1>ניחוחות שמספרים סיפור</h1>
+      <p>
+        לחיצה על מוצר תפתח כרטיס פרטים מלא עם תמונה, מחיר, הוסף לעגלה, והזמנה בוואטסאפ.
+      </p>
+    </div>
+    <!-- <div class="panel">
+      <img src="https://images.unsplash.com/photo-1541647376583-8934aaf3448a?q=80&w=1200&auto=format&fit=crop" alt="hero">
+    </div> -->
+  </header>
+
+  <!-- CONTROLS -->
+  <div class="controls" id="catalog">
+    <div class="chip active" data-cat="all">הכל</div>
+    <div class="chip" data-cat="men">בשמים לגברים</div>
+    <div class="chip" data-cat="women">בשמים לנשים</div>
+    <div class="chip" data-cat="air">מטהרי אוויר</div>
+    <div class="chip" data-cat="cream">קרם</div>
+    <div class="chip" data-cat="maklotim">מקלוטים</div>
+    <div class="chip" data-cat="elctro">מכשירים</div>
+    <div class="search"><input id="search" placeholder="חיפוש לפי שם / תיאור..." /></div>
+  </div>
+
+  <!-- GRID -->
+  <main class="grid" id="grid" aria-live="polite"></main>
+
+
+
+  <!-- ABOUT -->
+
+  
+
+  <footer>© <span id="year"></span> الشاوِيش للعطور — כל הזכויות שמורות.</footer>
+
+  <!-- PRODUCT MODAL -->
+  <div class="modal-backdrop" id="modal" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true">
+      <button class="close-x" id="closeModal" aria-label="סגור">✕</button>
+      <div class="pic"><img id="mImg" alt="product"></div>
+      <div class="body">
+        <h3 id="mTitle" style="margin:0"></h3>
+        <div class="row" id="mCat"></div>
+        <div class="row" id="mDesc"></div>
+        <div class="row" id="mPrice" style="font-weight:800"></div>
+        <div class="actions">
+          <button class="btn primary" id="mAdd">הוסף לעגלה</button>
+          <a class="btn" id="mWhats" target="_blank" rel="noopener">הזמנה בוואטסאפ</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CART DRAWER -->
+  <aside class="drawer" id="drawer" aria-hidden="true">
+    <header>
+      <strong>העגלה</strong>
+      <button class="icon-btn" id="closeCart">סגור</button>
+    </header>
+    <div class="items" id="cartItems"></div>
+    <footer>
+      <div style="display:flex;justify-content:space-between">
+        <span>סה"כ:</span><strong id="cartTotal">₪0</strong>
+      </div>
+      <a class="btn primary" id="checkoutBtn" target="_blank" rel="noopener">הזמנה בוואטסאפ</a>
+    </footer>
+  </aside>
+<!-- Contact Inline Overlay -->
+<div id="contactOverlay" class="contact-overlay" aria-hidden="true">
+    <div class="contact-sheet" role="dialog" aria-modal="true" aria-labelledby="contactTitle">
+      <header>
+        <strong id="contactTitle">יצירת קשר</strong>
+        <button class="contact-close" id="closeContact" aria-label="סגור">✕</button>
+      </header>
+      <div class="content" id="contactContent">טוען…</div>
+    </div>
+  </div>
+  
+  <!-- Fallback (אם אין products.json) -->
+  <script id="products-fallback" type="application/json">
+  {"products":[{"id":1,"name":"גבריות קלאסית","description":"ניחוח עצי ועמוק.","price":199,"category":"men","image":"https://images.unsplash.com/photo-1605979257913-1702be9ec3e1?q=80&w=1200&auto=format&fit=crop"}]}
+  </script>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

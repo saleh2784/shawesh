@@ -1,0 +1,108 @@
+[
+  {
+    "id": "1",
+    "name": "Royal Oud",
+    "name_he": "רויאל אוד",
+    "name_ar": "رويال عود",
+    "price": "₪ 150",
+    "type": "men",
+    "image": "/images/products/1.jpeg",
+    "description": "A deep, woody scent for the sophisticated man.",
+    "description_he": "ניחוח עמוק ועצי לגבר מתוחכם.",
+    "description_ar": "عبير خشبي عميق للرجل الأنيق.",
+    "related": ["2", "3", "4"]
+  },
+  {
+    "id": "2",
+    "name": "Amber Night",
+    "name_he": "אמבר נייט",
+    "name_ar": "عنبر نايت",
+    "price": "₪ 130",
+    "type": "men",
+    "image": "https://www.deraahstore.com/dw/image/v2/BJFS_PRD/on/demandware.static/-/Sites-deraah-master/default/dw5995e41d/images/10411131013100-1008-1.png?sw=2000&sh=2000",
+    "description": "Bold amber notes perfect for evening wear.",
+    "description_he": "ניחוחות ענבר נועזים – מושלם לערב.",
+    "description_ar": "نفحات عنبر جريئة مثالية لأمسيات السهر.",
+    "related": ["1", "3", "4"]
+  },
+  {
+    "id": "3",
+    "name": "Khamrah",
+    "name_he": "ח'מרה",
+    "name_ar": "خمرة",
+    "price": "₪ 180",
+    "type": "men",
+    "image": "https://img.ksp.co.il/item/288086/b_1.jpg?v=1703753162",
+    "description": "Bold amber notes perfect for evening wear.",
+    "description_he": "ניחוחות ענבר נועזים – מושלם לערב.",
+    "description_ar": "نفحات عنبر جريئة مثالية لأمسيات السهر.",
+    "related": ["1", "2", "4"]
+  },
+  {
+    "id": "4",
+    "name": "Maahir",
+    "name_he": "מאהר",
+    "name_ar": "ماهر",
+    "price": "₪ 160",
+    "type": "men",
+    "image": "https://img.ksp.co.il/item/245548/b_2.jpg?v=1674742601",
+    "description": "Bold amber notes perfect for evening wear.",
+    "description_he": "ניחוחות ענבר נועזים – מושלם לערב.",
+    "description_ar": "نفحات عنبر جريئة مثالية لأمسيات السهر.",
+    "related": ["1", "2", "3"]
+  },
+  
+  {
+    "id": "1001",
+    "name": "La vie est belle",
+    "name_he": "לה וי אסט בל",
+    "name_ar": "لا في إيه إيست بيل",
+    "price": "₪ 140",
+    "type": "women",
+    "image": "https://www.april.co.il/Media/Uploads/3614273922975_1--.webp",
+    "description": "Soft floral notes with a touch of vanilla.",
+    "description_he": "ניחוחות פרחוניים רכים עם נגיעת וניל.",
+    "description_ar": "نغمات زهرية ناعمة بلمسة فانيليا.",
+    "related": ["1002", "1003", "1004"]
+  },
+  {
+    "id": "1002",
+    "name": "Black Opium Glitter",
+    "name_he": "בלק אופיום גליטר",
+    "name_ar": "بلاك أوبيوم جليتر",
+    "price": "₪ 135",
+    "type": "women",
+    "image": "https://media.theperfumeshop.com/medias/sys_master/prd-images/h60/h69/9953691533342/prd-extra2-1306305_420x420/yves-saint-laurent-black-opium-glitter-eau-de-parfum-spray-420x420.jpg",
+    "description": "Pear Accord, Green Mandarin Essence, Lemon Essence",
+    "description_he": "אקורד אגס, תמצית קלמנטינה ירוקה, ותמצית לימון.",
+    "description_ar": "تناغم الكمثرى، خلاصة اليوسفي الأخضر، وخلاصة الليمون.",
+    "related": [""]
+  },
+  {
+    "id": "1003",
+    "name": "Cherry Eclipse",
+    "name_he": "צ'רי אקליפס",
+    "name_ar": "تشيري إكليبس",
+    "price": "₪ 140",
+    "type": "women",
+    "image": "https://media.theperfumeshop.com/medias/sys_master/prd-images/h4b/h36/10003879821342/prd-back-1309420_420x420/ariana-grande-rem-cherry-eclipse-eau-de-parfum-spray-420x420.jpg",
+    "description": "Black Cherry Jubilee, Sugared Honeysuckle Petals.",
+    "description_he": "דובדבן שחור ג'ובילי ועלי יערה מסוכרים.",
+    "description_ar": "كرز أسود جوبيلي وبتلات ياسمين العسلى المُحلاة.",
+    "related": [""]
+  },
+  {
+    "id": "1004",
+    "name": "Jadore",
+    "name_he": "ג'אדור",
+    "name_ar": "جادور",
+    "price": "₪ 135",
+    "type": "women",
+    "image": "https://www.hdbeauty.co.il/images/itempics/3348900417885_28022025111013_large.jpg",
+    "description": "Exotic musk blend for elegant evenings.",
+    "description_he": "תערובת מושק אקזוטית לערבים אלגנטיים.",
+    "description_ar": "مزيج مسكٍ استوائي لأمسيات أنيقة.",
+    "related": [""]
+  }
+  
+]

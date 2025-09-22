@@ -1,0 +1,668 @@
+/* =========================
+   THEME (Dark + Light)
+   ========================= */
+   :root{
+    --bg:#0e0f13;
+    --card:#161925;
+    --text:#eef1f7;
+    --muted:#a3acc2;
+    --ring:rgba(155,135,245,.45);
+    --brand:#d4af37;           /* gold */
+    --border: rgba(255,255,255,.08);
+    --border-strong: rgba(255,255,255,.12);
+  }
+  
+  :root[data-theme="light"]{
+    --bg:#f5f6fb;
+    --card:#ffffff;
+    --text:#0e0f13;
+    --muted:#5a6270;
+    --ring:rgba(80,72,170,.35);
+    --brand:#c49b1d;
+    --border: rgba(0,0,0,.08);
+    --border-strong: rgba(0,0,0,.12);
+  }
+  
+  /* =========================
+     BASE
+     ========================= */
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0; font-family:'Rubik',system-ui,sans-serif; color:var(--text);
+    background:
+      radial-gradient(1000px 700px at 90% -10%, rgba(34,211,238,.12), transparent 60%),
+      radial-gradient(900px 600px at 10% 120%, rgba(212,175,55,.15), transparent 60%),
+      var(--bg);
+    background-attachment:fixed;
+  }
+  a{color:inherit}
+  
+  /* =========================
+     NAV
+     ========================= */
+  .nav{
+    position:sticky; top:0; z-index:50;
+    backdrop-filter: blur(10px);
+    background: rgba(14,15,19,.6);
+    border-bottom:1px solid var(--border);
+  }
+  :root[data-theme="light"] .nav{
+    background: rgba(255,255,255,.8);
+  }
+  
+  .nav .wrap{max-width:1200px;margin:0 auto;padding:.6rem 1rem;display:flex;align-items:center;gap:.8rem}
+  .brand{display:flex;align-items:center;gap:.6rem;text-decoration:none;color:inherit}
+  .brand img{width:42px;height:42px;border-radius:12px;object-fit:contain}
+  .brand .title{font-weight:800;letter-spacing:.2px}
+  .spacer{flex:1}
+  .menu{display:flex;gap:.4rem;align-items:center}
+  .menu a,.icon-btn{
+    padding:.55rem .8rem;border-radius:12px;border:1px solid transparent;
+    text-decoration:none;color:var(--text);transition:.2s;
+  }
+  .menu a:hover,.icon-btn:hover{background:rgba(255,255,255,.06);border-color:var(--border)}
+  :root[data-theme="light"] .menu a:hover,
+  :root[data-theme="light"] .icon-btn:hover{background:rgba(0,0,0,.05)}
+  
+  .cart-btn{position:relative}
+  .cart-count{
+    position:absolute; top:-6px; left:-6px;
+    background:var(--brand); color:#111; border-radius:999px; font-size:.75rem;
+    padding:.1rem .4rem; border:1px solid #111;
+  }
+  
+  /* =========================
+     HERO
+     ========================= */
+  .hero{max-width:1200px;margin:1.6rem auto 1rem;padding:0 1rem;display:grid;grid-template-columns:1.1fr .9fr;gap:1rem;align-items:center}
+  .hero h1{margin:0 0 .4rem;font-size:clamp(26px,4vw,44px)}
+  .hero p{margin:0;color:var(--muted);line-height:1.8}
+  .panel{background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));border:1px solid var(--border);border-radius:20px;overflow:hidden}
+  .panel img{width:100%;height:100%;object-fit:cover}
+  
+  /* =========================
+     CONTROLS
+     ========================= */
+  .controls{max-width:1200px;margin:.2rem auto 1rem;padding:0 1rem;display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
+  .chip{
+    background:#0f111a; border:1px solid var(--border); color:var(--text);
+    padding:.5rem .8rem; border-radius:999px; cursor:pointer; font-weight:500;
+  }
+  .chip.active,.chip:hover{border-color:var(--ring);box-shadow:0 0 0 3px var(--ring)}
+  :root[data-theme="light"] .chip{background:#fff}
+  
+  .search{flex:1;min-width:220px}
+  .search input{
+    width:100%; padding:.7rem .9rem; border-radius:14px;
+    background:#0f111a; color:var(--text); border:1px solid var(--border);
+  }
+  .search input:focus{outline:none; box-shadow:0 0 0 3px var(--ring)}
+  :root[data-theme="light"] .search input{background:#fff; color:var(--text);}
+  
+  /* =========================
+     GRID & CARDS
+     ========================= */
+  .grid{max-width:1200px;margin:0 auto;padding:0 1rem 2rem;display:grid;grid-template-columns:repeat(4,1fr);gap:.9rem}
+  @media (max-width:1100px){.hero{grid-template-columns:1fr}.grid{grid-template-columns:repeat(3,1fr)}}
+  @media (max-width:780px){.grid{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:520px){.menu{display:none}.grid{grid-template-columns:1fr}}
+  
+  .card{background:var(--card); border:1px solid var(--border); border-radius:18px; overflow:hidden; display:flex; flex-direction:column}
+  .thumb{aspect-ratio:1/1; display:grid; place-items:center; background:#0b0d13}
+  :root[data-theme="light"] .thumb{background:#f0f2f7}
+  .thumb img{width:100%;height:100%;object-fit:cover}
+  .info{padding:.8rem .9rem; display:flex; flex-direction:column; gap:.5rem}
+  .title{font-weight:700}
+  .meta{color:var(--muted); font-size:.95rem}
+  .actions{display:flex; gap:.5rem; flex-wrap:wrap}
+  .btn{
+    flex:1; text-align:center; padding:.55rem .8rem; border-radius:12px;
+    border:1px solid var(--border-strong); background:#10131c; color:var(--text); cursor:pointer;
+  }
+  .btn.primary{background:linear-gradient(90deg,rgba(155,135,245,.25),rgba(34,211,238,.25)); border-color:var(--ring)}
+  :root[data-theme="light"] .btn{background:#fff}
+  
+  /* =========================
+     MODAL
+     ========================= */
+  .modal-backdrop{position:fixed; inset:0; background:rgba(0,0,0,.55); display:none; align-items:center; justify-content:center; padding:1rem; z-index:60}
+  .modal{max-width:900px; width:100%; background:var(--card); border:1px solid var(--border-strong); border-radius:20px; overflow:hidden; display:grid; grid-template-columns:1fr 1.2fr; position:relative}
+  .modal .pic{background:#0b0d13}
+  :root[data-theme="light"] .modal .pic{background:#f0f2f7}
+  .modal .pic img{width:100%; height:100%; object-fit:cover}
+  .modal .body{padding:1rem}
+  .modal .row{margin:.6rem 0; color:var(--muted)}
+  .close-x{position:absolute; top:10px; left:10px; background:#111; color:#fff; border:1px solid var(--border-strong); border-radius:10px; padding:.3rem .5rem; cursor:pointer}
+  :root[data-theme="light"] .close-x{background:#fff; color:#111}
+  
+  /* =========================
+     CART DRAWER
+     ========================= */
+  .drawer{
+    position:fixed; top:0; bottom:0; left:0; width:380px; max-width:90vw;
+    background:var(--bg); border-right:1px solid var(--border);
+    transform:translateX(-101%); transition:.25s ease; z-index:70; display:flex; flex-direction:column;
+  }
+  .drawer.open{transform:translateX(0)}
+  
+  .drawer header{
+    padding:1rem; border-bottom:1px solid var(--border);
+    display:flex; justify-content:space-between; align-items:center;
+    background:var(--card); color:var(--text);
+  }
+  .drawer .items{flex:1; overflow:auto; padding:1rem; display:flex; flex-direction:column; gap:.7rem; color:var(--text)}
+  .drawer .item{
+    display:grid; grid-template-columns:64px 1fr auto; gap:.6rem;
+    background:var(--card); border:1px solid var(--border); border-radius:12px; padding:.5rem; color:var(--text);
+  }
+  .drawer .item div{color:var(--muted)}
+  .drawer .item strong{color:var(--text)}
+  .drawer footer{border-top:1px solid var(--border); padding:1rem; display:grid; gap:.6rem; background:var(--card)}
+  
+  /* =========================
+     SECTIONS & SOCIALS
+     ========================= */
+  section{scroll-margin-top:90px}
+  .section{max-width:1100px; margin:2rem auto; padding:0 1rem; color:var(--muted); line-height:1.9}
+  .section h2{color:var(--text)}
+  .socials{display:flex; gap:.5rem; flex-wrap:wrap}
+  .sbtn{
+    display:inline-flex; align-items:center; gap:.4rem; padding:.5rem .8rem;
+    border-radius:999px; border:1px solid var(--border-strong); text-decoration:none; color:inherit; background:var(--card);
+  }
+  
+  /* =========================
+     FOOTER
+     ========================= */
+  footer{border-top:1px solid var(--border); text-align:center; color:var(--muted); padding:1rem}
+  
+  /* =========================
+     FLOATING HOME BUTTON (SVG)
+     ========================= */
+  .home-fab{
+    position:fixed; bottom:20px; left:20px;
+    width:44px; height:44px; display:flex; align-items:center; justify-content:center;
+    background:#d23b64; color:#fff; border-radius:50%; text-decoration:none;
+    box-shadow:0 4px 10px rgba(0,0,0,.25); z-index:999; transition:background .2s, transform .2s;
+  }
+  .home-fab:hover{ background:#b51e4d; transform:scale(1.1) }
+  .home-fab svg{ width:20px; height:20px; fill:#fff }
+  
+
+  /* ==== FIX buttons: remove default white bg, use theme colors ==== */
+.icon-btn,
+button.icon-btn {
+  -webkit-appearance: none;
+  appearance: none;
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+  padding: .45rem .7rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: box-shadow .15s, transform .15s, border-color .15s, background .15s;
+}
+
+/* hover/active – בלי להלבין את הרקע */
+.icon-btn:hover,
+button.icon-btn:hover {
+  background: var(--card);            /* לא לחזור ללבן */
+  box-shadow: 0 0 0 3px var(--ring) inset;
+  transform: translateY(-1px);
+}
+.icon-btn:active,
+button.icon-btn:active { transform: translateY(0); }
+
+/* כפתור "סגור" בראש המגירה */
+.drawer header .icon-btn {
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border-strong);
+}
+
+/* כפתורי + / - / הסר בתוך הסל */
+.drawer .item .icon-btn {
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+}
+.drawer .item .icon-btn:hover { background: var(--card); }
+
+/* מצב בהיר – רקע לבן פרש, אבל טקסט כהה */
+:root[data-theme="light"] .icon-btn,
+:root[data-theme="light"] .drawer .item .icon-btn,
+:root[data-theme="light"] .drawer header .icon-btn {
+  background: #fff;
+  color: var(--text);
+  border-color: var(--border-strong);
+}
+
+
+/* ===== צבעים מיוחדים לכפתורים/הדגשות ===== */
+:root{
+  --primary-1:#9b87f5;   /* סגול רך */
+  --primary-2:#22d3ee;   /* טורקיז */
+  --cart-amber:#ffb703;  /* כתום זהוב לכפתור עגלה */
+  --wa:#25D366;          /* ירוק וואטסאפ */
+}
+
+/* כרטיס – הילה יפה בהובר */
+.card{transition: box-shadow .2s, border-color .2s, transform .2s}
+.card:hover{
+  border-color: var(--ring);
+  box-shadow: 0 10px 26px rgba(0,0,0,.25), 0 0 0 4px var(--ring) inset;
+  transform: translateY(-2px);
+}
+
+/* שורת כותרת+מחיר */
+.title-row{display:flex; align-items:center; justify-content:space-between; gap:.6rem}
+.price-pill{
+  font-weight:800;
+  padding:.25rem .6rem;
+  border-radius:999px;
+  background:linear-gradient(90deg,var(--primary-1),var(--primary-2));
+  color:#0e0f13;                 /* כהה על רקע בהיר */
+  border:1px solid var(--border-strong);
+}
+
+/* כפתורים בתוך הכרטיס */
+.actions{display:flex; gap:.6rem; flex-wrap:wrap; margin-top:.2rem}
+.btn{position:relative; overflow:hidden}
+.btn svg{width:18px; height:18px; margin-inline-start:.3rem}
+
+/* “הוסף לעגלה” – גרדיאנט מפואר */
+.btn.add{
+  background: linear-gradient(135deg, var(--cart-amber), #ffd166);
+  color:#221a00;
+  border-color: transparent;
+  font-weight:800;
+}
+.btn.add:hover{filter:brightness(1.03); box-shadow:0 0 0 3px var(--ring) inset}
+
+/* “וואטסאפ” – ירוק מבריק */
+.btn.whats{
+  background: linear-gradient(135deg, var(--wa), #79e9a0);
+  color:#073b19;
+  border-color: transparent;
+  font-weight:800;
+}
+.btn.whats:hover{filter:brightness(1.05); box-shadow:0 0 0 3px var(--ring) inset}
+
+/* נגישות: פוקוס ברור */
+.btn:focus-visible{outline:none; box-shadow:0 0 0 3px var(--ring)}
+
+/* מיקרו-תיקון לטקסט המשני */
+.meta.desc{color:var(--muted)}
+
+/* ==== Light mode: אל תדרוס את הכפתורים המיוחדים ==== */
+:root[data-theme="light"] .btn.add,
+:root[data-theme="light"] #mAdd{
+  background: linear-gradient(135deg, var(--cart-amber), #ffd166) !important;
+  color: #221a00;
+  border-color: transparent;
+  font-weight: 800;
+}
+
+:root[data-theme="light"] .btn.whats,
+:root[data-theme="light"] #mWhats{
+  background: linear-gradient(135deg, var(--wa), #79e9a0) !important;
+  color: #073b19;
+  border-color: transparent;
+  font-weight: 800;
+}
+
+/* Hover במצב יום */
+:root[data-theme="light"] .btn.add:hover,
+:root[data-theme="light"] #mAdd:hover,
+:root[data-theme="light"] .btn.whats:hover,
+:root[data-theme="light"] #mWhats:hover{
+  filter: brightness(1.05);
+  box-shadow: 0 0 0 3px var(--ring) inset;
+}
+
+/* price-pill ישאר צבעוני גם בלייט */
+:root[data-theme="light"] .price-pill{
+  background: linear-gradient(90deg, var(--primary-1), var(--primary-2)) !important;
+  color: #0e0f13;
+  border: 1px solid var(--border-strong);
+}
+
+/* אייקוני SVG בכפתורים—תמיד יצבעו לפי הצבע של הטקסט */
+.btn.add svg, .btn.whats svg,
+#mAdd svg, #mWhats svg { fill: currentColor; }
+
+
+/*  */
+
+/* ===== Mobile tweaks ===== */
+@media (max-width: 520px){
+  /* תן לניווט להישאר גלוי ולהתקפל לשתי שורות אם צריך */
+  .nav .wrap{ flex-wrap: wrap; gap:.4rem; }
+  .brand .title{ font-size:1rem; }
+
+  /* התפריט לא ייעלם — נהפוך אותו לשורת צ'יפים נגללת */
+  .menu{
+    display:flex;
+    width:100%;
+    gap:.4rem;
+    overflow-x:auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom:.3rem;
+  }
+  .menu::-webkit-scrollbar{ display:none; }
+  .menu a, .menu .icon-btn{
+    padding:.45rem .6rem;
+    font-size:.9rem;
+    border-radius:10px;
+    white-space:nowrap; /* שלא יישבר לשתי שורות */
+  }
+
+  /* גריד — 2 כרטיסים בשורה */
+  .grid{ grid-template-columns: repeat(2, 1fr); }
+
+  /* גיבור לעמוד אחד */
+  .hero{ grid-template-columns: 1fr; }
+}
+
+/* אופציונלי: גם בין 520–780 נעדיף 2 בטור, כדי לשמור כרטיסים גדולים ונקיים */
+@media (max-width: 780px){
+  .grid{ grid-template-columns: repeat(2, 1fr); }
+}
+
+
+/* ===== Mobile buttons smaller (cards + modal) ===== */
+@media (max-width: 520px){
+  .actions{ gap:.4rem; }
+
+  .btn{
+    padding:.42rem .56rem;      /* קטן יותר */
+    font-size:.9rem;
+    border-radius:10px;
+  }
+  .btn.add, .btn.whats{ font-weight:800; }
+
+  /* אייקון קטן יותר בתוך הכפתור */
+  .btn svg{
+    width:16px !important;
+    height:16px !important;
+    margin-inline-start:.25rem;
+  }
+
+  /* תגית מחיר קטנה יותר */
+  .price-pill{
+    padding:.12rem .48rem;
+    font-size:.85rem;
+  }
+}
+
+/* ===== Buttons: smaller size + thin border (cards + modal) ===== */
+.btn.add,
+.btn.whats,
+#mAdd,
+#mWhats{
+  padding: .44rem .66rem;         /* קטן יותר */
+  font-size: .92rem;              /* טקסט קטן יותר */
+  border-radius: 10px;
+  border-width: 1px;              /* מסגרת דקה */
+}
+
+/* צמצום ההילה בהובר (כדי שהמסגרת תיראה עדינה) */
+.btn.add:hover,
+.btn.whats:hover,
+#mAdd:hover,
+#mWhats:hover{
+  box-shadow: 0 0 0 2px var(--ring) inset;  /* היה 3px */
+  filter: brightness(1.03);
+}
+
+/* אייקונים קטנים יותר בתוך הכפתור */
+.btn.add svg, .btn.whats svg,
+#mAdd svg, #mWhats svg{
+  width: 16px;
+  height: 16px;
+  margin-inline-start: .25rem;
+  fill: currentColor;
+}
+
+/* מובייל – אפילו עוד קצת קטן ונעים לאצבע */
+@media (max-width: 520px){
+  .btn.add,
+  .btn.whats,
+  #mAdd,
+  #mWhats{
+    padding: .36rem .52rem;
+    font-size: .86rem;
+    border-radius: 9px;
+  }
+  .btn.add svg, .btn.whats svg,
+  #mAdd svg, #mWhats svg{
+    width: 15px;
+    height: 15px;
+  }
+}
+
+/* מצב יום – שמור על הגרדיאנטים המיוחדים למרות כלל הבסיס ללבן */
+:root[data-theme="light"] .btn.add,
+:root[data-theme="light"] #mAdd{
+  background: linear-gradient(135deg, var(--cart-amber), #ffd166) !important;
+  color: #221a00;
+  border-color: transparent;
+}
+:root[data-theme="light"] .btn.whats,
+:root[data-theme="light"] #mWhats{
+  background: linear-gradient(135deg, var(--wa), #79e9a0) !important;
+  color: #073b19;
+  border-color: transparent;
+}
+
+/* Contact overlay */
+.contact-overlay{
+  position:fixed; inset:0; display:none; padding:1rem;
+  background:rgba(0,0,0,.55); z-index:80; align-items:center; justify-content:center;
+}
+.contact-overlay.open{ display:flex; }
+
+.contact-sheet{
+  width:100%; max-width:900px; max-height:90vh; overflow:auto;
+  background:var(--card); color:var(--text);
+  border:1px solid var(--border-strong); border-radius:16px;
+  box-shadow:0 20px 50px rgba(0,0,0,.3);
+}
+.contact-sheet header{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:.8rem 1rem; border-bottom:1px solid var(--border);
+}
+.contact-sheet .content{ padding:1rem; line-height:1.8; color:var(--muted); }
+.contact-close{
+  background:var(--card); color:var(--text); border:1px solid var(--border-strong);
+  border-radius:10px; padding:.4rem .6rem; cursor:pointer;
+}
+
+/* מובייל: קח מסך מלא כמעט */
+@media (max-width:520px){
+  .contact-sheet{ max-width:100%; height:90vh; border-radius:12px; }
+}
+
+
+/*  */
+
+/* ===== Contact Overlay – tidy & spacious layout ===== */
+
+/* גיליון גדול ונוח לגלילה */
+.contact-overlay .contact-sheet{
+  max-width: 1080px;
+  max-height: 92vh;
+}
+.contact-overlay .contact-sheet header{
+  padding: 1rem 1.25rem;
+}
+
+/* מרווח פנימי אחיד */
+.contact-overlay .contact-sheet .content{
+  padding: clamp(18px, 2.5vw, 28px);
+  overflow: auto;
+}
+.contact-overlay .contact-sheet .content > * + *{
+  margin-top: 1rem; /* ריווח בין בלוקים */
+}
+
+/* טיפוגרפיה מעט עדינה יותר */
+.contact-overlay .contact-desc{
+  font-size: 1rem;
+  line-height: 2;
+  max-width: 62ch;
+  margin-inline: auto;
+}
+.contact-overlay .contact-lines{
+  text-align: start;
+  margin-top: .6rem;
+}
+.contact-overlay .contact-lines div{ margin-bottom: .35rem; }
+
+/* כפתורי קריאה לפעולה קומפקטיים */
+.contact-overlay .btn-cta{
+  padding: .7rem 1rem;
+  font-size: .95rem;
+  border-radius: 10px;
+}
+
+/* שורת איקונים – פחות “דחוסה” וניתנת לשבירה לשורות */
+.contact-overlay .social-row{
+  justify-content: flex-start;
+  gap: .6rem;
+}
+
+/* מפה */
+.contact-overlay .map-card{ margin-top: .6rem; }
+
+/* --- פריסה בדסקטופ: טקסט/פרטים מצד שמאל, מפה מצד ימין --- */
+@media (min-width: 900px){
+  .contact-overlay .contact-sheet .content{
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    grid-template-areas:
+      "desc   map"
+      "social map"
+      "lines  map"
+      "cta    map";
+    column-gap: 1.6rem;
+    row-gap: 1rem;
+    align-items: start;
+  }
+  .contact-overlay .contact-desc  { grid-area: desc;  margin: 0; }
+  .contact-overlay .social-row    { grid-area: social; }
+  .contact-overlay .contact-lines { grid-area: lines; }
+  .contact-overlay .cta-row       { grid-area: cta; }
+  .contact-overlay .map-card{
+    grid-area: map;
+    position: sticky;   /* נשארת מול העיניים בזמן גלילה */
+    top: 84px;
+    align-self: start;
+  }
+}
+
+/* מובייל – מסך מלא כמעט, מרווחים נוחים */
+@media (max-width: 520px){
+  .contact-overlay .contact-sheet{ height: 92vh; border-radius: 12px; }
+  .contact-overlay .btn-cta{ padding: .6rem .9rem; font-size: .9rem; }
+}
+
+/* ==== Social icons: standout look ==== */
+.social-row{ gap:.8rem; flex-wrap:wrap; justify-content:flex-start; }
+
+.social-row .social-btn{
+  --sb1:#9b87f5;          /* צבע ברירת־מחדל לטבעת */
+  --sb2:#22d3ee;
+  position:relative;
+  width:56px; height:56px; border-radius:14px;
+  display:grid; place-items:center; text-decoration:none;
+  /* “טבעת” צבעונית + לב פנימי כהה/זכוכיתי */
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04)) padding-box,
+    linear-gradient(135deg,var(--sb1),var(--sb2)) border-box;
+  border:1.5px solid transparent;
+  box-shadow:0 6px 18px rgba(0,0,0,.35);
+  transition:transform .18s ease, box-shadow .18s ease, filter .18s ease, border-color .18s ease;
+}
+
+.social-row .social-btn i,
+.social-row .social-btn span{
+  color:#fff; line-height:1;
+  font-size:1.45rem;
+  filter:drop-shadow(0 2px 5px rgba(0,0,0,.38));
+}
+
+.social-row .social-btn:hover{
+  transform:translateY(-4px);
+  box-shadow:0 14px 26px rgba(0,0,0,.45), 0 0 0 4px var(--ring) inset;
+}
+.social-row .social-btn:focus-visible{
+  outline:none;
+  box-shadow:0 0 0 3px var(--ring), 0 14px 26px rgba(0,0,0,.45);
+}
+
+/* --- Brand rings --- */
+.social-row .social-btn[aria-label="WhatsApp"]{ --sb1:#25D366; --sb2:#34eb91; }
+.social-row .social-btn[aria-label="Facebook"]{ --sb1:#1877F2; --sb2:#42a5ff; }
+.social-row .social-btn[aria-label="TikTok"]  { --sb1:#69C9D0; --sb2:#EE1D52; }
+/* אינסטגרם – טבעת קונית צבעונית */
+.social-row .social-btn[aria-label="Instagram"]{
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04)) padding-box,
+    conic-gradient(#feda75,#fa7e1e,#d62976,#962fbf,#4f5bd5,#feda75) border-box;
+}
+
+/* Light theme – לב פנימי לבן ועדין */
+:root[data-theme="light"] .social-row .social-btn{
+  background:
+    linear-gradient(180deg,#fff,#fff) padding-box,
+    linear-gradient(135deg,var(--sb1),var(--sb2)) border-box;
+  box-shadow:0 8px 18px rgba(0,0,0,.12);
+}
+:root[data-theme="light"] .social-row .social-btn[aria-label="Instagram"]{
+  background:
+    linear-gradient(180deg,#fff,#fff) padding-box,
+    conic-gradient(#feda75,#fa7e1e,#d62976,#962fbf,#4f5bd5,#feda75) border-box;
+}
+
+/* Mobile sizing */
+@media (max-width:520px){
+  .social-row .social-btn{ width:50px; height:50px; border-radius:12px; }
+  .social-row .social-btn i,
+  .social-row .social-btn span{ font-size:1.35rem; }
+}
+/* Force social icons into a single horizontal row */
+.social-row,
+.contact-overlay .social-row{
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center;
+  gap: .6rem;
+  /* אם יש הרבה אייקונים – שורה נגללת במקום ירידה לשורה חדשה */
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.social-row::-webkit-scrollbar{ display:none; }
+
+/* ודא שכל אייקון לא תופס רוחב מלא */
+.social-row .social-btn{
+  flex: 0 0 auto;
+  display: inline-grid;
+  width: 56px; height: 56px;   /* או 50px במובייל, אם תרצה */
+}
+
+/* מובייל – טיפה קטן ונוח */
+@media (max-width:520px){
+  .social-row .social-btn{ width:50px; height:50px; }
+}
