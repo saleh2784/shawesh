@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>قائمة عطور نسائية مرتبة أبجديًا</title>
+  <style>
+    :root { --bg:#0f172a; --card:#111827; --muted:#94a3b8; --text:#e5e7eb; --accent:#22d3ee; }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:"Tajawal",system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; background:linear-gradient(135deg,#0b1220,#1f2937); color:var(--text)}
+    .container{max-width:980px;margin:40px auto;padding:24px}
+    .card{background:rgba(255,255,255,0.04);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,0.08);border-radius:18px;padding:20px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+    h1{margin:0 0 16px;font-size:28px;letter-spacing:.2px}
+    p.sub{margin-top:0;color:var(--muted)}
+
+    .toolbar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:14px 0 18px}
+    .search{flex:1;min-width:260px;position:relative}
+    .search input{width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:#0b1324;color:var(--text);outline:none}
+    .search small{position:absolute;left:12px;top:-18px;color:var(--muted)}
+
+    .index{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 2px}
+    .index a{display:inline-block;padding:8px 10px;border-radius:10px;border:1px solid rgba(255,255,255,.12);text-decoration:none;color:var(--text);font-size:13px}
+    .index a:hover{border-color:var(--accent)}
+
+    .group{margin:18px 0 28px}
+    .group h2{font-size:20px;margin:0 0 10px;color:var(--accent)}
+    ul.list{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
+    ul.list li{background:#0b1324;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:10px 12px}
+    .count{color:var(--muted);font-size:13px;margin-top:8px}
+    .empty{padding:18px;border:1px dashed rgba(255,255,255,.18);border-radius:12px;color:var(--muted);background:#0b132408}
+    .footer{margin-top:16px;color:var(--muted);font-size:13px}
+    .hr{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.16),transparent);margin:18px 0}
+    .badge{display:inline-block;background:rgba(34,211,238,.12);border:1px solid rgba(34,211,238,.35);padding:3px 8px;border-radius:999px;font-size:12px;color:#a5f3fc}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>قائمة عطور نسائية مرتبة أبجديًا <span class="badge" id="total"></span></h1>
+      <p class="sub">يتم التجاهل تلقائيًا لأداة التعريف «الـ» أثناء الفرز، مع مراعاة الترتيب العربي.</p>
+
+      <div class="toolbar">
+        <div class="search">
+          <small>بحث سريع</small>
+          <input id="q" type="search" placeholder="ابحث باسم العطر أو الماركة…" />
+        </div>
+        <div class="index" id="index"></div>
+      </div>
+
+      <div class="hr"></div>
+      <div id="mount"></div>
+      <div class="hr"></div>
+
+      <div class="footer">يمكنك تعديل القائمة أدناه داخل الشيفرة (المصفوفة <code>perfumes</code>). ستتم إعادة الترتيب والتجميع تلقائيًا.</div>
+    </div>
+  </div>
+
+  <script>
+    // 1) حرر هذه القائمة أو استبدلها ببياناتك
+    const perfumes = [
+      "آرماني سي", "إليزابيث آردن جرين تي", "إيف سان لوران ليبر", "ايف سان لوران بلاك أوبيوم",
+      "اوريفليم جورداني غولد", "بولغاري روز غولديا", "بولغاري أومنيا كريستالاين", "بيربري هير",
+      "برادا كاندي", "جيرلان مون غيرلان", "جيفنشي لينتردي", "جيبسي ووتر باي ريدو",
+      "جوتشي بلوم", "ديور جادور", "ديور مس ديور", "دولتشي آند غابانا ذا ون",
+      "روبرتو كافالي نيرو أسولوتو", "زارا وندر روز", "سلفاتوري فيراغامو سيجنورينا", "شانيل كوكو مادموزيل",
+      "شانيل رقم 5", "فيرساتشي برايت كريستال", "فيرساتشي إيروس بور فِم", "كالفن كلاين إيفوريا",
+      "كارولينا هيريرا غود غيرل", "كلوي أو دو بارفان", "كريد أفنتوس فور هير", "لانكوم لا في إي بيل",
+      "لاريف كاشمير", "لوفيك بونبون", "مجلن عود الأحلام", "ميو ميو توي",
+      "مونتال روزز مسك", "مانسيرا روزيز فانيلا", "نارسيسو رودريغيز فور هير", "هيرمس تويلي",
+      "عبد الصمد القرشي دهن ورد", "عبد الصمد القرشي لميّة", "القرشي عطر البحرين", "العربية للعود موسك",
+      "عبد الكريم الطبيشي مسك", "أجمل عنبر وعود", "أجمل فيفا لا فيدا", "أطياب المرشود ان شيك",
+      "لوليتا لمبيكا", "جوليت هاز أغان جليمِر", "كارتييه لا بانثير", "غيرلان شمواه دُورِنت",
+      "غوتشي فلورا جورجس غاردينيا", "إستي لودر مودرن ميوز"
+    ];
+
+    // 2) أدوات الترتيب والتجميع
+    const arNormalize = s => s
+      .replace(/^ال\s+/,'') // ال + مسافة
+      .replace(/^ال/,'')     // ال مباشرة
+      .replace(/[إأآا]/g,'ا')
+      .replace(/[ى]/g,'ي')
+      .replace(/[ة]/g,'ه')
+      .trim();
+
+    const firstLetter = s => {
+      const t = arNormalize(s);
+      return t.charAt(0).toUpperCase();
+    };
+
+    const collator = new Intl.Collator('ar', { sensitivity:'base', numeric:true });
+
+    function sortArabic(arr){
+      return [...arr].sort((a,b)=> collator.compare(arNormalize(a), arNormalize(b)));
+    }
+
+    const AR_LETTERS = [
+      'ا','ب','ت','ث','ج','ح','خ','د','ذ','ر','ز','س','ش','ص','ض','ط','ظ','ع','غ','ف','ق','ك','ل','م','ن','ه','و','ي'
+    ];
+
+    function groupByLetter(items){
+      const groups = {};
+      for(const l of AR_LETTERS) groups[l] = [];
+      for(const name of items){
+        // تطبيع الحرف الأول ليقع ضمن مجموعة مناسبة
+        let l = firstLetter(name);
+        // تحويل همزات الألف إلى "ا"
+        if (['أ','إ','آ'].includes(l)) l = 'ا';
+        if (!groups[l]) groups[l] = [];
+        groups[l].push(name);
+      }
+      // فرز عناصر كل مجموعة عربيًا
+      for(const l of Object.keys(groups)) groups[l] = sortArabic(groups[l]);
+      return groups;
+    }
+
+    // 3) العرض
+    const mount = document.getElementById('mount');
+    const q = document.getElementById('q');
+    const index = document.getElementById('index');
+    const total = document.getElementById('total');
+
+    function renderIndex(letters){
+      index.innerHTML = letters.map(l => `<a href="#sec-${l}" title="انتقال إلى ${l}">${l}</a>`).join('');
+    }
+
+    function render(list){
+      const filtered = list.filter(n => n.toLowerCase().includes(q.value.trim().toLowerCase()));
+      total.textContent = `(${filtered.length} عطر)`;
+      const groups = groupByLetter(filtered);
+      const sections = AR_LETTERS
+        .filter(l => groups[l] && groups[l].length)
+        .map(l => {
+          const items = groups[l].map(n => `<li>${n}</li>`).join('');
+          return `<section class="group" id="sec-${l}">
+                    <h2>${l}</h2>
+                    <ul class="list">${items}</ul>
+                    <div class="count">${groups[l].length} عنصر</div>
+                  </section>`;
+        });
+      mount.innerHTML = sections.length ? sections.join('') : `<div class="empty">لا توجد نتائج مطابقة لبحثك.</div>`;
+      renderIndex(AR_LETTERS.filter(l => groups[l] && groups[l].length));
+    }
+
+    // بداية
+    q.addEventListener('input', () => render(perfumes));
+    render(perfumes);
+  </script>
+</body>
+</html>

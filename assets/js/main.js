@@ -379,6 +379,7 @@ searchInput?.addEventListener('input', (e)=>{
 // ====== THEME TOGGLE (existing) ======
 const root = document.documentElement;
 const themeToggle = document.getElementById('themeToggle');
+
 function applyTheme(theme){
   if(theme === 'light'){
     root.setAttribute('data-theme','light');
@@ -632,3 +633,51 @@ function flyToCartFrom(imgEl){
   render(state.filtered);
   updateCartUI();
 })();
+
+// שמור את האחרון שהיה בפוקוס לפני פתיחת העגלה
+let lastFocusBeforeDrawer = null;
+
+function openDrawer() {
+  lastFocusBeforeDrawer = document.activeElement;
+
+  // המגירה אינה מוסתרת ואינה ניתנת לפוקוס-חוץ
+  drawer.inert = false;                       // עדיף על aria-hidden כדי גם לחסום פוקוס
+  drawer.classList.add('open');
+  drawer.removeAttribute('aria-hidden');
+
+  // העבר פוקוס פנימה (לכפתור סגירה)
+  requestAnimationFrame(() => { closeCart?.focus(); });
+}
+
+function closeDrawer() {
+  // 1) העבר פוקוס החוצה (לכפתור פתיחה)
+  openCartBtn?.focus();
+
+  // 2) סגור ואלמן לפוקוס
+  drawer.classList.remove('open');
+
+  // המתן טיק אחד כדי לאפשר לפוקוס לעזוב את הצאצא,
+  // ואז סמן שהמגירה מוסתרת ואינה ניתנת לפוקוס
+  requestAnimationFrame(() => {
+    drawer.setAttribute('aria-hidden', 'true');
+    drawer.inert = true;
+  });
+}
+
+// מאזינים חדשים
+openCartBtn?.addEventListener('click', (e) => {
+  e.preventDefault();
+  openDrawer();
+});
+
+closeCart?.addEventListener('click', (e) => {
+  e.preventDefault();
+  closeDrawer();
+});
+
+// ESC סוגר גם כן
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && drawer?.classList.contains('open')) {
+    closeDrawer();
+  }
+});
