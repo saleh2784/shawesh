@@ -16,11 +16,13 @@ function inferCategoryFromFilename(fname=''){
   const f = fname.toLowerCase();
   if (f.includes('men')) return 'men';
   if (f.includes('women') || f.includes('lady') || f.includes('ladies')) return 'women';
-  if (f.includes('air')) return 'air';
+  if (f.includes('air') || f.includes('freshener')) return 'air';
   if (f.includes('cream')) return 'cream';
   if (f.includes('maklot')) return 'maklotim';
+  if (f.includes('electro') || f.includes('elctro') || f.includes('device')) return 'elctro';
   return 'other';
 }
+
 const FALLBACK_IMG = '/images/cat/logo.jpg';
 // אייקון וואטסאפ חדש (SVG), ניתן לשלוט בגודל
 const WA_ICON = (size=18) => `
@@ -29,6 +31,36 @@ const WA_ICON = (size=18) => `
     <path d="M20.52 3.5a11 11 0 0 0-17.05 12.5L2 21.5l5.6-1.46A11 11 0 0 0 21 11a10.9 10.9 0 0 0-.48-7.5zM12 19.9a8 8 0 0 1-4.12-1.13l-.3-.18-3.33.86.89-3.24-.19-.33A8 8 0 1 1 12 19.9zm4.49-6.06c-.24-.12-1.43-.7-1.65-.78s-.38-.12-.54.12-.62.78-.76.95-.28.18-.5.06a6.6 6.6 0 0 1-3.5-3 .41.41 0 0 1 .05-.5c.1-.12.24-.31.36-.45s.16-.24.24-.4a.86.86 0 0 0 .05-.44c0-.12-.54-1.3-.74-1.78s-.39-.42-.54-.43h-.46a.9.9 0 0 0-.65.3A2.75 2.75 0 0 0 7 8.27a4.8 4.8 0 0 0 1 2.53A10.9 10.9 0 0 0 12.2 14a9.1 9.1 0 0 0 1.56.44 1.33 1.33 0 0 0 .92-.3 3.63 3.63 0 0 0 .77-1.02.77.77 0 0 0-.04-.7c-.08-.14-.22-.2-.44-.33z"/>
   </svg>`;
 
+
+  // === Category aliases (canonicalization) ===
+const CATEGORY_ALIASES = {
+  men:       ['men','male','גברים','זכר','رجال','للرجال'],
+  women:     ['women','woman','ladies','lady','נשים','נקבה','نساء','للنساء'],
+  air:       ['air','airfreshener','air-freshener','freshener','מטהרי אוויר','מטהר','ריחן','معطر','معطرات','معطرات الجو'],
+  cream:     ['cream','קרם','مرهم','كريم'],
+  maklotim:  ['maklotim','מקלוטים','מקלוט','بخور','بخّور','عود'], // עדכן אם צריך
+  elctro:    [
+    'elctro','electro','electronics','electronic','device','devices',
+    'מכשיר','מכשירים','חשמל','אלקטרוניקה',
+    'اجهزة','أجهزة','الكترونيات','إلكترونيات'
+  ],
+  other:     ['other','misc','כללי','אחר','אחרים','متنوع']
+};
+
+function canonicalCategory(input='') {
+  const s = String(input).toLowerCase().trim();
+  for (const [canon, variants] of Object.entries(CATEGORY_ALIASES)) {
+    if (variants.includes(s)) return canon;
+  }
+  // לא נמצא: נסה לזהות לפי הכללה במחרוזת
+  if (/men|male|رجال|للرجال/.test(s)) return 'men';
+  if (/women|lady|ladies|نساء|للنساء/.test(s)) return 'women';
+  if (/air|freshener|מטהר|ריחן|معطر/.test(s)) return 'air';
+  if (/cream|كريم|קרם/.test(s)) return 'cream';
+  if (/maklot/.test(s) || /מקלוט/.test(s) || /بخور|عود/.test(s)) return 'maklotim';
+  if (/electro|device|electron|מכשיר|אלקטרו|חשמל|جهاز|أجهزة|الكترون/.test(s)) return 'elctro';
+  return 'other';
+}
 
 // ====== STATE ======
 const state = {
@@ -40,6 +72,40 @@ const state = {
   lang: 'he',  // 'he' | 'ar'
 };
 
+// 
+// === Hero slider autoplay ===
+let _heroAutoId = null;
+function stopHeroAutoplay(){
+  if (_heroAutoId){ clearInterval(_heroAutoId); _heroAutoId = null; }
+}
+function startHeroAutoplay(track, {delay=5000} = {}){
+  stopHeroAutoplay();
+  if (!track) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (track.children.length <= 1) return;
+
+  const stepPx = () => Math.min(track.clientWidth * 0.8, 360);
+  const go = () => track.scrollBy({ left: stepPx(), behavior: 'smooth' });
+
+  _heroAutoId = setInterval(go, delay);
+
+  // השהייה בעת אינטראקציה
+  const pause = () => stopHeroAutoplay();
+  const resume = () => startHeroAutoplay(track, {delay});
+
+  track.addEventListener('pointerdown', pause, { passive:true });
+  track.addEventListener('mouseenter', pause, { passive:true });
+  track.addEventListener('mouseleave', resume, { passive:true });
+  track.addEventListener('touchstart', pause, { passive:true });
+  track.addEventListener('touchend', () => setTimeout(resume, 900), { passive:true });
+
+  // אם הדף עבר לרקע – עצור; חזור כשחוזרים
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stopHeroAutoplay(); else resume();
+  });
+}
+
+// 
 // ====== I18N (Hebrew + Arabic) ======
 const I18N = {
   he: {
@@ -136,22 +202,26 @@ function formatPrice(val){
 function normalizeProducts(arr, srcFile=''){
   if (!Array.isArray(arr)) return [];
   const defCat = inferCategoryFromFilename(srcFile);
-  return arr.map(p => ({
-    id: p.id ?? (crypto.randomUUID ? crypto.randomUUID() : String(Math.random()).slice(2)),
-    name: p.name ?? '',
-    name_he: p.name_he ?? '',
-    name_ar: p.name_ar ?? '',
-    description: p.description ?? '',
-    description_he: p.description_he ?? '',
-    description_ar: p.description_ar ?? '',
-    price: parsePrice(p.price ?? p.cost ?? 0),
-    category: (p.category || p.type || defCat || 'other').toLowerCase(),
-    image: p.image || p.img || '',
-    related: Array.isArray(p.related) ? p.related : [],
-    recommended: Boolean(p.recommended ?? p.featured ?? p.is_recommended ?? p.highlight ?? false), // ← כאן
-    _src: srcFile,
-  }));
+  return arr.map(p => {
+    const rawCat = (p.category || p.type || defCat || 'other');
+    return {
+      id: p.id ?? (crypto.randomUUID ? crypto.randomUUID() : String(Math.random()).slice(2)),
+      name: p.name ?? '',
+      name_he: p.name_he ?? '',
+      name_ar: p.name_ar ?? '',
+      description: p.description ?? '',
+      description_he: p.description_he ?? '',
+      description_ar: p.description_ar ?? '',
+      price: parsePrice(p.price ?? p.cost ?? 0),
+      category: canonicalCategory(rawCat), // ← כאן הקסם
+      image: (p.image || p.img || '').trim() || (typeof FALLBACK_IMG !== 'undefined' ? FALLBACK_IMG : ''),
+      related: Array.isArray(p.related) ? p.related : [],
+      recommended: Boolean(p.recommended ?? p.featured ?? p.is_recommended ?? p.highlight ?? false),
+      _src: srcFile,
+    };
+  });
 }
+
 
 function pName(p){
   return (state.lang === 'ar' ? (p.name_ar || p.name_he || p.name) : (p.name_he || p.name_ar || p.name)) || '';
@@ -202,7 +272,10 @@ async function loadProducts(){
 
 
 // ====== FILTERS ======
-function byCategory(p, cat){ return cat === 'all' ? true : p.category === cat; }
+function byCategory(p, cat){
+  if (cat === 'all') return true;
+  return canonicalCategory(p.category) === canonicalCategory(cat);
+}
 function byQuery(p, q){
   if(!q) return true;
   const text = (pName(p) + ' ' + pDesc(p)).toLowerCase();
@@ -289,26 +362,18 @@ function buildHeroSlider(products){
   const track = document.getElementById('heroTrack');
   if (!wrap || !track) return;
 
-  // רק מוצרים מסומנים recommended
   const featured = products.filter(p => p.recommended);
-
-  // אם אין — מסתירים את הסליידר
-  if (!featured.length) {
-    wrap.style.display = 'none';
-    return;
-  }
-  wrap.style.display = ''; // לוודא שהוא נראה כשיש
-
+  if (!featured.length){ wrap.style.display = 'none'; stopHeroAutoplay(); return; }
+  wrap.style.display = '';
   track.innerHTML = '';
+
   featured.forEach(p => {
     const a = document.createElement('a');
     a.href = '#';
     a.className = 's-card';
     a.setAttribute('role','listitem');
     a.setAttribute('aria-label', pName(p));
-
     const badge = state.lang === 'ar' ? 'موصى به' : 'מומלץ';
-
     a.innerHTML = `
       <img src="${p.image || (typeof FALLBACK_IMG!=='undefined'?FALLBACK_IMG:'')}"
            alt="${pName(p)}" loading="lazy" decoding="async"
@@ -317,19 +382,22 @@ function buildHeroSlider(products){
       <div class="s-info">
         <div class="s-title">${pName(p)}</div>
         <div class="s-price">${formatPrice(p.price)}</div>
-      </div>
-    `;
+      </div>`;
     a.addEventListener('click', (e)=>{ e.preventDefault(); openModalProd(p); });
     track.appendChild(a);
   });
 
-  // ניווט חצים כמו שהיה
+  // ניווט חצים (אם קיים בדסקטופ)
   const prev = wrap.querySelector('.s-nav.prev');
   const next = wrap.querySelector('.s-nav.next');
-  const step = () => Math.min(track.clientWidth * 0.8, 340);
+  const step = () => Math.min(track.clientWidth * 0.8, 360);
   prev?.addEventListener('click', ()=> track.scrollBy({ left: -step(), behavior: 'smooth' }));
   next?.addEventListener('click', ()=> track.scrollBy({ left:  step(), behavior: 'smooth' }));
+
+  // ← הפעלה אוטומטית
+  startHeroAutoplay(track, { delay: 5000 });
 }
+
 
 
 
