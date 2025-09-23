@@ -660,3 +660,42 @@ body { padding-top: var(--nav-h); }
 
 /* כדי לא להסתיר את ההירו/קרוסלה */
 body { padding-top: 90px; } /* ✨ מותאם לגובה החדש */
+
+
+.brand {
+  display: flex;
+  flex-direction: row;   /* לוגו ושם בשורה אחת */
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 700;
+  font-size: 1.2rem;
+  gap: .3rem;            /* ✨ רווח קטן יותר בין לוגו לשם */
+}
+
+.brand img {
+  width: 48px;           /* אפשר לשנות אם גדול מדי */
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid var(--primary);
+  object-fit: cover;
+  margin: 0;             /* ✨ אין מרווח מיותר */
+}
+
+/* משתנים חדשים */
+:root {
+  --brand-color: #8B5CF6;     /* צבע סגול יפה למצב לילה */
+}
+[data-theme="light"] {
+  --brand-color: #5B21B6;     /* גוון מתאים ליום (כהה יותר על רקע בהיר) */
+}
+
+/* עיצוב השם של העסק */
+.brand .title {
+  color: var(--brand-color);
+  font-weight: 800;
+  font-size: 1.2rem;
+  letter-spacing: 0.5px;
+  transition: color 0.3s ease;
+}
