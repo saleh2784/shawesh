@@ -2,6 +2,12 @@ import { FALLBACK_IMG } from './config.js';
 import { canonicalCategory, inferCategoryFromFilename } from './categories.js';
 import { state } from './state.js';
 
+export const BAG_PLUS = (size = 18) => `
+<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+  <path d="M8 7V6a4 4 0 0 1 8 0v1h2.25c.96 0 1.75.79 1.75 1.75v9.5A2.75 2.75 0 0 1 17.25 21h-10.5A2.75 2.75 0 0 1 4 18.25v-9.5C4 7.79 4.79 7 5.75 7H8zm2 0h4V6a2 2 0 1 0-4 0v1z"/>
+  <path d="M12 10.25a.75.75 0 0 1 .75.75v1.75H14.5a.75.75 0 0 1 0 1.5h-1.75V16a.75.75 0 0 1-1.5 0v-1.75H9.5a.75.75 0 0 1 0-1.5h1.75V11a.75.75 0 0 1 .75-.75z"/>
+</svg>`;
+
 export function parsePrice(val) {
   if (typeof val === 'number') return val;
   if (!val) return 0;

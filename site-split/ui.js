@@ -3,7 +3,12 @@ import { state } from './state.js';
 import { t, catLabel } from './i18n.js';
 import { formatPrice, pressAnim, bumpCart, flyToCartFrom, buildWAProductMessage } from './utils.js';
 import { addToCart, updateCartUI } from './cart.js';
+// ברנדר/מודאל
+import { BAG_PLUS } from './utils.js';
 
+
+// ===== RENDER GRID =====
+// ===== RENDER GRID =====
 // ===== RENDER GRID =====
 export function render(items) {
   const grid = document.getElementById('grid');
@@ -14,19 +19,19 @@ export function render(items) {
     return;
   }
 
-  const cartIcon = `
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="width:18px;height:18px;margin-inline-start:.3rem">
-      <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2S15.9 22 17 22s2-.9 2-2-.9-2-2-2zM7.16 14.26l-.03.04c-.3.39-.78.7-1.31.7H4v-2h1.12l2.76-6.59C8.1 5.16 8.53 5 8.99 5H19c.55 0 1 .45 1 1s-.45 1-1 1H9.84l-.9 2h8.73c.75 0 1.41.45 1.7 1.11l2.36 5.3c.16.36.25.76.25 1.18 0 1.65-1.35 3-3 3H8c-.55 0-1-.45-1-1s.45-1 1-1h9.98c.55 0 1-.45 1-1 0-.14-.03-.27-.08-.39l-1.84-4.11H8.53l-1.37 3.26z"/>
-    </svg>`;
-  const waIcon = WA_ICON(18);
+  // אייקון תיק + פלוס
+  const BAG_PLUS = (size = 18) => `
+<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+  <path d="M8 7V6a4 4 0 0 1 8 0v1h2.25c.96 0 1.75.79 1.75 1.75v9.5A2.75 2.75 0 0 1 17.25 21h-10.5A2.75 2.75 0 0 1 4 18.25v-9.5C4 7.79 4.79 7 5.75 7H8zm2 0h4V6a2 2 0 1 0-4 0v1z"/>
+  <path d="M12 10.25a.75.75 0 0 1 .75.75v1.75H14.5a.75.75 0 0 1 0 1.5h-1.75V16a.75.75 0 0 1-1.5 0v-1.75H9.5a.75.75 0 0 1 0-1.5h1.75V11a.75.75 0 0 1 .75-.75z"/>
+</svg>`;
 
   const frag = document.createDocumentFragment();
 
   items.forEach(p => {
-    const name = (state.lang === 'ar' ? (p.name_ar || p.name_he || p.name) : (p.name_he || p.name_ar || p.name)) || '';
+    const name =
+      (state.lang === 'ar' ? (p.name_ar || p.name_he || p.name) : (p.name_he || p.name_ar || p.name)) || '';
     const priceFmt = formatPrice(p.price);
-    const waMsg = buildWAProductMessage(state.lang, p);
-    const waLink = `https://wa.me/${PHONE}?text=${encodeURIComponent(waMsg)}`;
 
     const el = document.createElement('article');
     el.className = 'card card-compact';
@@ -43,17 +48,20 @@ export function render(items) {
         <div class="meta">${catLabel(p.category)}</div>
         <div class="actions compact">
           <button class="btn add compact" data-add="${p.id}" aria-label="${t('btn.add')}">
-            ${cartIcon} ${t('btn.add')}
+            ${BAG_PLUS(18)} ${t('btn.add')}
           </button>
-          <a class="btn whats compact" href="${waLink}" target="_blank" rel="noopener" aria-label="${t('btn.order')}">
-            ${waIcon} ${t('btn.order')}
-          </a>
         </div>
       </div>
     `;
 
+    // פתיחת מודאל בלחיצה על הכרטיס / התמונה
     el.querySelector('.thumb').addEventListener('click', (e) => { e.preventDefault(); openModalProd(p); });
-    el.addEventListener('click', (e) => { if (e.target.closest('[data-add],.btn.whats')) return; openModalProd(p); });
+    el.addEventListener('click', (e) => {
+      if (e.target.closest('[data-add]')) return;
+      openModalProd(p);
+    });
+
+    // הוסף לסל
     el.querySelector('[data-add]').addEventListener('click', (e) => {
       e.stopPropagation();
       addToCart(p);
@@ -87,25 +95,53 @@ export function buildHeroSlider(products) {
   wrap.style.display = 'block';
 
   featured.forEach(p => {
-    const a = document.createElement('a');
-    a.href = '#';
+    const name = (state.lang === 'ar'
+      ? (p.name_ar || p.name_he || p.name)
+      : (p.name_he || p.name_ar || p.name)) || '';
+  
+    const a = document.createElement('div');   // שינוי: div במקום <a> כדי שנוכל לשים כפתורים בפנים
     a.className = 'carousel-card';
     a.setAttribute('role', 'listitem');
-    a.setAttribute('aria-label', (state.lang === 'ar' ? (p.name_ar || p.name_he || p.name) : (p.name_he || p.name_ar || p.name)) || '');
-    a.setAttribute('tabindex', '0');
-
+  
     const badge = state.lang === 'ar' ? 'موصى به' : 'מומלץ';
+  
+    // אייקון BAG+ (אותו מהגריד/מודאל)
+    const BAG_PLUS = (size = 18) => `
+      <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M8 7V6a4 4 0 0 1 8 0v1h2.25c.96 0 1.75.79 1.75 1.75v9.5A2.75 2.75 0 0 1 17.25 21h-10.5A2.75 2.75 0 0 1 4 18.25v-9.5C4 7.79 4.79 7 5.75 7H8zm2 0h4V6a2 2 0 1 0-4 0v1z"/>
+        <path d="M12 10.25a.75.75 0 0 1 .75.75v1.75H14.5a.75.75 0 0 1 0 1.5h-1.75V16a.75.75 0 0 1-1.5 0v-1.75H9.5a.75.75 0 0 1 0-1.5h1.75V11a.75.75 0 0 1 .75-.75z"/>
+      </svg>`;
+  
     a.innerHTML = `
-      <img src="${p.image || FALLBACK_IMG}" alt="${(p.name_he||p.name_ar||p.name)||''}" loading="lazy" decoding="async"
+      <img src="${p.image || FALLBACK_IMG}" alt="${name}" loading="lazy" decoding="async"
            onerror="this.onerror=null; this.src='${FALLBACK_IMG}'">
       <span class="s-badge">${badge}</span>
       <div class="s-info">
-        <div class="s-title">${(state.lang === 'ar' ? (p.name_ar || p.name_he || p.name) : (p.name_he || p.name_ar || p.name)) || ''}</div>
+        <div class="s-title">${name}</div>
         <div class="s-price">${formatPrice(p.price)}</div>
-      </div>`;
-    a.addEventListener('click', (e) => { e.preventDefault(); openModalProd(p); });
+        <div class="actions">
+          <button class="btn add" data-add="${p.id}">
+            ${BAG_PLUS(18)} ${t('btn.add')}
+          </button>
+        </div>
+      </div>
+    `;
+  
+    // פתיחת מודאל בלחיצה על התמונה
+    a.querySelector('img').addEventListener('click', (e) => { e.preventDefault(); openModalProd(p); });
+  
+    // טיפול בכפתור הוסף לסל
+    a.querySelector('[data-add]').addEventListener('click', (e) => {
+      e.stopPropagation();
+      addToCart(p);
+      pressAnim(e.currentTarget);
+      bumpCart();
+      flyToCartFrom(a.querySelector('img'));
+    });
+  
     track.appendChild(a);
   });
+  
 
   const scrollStep = 300;
   prevBtn.addEventListener('click', () => { track.scrollBy({ left: -scrollStep, behavior: 'smooth' }); });
