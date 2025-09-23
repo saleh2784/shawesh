@@ -699,3 +699,35 @@ body { padding-top: 90px; } /* ✨ מותאם לגובה החדש */
   letter-spacing: 0.5px;
   transition: color 0.3s ease;
 }
+
+/*  */
+/* שכבת overlay */
+.contact-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.5);
+  opacity: 0; visibility: hidden;
+  transition: opacity .25s ease;
+  z-index: 2600;
+  display: flex; align-items: flex-end; /* sheet מלמטה; אפשר center למרכז */
+}
+.contact-overlay.open { opacity: 1; visibility: visible; }
+
+/* ה־Sheet עצמו */
+.contact-sheet {
+  width: 100%; max-height: 85vh; overflow: auto;
+  background: var(--card);
+  border-radius: 16px 16px 0 0;
+  box-shadow: 0 -10px 40px rgba(0,0,0,.35);
+  margin: 0 auto;
+}
+.contact-sheet header {
+  display:flex; align-items:center; justify-content:space-between;
+  padding: 1rem 1.2rem; border-bottom: 1px solid var(--border);
+}
+.contact-content { padding: 1rem 1.2rem; }
+.contact-close { background:none; border:none; color:var(--text); font-size:1.2rem; cursor:pointer; }
+
+/* אם תרצה במרכז מסך:
+.contact-overlay { align-items:center; }
+.contact-sheet { border-radius:16px; max-width:700px; }
+*/
