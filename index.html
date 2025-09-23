@@ -7,14 +7,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/style.css?v=15" />
+    <link rel="stylesheet" href="assets/css/style.css?v=16" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
 </head>
 <body>
 
     <nav class="nav">
         <div class="wrap">
-          <button id="openMenu" class="icon-btn menu-icon" aria-label="التصنيفات">☰</button>
+            <button id="openMenu" class="icon-btn menu-icon" aria-label="التصنيفات">☰</button>
             <button id="themeToggle" class="icon-btn" aria-label="تبديل الوضع">🌙</button>
             <a class="brand" href="#home">
                 <img src="/images/cat/logo.jpg" alt="الشاوِيش للعطور" onerror="this.src='/images/cat/logo.jpg'">
@@ -22,7 +22,7 @@
             </a>
             
             <div class="nav-actions">
-                <button id="langToggle" class="icon-btn" aria-label="תמחלל לשפה">AR</button>
+                <button id="langToggle" class="icon-btn" aria-label="Toggle Language">AR</button>
                 <button class="icon-btn cart-btn" id="openCart" aria-label="السلة">
                     <i class="fas fa-shopping-cart"></i>
                     <span class="cart-count" id="cartCount">0</span>
@@ -60,11 +60,18 @@
         </div>
     </header>
 
-    <div class="slider" id="heroCarousel" aria-label="منتجات مميزة">
-        <button class="s-nav prev" type="button" aria-label="السابق">‹</button>
-        <div class="s-track" id="heroTrack" tabindex="0" role="list"></div>
-        <button class="s-nav next" type="button" aria-label="التالي">›</button>
-    </div>
+    <section class="slider" id="heroCarousel" aria-label="מוצרים מומלצים">
+        <button class="s-nav prev" type="button" aria-label="מוצר קודם">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        
+        <div class="s-track" id="heroTrack" tabindex="0" role="list">
+            </div>
+        
+        <button class="s-nav next" type="button" aria-label="מוצר הבא">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    </section>
 
     <main>
         <div class="grid" id="grid" aria-live="polite"></div>
@@ -90,15 +97,22 @@
     <aside class="drawer" id="drawer" aria-hidden="true">
         <header>
             <strong>السلة</strong>
-            <button class="icon-btn" id="closeCart" aria-label="إغلاق">إغلاق</button>
+            <button class="icon-btn" id="closeCart" aria-label="إغلاق">✕</button>
         </header>
+        
         <div class="items" id="cartItems"></div>
+        
         <footer>
             <div style="display:flex;justify-content:space-between">
                 <span>المجموع:</span>
                 <strong id="cartTotal">₪0</strong>
             </div>
-            <a class="btn primary" id="checkoutBtn" target="_blank" rel="noopener">طلب عبر واتساب</a>
+            <div class="footer-actions">
+                <a class="btn btn-danger clear-cart-btn">
+                    <i class="fas fa-trash-alt"></i> מחק הכל
+                </a>
+                <a class="btn primary" id="checkoutBtn" target="_blank" rel="noopener">طلب عبر واتساب</a>
+            </div>
         </footer>
     </aside>
 
@@ -108,11 +122,12 @@
                 <strong id="contactTitle">تواصل معنا</strong>
                 <button class="contact-close" id="closeContact" aria-label="إغلاق">✕</button>
             </header>
+            <div class="contact-content"></div>
         </div>
     </div>
     
-    <footer>© <span id="year"></span> الشاوِيش للعطور — כל الحقوق محفوظة.</footer>
+    <footer>© <span id="year"></span> الشاوِيش للعطور — كل الحقوق محفوظة.</footer>
     
-    <script src="assets/js/main.js?v=5"></script>
+    <script src="assets/js/main.js?v=6"></script>
 </body>
 </html>

@@ -325,6 +325,7 @@ function render(items) {
 }
 
 // ====== HERO CAROUSEL ======
+// ====== HERO CAROUSEL ======
 function buildHeroSlider(products) {
   const wrap = document.getElementById('heroCarousel');
   const track = document.getElementById('carouselTrack');
@@ -337,89 +338,91 @@ function buildHeroSlider(products) {
 
   const featured = products.filter(p => p.recommended);
   if (!featured.length) {
-    wrap.style.display = 'none';
-    return;
+      wrap.style.display = 'none';
+      return;
   }
   wrap.style.display = 'block';
 
   featured.forEach((p, index) => {
-    const a = document.createElement('a');
-    a.href = '#';
-    a.className = 'carousel-card';
-    a.setAttribute('role', 'listitem');
-    a.setAttribute('aria-label', pName(p));
-    a.setAttribute('tabindex', '0');
+      const a = document.createElement('a');
+      a.href = '#';
+      a.className = 'carousel-card';
+      a.setAttribute('role', 'listitem');
+      a.setAttribute('aria-label', pName(p));
+      a.setAttribute('tabindex', '0');
 
-    const badge = state.lang === 'ar' ? 'موصى به' : 'מומלץ';
-    a.innerHTML = `
-      <img src="${p.image || FALLBACK_IMG}"
-            alt="${pName(p)}"
-            loading="lazy"
-            decoding="async"
-            onerror="this.onerror=null; this.src='${FALLBACK_IMG}'">
-      <span class="s-badge">${badge}</span>
-      <div class="s-info">
-        <div class="s-title">${pName(p)}</div>
-        <div class="s-price">${formatPrice(p.price)}</div>
-      </div>`;
+      const badge = state.lang === 'ar' ? 'موصى به' : 'מומלץ';
+      a.innerHTML = `
+          <img src="${p.image || FALLBACK_IMG}"
+              alt="${pName(p)}"
+              loading="lazy"
+              decoding="async"
+              onerror="this.onerror=null; this.src='${FALLBACK_IMG}'">
+          <span class="s-badge">${badge}</span>
+          <div class="s-info">
+              <div class="s-title">${pName(p)}</div>
+              <div class="s-price">${formatPrice(p.price)}</div>
+          </div>`;
 
-    a.addEventListener('click', (e) => {
-      e.preventDefault();
-      openModalProd(p);
-    });
+      a.addEventListener('click', (e) => {
+          e.preventDefault();
+          openModalProd(p);
+      });
 
-    track.appendChild(a);
+      track.appendChild(a);
 
-    const dot = document.createElement('div');
-    dot.className = 'indicator';
-    if (index === 0) dot.classList.add('active');
-    dot.addEventListener('click', () => goToSlide(index));
-    indicatorsContainer.appendChild(dot);
+      const dot = document.createElement('div');
+      dot.className = 'indicator';
+      if (index === 0) dot.classList.add('active');
+      dot.addEventListener('click', () => {
+          track.scrollTo({ left: a.offsetLeft, behavior: 'smooth' });
+      });
+      indicatorsContainer.appendChild(dot);
   });
-
-  let currentIndex = 0;
-  const cards = track.children;
-  const totalCards = cards.length;
-
-  function updateIndicators() {
-    document.querySelectorAll('.indicator').forEach((dot, i) => {
-      dot.classList.toggle('active', i === currentIndex);
-    });
-  }
-
-  function goToSlide(index) {
-    currentIndex = index;
-    const cardWidth = cards[0]?.offsetWidth || 300;
-    const gap = 16;
-    const offset = index * (cardWidth + gap);
-    track.style.transform = `translateX(-${offset}px)`;
-    updateIndicators();
-  }
-
-  goToSlide(0); // תחילת קרוסלה ממוצר הראשון
-
-  function nextSlide() {
-    currentIndex = (currentIndex + 1) % totalCards;
-    goToSlide(currentIndex);
-  }
-
-  function prevSlide() {
-    currentIndex = (currentIndex - 1 + totalCards) % totalCards;
-    goToSlide(currentIndex);
-  }
 
   const prevBtn = wrap.querySelector('.carousel-nav.prev');
   const nextBtn = wrap.querySelector('.carousel-nav.next');
 
-  prevBtn?.addEventListener('click', prevSlide);
-  nextBtn?.addEventListener('click', nextSlide);
+  // פונקציות הניווט החדשות מבוססות גלילה
+  const scrollStep = 300; // כמה פיקסלים לגלול בכל לחיצה
 
-  if (totalCards > 1) {
-    let autoPlayInterval = setInterval(nextSlide, 5000);
-    wrap.addEventListener('mouseenter', () => clearInterval(autoPlayInterval));
-    wrap.addEventListener('mouseleave', () => {
-      autoPlayInterval = setInterval(nextSlide, 5000);
-    });
+  prevBtn?.addEventListener('click', () => {
+      track.scrollBy({ left: -scrollStep, behavior: 'smooth' });
+  });
+
+  nextBtn?.addEventListener('click', () => {
+      track.scrollBy({ left: scrollStep, behavior: 'smooth' });
+  });
+
+  // מעדכן את האינדיקטורים בהתאם לגלילה
+  track.addEventListener('scroll', () => {
+      const cardWidth = track.scrollWidth / featured.length;
+      const index = Math.round(track.scrollLeft / cardWidth);
+      document.querySelectorAll('.indicator').forEach((dot, i) => {
+          dot.classList.toggle('active', i === index);
+      });
+  });
+
+  // הפעלה אוטומטית (נשארת ללא שינוי, אך מתאימה לגלילה)
+  if (featured.length > 1) {
+      let autoPlayInterval = setInterval(() => {
+          if (track.scrollLeft + track.clientWidth >= track.scrollWidth) {
+              track.scrollTo({ left: 0, behavior: 'smooth' });
+          } else {
+              track.scrollBy({ left: scrollStep, behavior: 'smooth' });
+          }
+      }, 5000);
+
+      wrap.addEventListener('mouseenter', () => clearInterval(autoPlayInterval));
+      wrap.addEventListener('mouseleave', () => {
+          autoPlayInterval = setInterval(() => {
+              if (track.scrollLeft + track.clientWidth >= track.scrollWidth) {
+                  track.scrollTo({ left: 0, behavior: 'smooth' });
+              } else {
+                  track.scrollBy({ left: scrollStep, behavior: 'smooth' });
+              }
+          }, 5000);
+      });
   }
 }
 
@@ -464,6 +467,10 @@ modal?.addEventListener('click', (e) => { if (e.target === modal) closeModal(); 
 // ====== CART ======
 function getCart() { try { return JSON.parse(localStorage.getItem('cart') || '[]'); } catch { return [] } }
 function setCart(items) { localStorage.setItem('cart', JSON.stringify(items)); updateCartUI(); }
+function clearCart() {
+  localStorage.removeItem('cart'); // מוחק את הנתונים מהאחסון המקומי
+  updateCartUI(); // מעדכן את ממשק המשתמש
+}
 function addToCart(p) {
   const items = getCart();
   const found = items.find(x => x.id === p.id);
@@ -521,6 +528,14 @@ function updateCartUI() {
     });
   }
 
+  const clearBtn = drawer.querySelector('.clear-cart-btn');
+    if (clearBtn) {
+        clearBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            clearCart();
+            // closeDrawer(); // סגירת סל הקניות לאחר המחיקה
+        });
+    }
   cartTotal.textContent = formatPrice(sumCart(items));
   const count = items.reduce((c, x) => c + x.qty, 0);
   if (cartCountEl()) cartCountEl().textContent = count;

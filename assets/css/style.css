@@ -852,3 +852,93 @@ footer {
   background: #25D366;
   color: white;
 }
+
+/* גרסת מחשב */
+
+/* ====== התאמות ספציפיות למחשב (מעל 768px) ====== */
+@media (min-width: 768px) {
+    /* הגדרות ניווט עליון - Nav */
+    .nav .wrap {
+        padding: 1rem 1.5rem;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    .brand {
+        flex-direction: row;
+        gap: 0.8rem;
+        font-size: 1.3rem;
+    }
+
+    .brand img {
+        width: 56px;
+        height: 56px;
+        margin-bottom: 0;
+    }
+
+    .menu-icon {
+        display: none; /* הסתרת כפתור התפריט בתצוגת מחשב */
+    }
+
+    /* הגדרות רשת מוצרים - Grid */
+    .grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* מאפשר 3-4 עמודות בהתאם לגודל המסך */
+        gap: 2rem;
+        padding: 2rem 1.5rem;
+    }
+
+    /* התאמות לכפתורים */
+    .actions {
+        flex-direction: row;
+        gap: 0.8rem;
+    }
+    
+    .btn {
+        font-size: 0.95rem;
+    }
+
+    /* התאמות תפריט צד (Drawer) - כרגע נסתרות במסך מחשב */
+    .side-drawer,
+    .drawer {
+        position: static;
+        width: auto;
+        height: auto;
+        box-shadow: none;
+        transform: none;
+        padding: 0;
+        overflow-y: visible;
+        display: block;
+    }
+}
+
+/* ============ עיצוב חדש לכפתורים בסל הקניות ============ */
+
+.btn {
+  /* שמור על ההגדרות הקיימות של הכפתורים */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  padding: 0.8rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+/* עיצוב כפתור "מחק הכל" */
+.btn-danger {
+  background: var(--danger);
+  color: white;
+}
+
+.btn-danger:hover {
+  background: #d43b3b;
+}
+
+/* עיצוב כפתור "מעבר לקופה" */
+.btn-primary {
+  background: var(--primary);
+  color: white;
+}
