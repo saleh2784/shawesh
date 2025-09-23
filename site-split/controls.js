@@ -57,26 +57,17 @@ export function initSideDrawer() {
   const closeMenuBtn = document.getElementById('closeMenu');
 
   function openSideDrawer() {
-    if (!sideDrawer || !menuBackdrop) return;
     sideDrawer.classList.add('open');
-    sideDrawer.setAttribute('aria-hidden', 'false');
     menuBackdrop.classList.add('open');
-    menuBackdrop.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
+    document.body.classList.add('drawer-open'); // נועל גלילה
   }
-  window.closeSideDrawer = closeSideDrawer;
   
   function closeSideDrawer() {
-    if (!sideDrawer || !menuBackdrop) return;
     sideDrawer.classList.remove('open');
-    sideDrawer.setAttribute('aria-hidden', 'true');
-    sideDrawer.inert = true;
     menuBackdrop.classList.remove('open');
-    menuBackdrop.setAttribute('aria-hidden', 'true');
-    menuBackdrop.inert = true;
-    if (openMenuBtn) openMenuBtn.focus();
-    document.body.style.overflow = '';
+    document.body.classList.remove('drawer-open'); // מחזיר גלילה
   }
+  
 
   openMenuBtn?.addEventListener('click', openSideDrawer);
   closeMenuBtn?.addEventListener('click', closeSideDrawer);

@@ -331,3 +331,332 @@ html,body{font-family:'Rubik',sans-serif;background:var(--bg);color:var(--text);
 .drawer footer .btn.primary:hover {
   background: #128C7E;
 }
+
+/* ====== כפתורי סל הקניות ====== */
+.drawer footer .btn {
+  font-size: 1rem;          /* טקסט גדול יותר */
+  padding: 1rem 2.2rem;     /* ריפוד פנימי גדול */
+  border-radius: 10px;
+  font-weight: 700;
+  flex: 1;                  /* שני הכפתורים לוקחים מקום שווה */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+/* כפתור מחק הכל */
+.drawer footer .btn-danger {
+  background: var(--danger);
+  color: white;
+}
+.drawer footer .btn-danger:hover {
+  background: #d43b3b;
+}
+
+/* כפתור הזמן בוואטסאפ */
+.drawer footer .btn.primary {
+  background: #25D366; /* צבע ירוק לוואטסאפ */
+  color: white;
+}
+.drawer footer .btn.primary:hover {
+  background: #128C7E;
+}
+
+
+/*  */
+
+/* ====== Header/Nav ====== */
+.nav {
+  position: fixed;              /* ננעל למעלה */
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: var(--bg-alt);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 1000;
+}
+
+.nav .wrap {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0.6rem 1rem;          /* רווח קטן יותר */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* לוגו + שם */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 700;
+  font-size: 1.1rem;             /* טיפה קטן */
+}
+
+.brand img {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--primary);
+}
+
+/* פעולות צד ימין (שפה + מצב + סל) */
+.nav-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+/* אייקוני כפתורים */
+.icon-btn {
+  background: var(--bg);
+  border: none;
+  color: var(--text);
+  font-size: 1rem;              /* הקטנת אייקון */
+  cursor: pointer;
+  padding: 0.4rem;
+  border-radius: 8px;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;                  /* גודל אחיד */
+  height: 36px;
+  position: relative;
+}
+
+.icon-btn:hover {
+  background: var(--primary);
+  color: #fff;
+  transform: scale(1.05);
+}
+
+/* מונה הסל */
+.cart-count {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: var(--danger);
+  color: white;
+  font-size: 0.65rem;
+  font-weight: bold;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* כדי שהHero לא יעלה על ההידר */
+.hero {
+  margin-top: 70px;  /* מתאים לגובה ההידר */
+}
+
+/* כיסוי מלא מאחורה */
+.backdrop,
+#menuBackdrop {
+  position: fixed;
+  inset: 0; /* top:0; right:0; bottom:0; left:0 */
+  background: rgba(0,0,0,0.5); /* רקע כהה */
+  z-index: 1999; /* נמוך בכוונה מהתפריט */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+}
+
+.backdrop.open,
+#menuBackdrop.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* התפריט עצמו */
+.side-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 280px;
+  height: 100vh;
+  background: var(--bg);
+  z-index: 2000; /* גבוה יותר מהמוצרים ומה-backdrop */
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  overflow-y: auto;
+  box-shadow: -6px 0 25px rgba(0,0,0,0.3);
+}
+
+.side-drawer.open {
+  transform: translateX(0);
+}
+
+/* כש Drawer פתוח – נועל את הגלילה של הדף */
+body.drawer-open {
+  overflow: hidden;
+}
+
+/* קבע משתנה לגובה ההידר */
+:root { --nav-h: 10px; } /* עדכן ל-70/72 אם צריך */
+
+/* ההידר מקבל גובה קבוע */
+.nav { height: var(--nav-h); }
+
+/* אפשרות 1 — לדחוף את כל העמוד למטה: */
+body { padding-top: var(--nav-h); }
+
+/* אפשרות 2 — רק הקרוסלה (אם לא רוצה לדחוף את כל העמוד): */
+#heroCarousel { margin-top: var(--nav-h); }
+
+/* אם היה לך קודם .hero { margin-top: ... } בטל אותו: */
+.hero { margin-top: 0; }
+
+/* ברירת מחדל — קרוסלה במרכז */
+#heroCarousel {
+  display: flex;
+  justify-content: center;   /* מרכז אופקי */
+  align-items: center;       /* מרכז אנכי אם יש גובה קבוע */
+  text-align: center;
+  padding: 1rem 0;
+  position: relative;
+}
+
+#heroCarousel .s-track {
+  display: flex;
+  justify-content: center;   /* ממרכז את הקלפים */
+  align-items: center;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory; /* גלילה חלקה עם "עצירה" */
+  -webkit-overflow-scrolling: touch;
+}
+
+#heroCarousel .carousel-card {
+  flex: 0 0 auto;
+  scroll-snap-align: center; /* כל כרטיס יתיישב במרכז */
+  text-align: center;
+  min-width: 260px;
+  max-width: 80%;
+  background: var(--card);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  padding: 0.5rem;
+}
+
+#heroCarousel .carousel-card img {
+  display: block;
+  margin: 0 auto;             /* ממרכז את התמונה */
+  width: 200px;               /* מתאים לגודל מסך קטן */
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+/* ===== מובייל בלבד ===== */
+@media (max-width: 767px) {
+  #heroCarousel {
+    justify-content: center;
+  }
+  #heroCarousel .s-track {
+    justify-content: center;
+    padding: 0 0.5rem;
+  }
+}
+
+
+/* ====== Header/Nav ====== */
+.nav {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  background: var(--bg-alt);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 1000;
+  height: 90px;              /* ✨ הגדלת הגובה */
+  display: flex;
+  align-items: center;       /* מרכז אנכי */
+  justify-content: center;   /* מרכז אופקי */
+}
+
+/* כל התוכן בהידר */
+.nav .wrap {
+  display: flex;
+  align-items: center;       /* מרכז אנכי */
+  justify-content: center;   /* מרכז אופקי */
+  gap: 1rem;
+  width: 100%;
+  max-width: 1400px;
+  text-align: center;
+}
+
+/* הלוגו + הכותרת */
+.brand {
+  display: flex;
+  flex-direction: column;   /* לוגו מעל כותרת */
+  align-items: center;
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.brand img {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 2px solid var(--primary);
+  object-fit: cover;
+  margin-bottom: .3rem;
+}
+
+/* פעולות (שפה, מצב, סל) */
+.nav-actions {
+  display: flex;
+  gap: .8rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  color: var(--text);
+  transition: var(--transition);
+}
+.icon-btn:hover {
+  background: var(--primary);
+  color: #fff;
+}
+
+/* מונה סל */
+.cart-count {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: var(--danger);
+  color: #fff;
+  font-size: .7rem;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* כדי לא להסתיר את ההירו/קרוסלה */
+body { padding-top: 90px; } /* ✨ מותאם לגובה החדש */
