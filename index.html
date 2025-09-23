@@ -1,147 +1,118 @@
 <!doctype html>
 <html lang="ar" dir="rtl" data-theme="dark">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>الشاوِيش للعطور | חנות הבשמים</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css?v=13"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>الشاوِيش للعطور | חנות הבשמים</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css?v=15" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
 </head>
 <body>
-  <!-- NAV -->
-  <!-- NAV -->
-<!-- NAV -->
-<!-- NAV -->
-<nav class="nav">
-  <div class="wrap">
-    <!-- תפרית צד — מימין -->
-    <button id="openMenu" class="icon-btn menu-icon" aria-label="التصنيفات">☰</button>
 
-    <!-- לוגו ושם — מרכז -->
-    <a class="brand" href="#home">
-      <img src="/images/cat/logo.jpg" alt="לוגו" onerror="this.src='/images/cat/logo.jpg'">
-      <span class="title">الشاوِيش للعطور</span>
-    </a>
-
-    <!-- כפתורים — מימין לתפרית -->
-    <div class="nav-actions">
-      <button class="icon-btn cart-btn" id="openCart" aria-label="السلة">
-        <i class="fas fa-shopping-cart"></i>
-        <span class="cart-count" id="cartCount">0</span>
-      </button>
-      <button id="themeToggle" class="icon-btn" aria-label="تبديل الوضع">🌙</button>
-      <button id="langToggle" class="icon-btn" aria-label="تبديل اللغة">AR</button>
-    </div>
-  </div>
-</nav>
-<!-- תפרית צד - רק לקטגוריות -->
-<aside class="side-drawer" id="sideDrawer" aria-hidden="true">
-  <div class="drawer-content">
-    <header class="drawer-header">
-      <strong>التصنيفات</strong>
-      <button id="closeMenu" class="icon-btn" aria-label="إغلاق">✕</button>
-    </header>
-    <nav class="drawer-nav">
-      <div class="drawer-chips">
-        <a href="#catalog" class="chip active" data-cat="all">الكل</a>
-        <a href="#catalog" class="chip" data-cat="women">عطور للنساء</a>
-        <a href="#catalog" class="chip" data-cat="men">عطور للرجال</a>
-        <a href="#catalog" class="chip" data-cat="air">معطرات الجو</a>
-        <a href="#catalog" class="chip" data-cat="cream">كريم</a>
-        <a href="#catalog" class="chip" data-cat="maklotim">مكلوتيم</a>
-        <a href="#catalog" class="chip" data-cat="elctro">اجهزة</a>
-        <a href="#catalog" class="chip" data-cat="mabakher">مباخر</a>
-      </div>
-    </nav>
-  </div>
-</aside>
-
-<!-- אוברליי אפל -->
-<div class="backdrop" id="menuBackdrop" aria-hidden="true"></div>
-
-  <!-- HERO -->
- 
-
-  <!-- HERO SLIDER -->
-  <div class="slider" id="heroSlider" aria-label="ممنتجات مميزة">
-    <button class="s-nav prev" type="button" aria-label="السابق">‹</button>
-    <div class="s-track" id="heroTrack" tabindex="0" role="list"></div>
-    <button class="s-nav next" type="button" aria-label="التالي">›</button>
-  </div>
-
-  <header id="home" class="hero">
-    <div>
-      <h1>عطور تحكي قصة</h1>
-    </div>
-  </header>
-  <!-- CONTROLS -->
-  <!-- <div class="controls" id="catalog">
-    <div class="chip active" data-cat="all">الكل</div>
-    <div class="chip" data-cat="women">عطور للنساء</div>
-    <div class="chip" data-cat="men">عطور للرجال</div>
-    <div class="chip" data-cat="air">معطرات الجو</div>
-    <div class="chip" data-cat="cream">كريم</div>
-    <div class="chip" data-cat="maklotim">مكلوتيم</div>
-    <div class="chip" data-cat="elctro">اجهزة</div>
-    <div class="chip" data-cat="mabakher">مباخر</div>
-    <div class="search"><input id="search" placeholder="ابحث بالاسم / الوصف..." /></div>
-  </div> -->
-
-  <!-- GRID -->
-  <main class="grid" id="grid" aria-live="polite"></main>
-
-  <footer>© <span id="year"></span> الشاوِيش للعطور — كل الحقوق محفوظة.</footer>
-
-  <!-- PRODUCT MODAL -->
-  <div class="modal-backdrop" id="modal" aria-hidden="true">
-    <div class="modal" role="dialog" aria-modal="true">
-      <button class="close-x" id="closeModal" aria-label="إغلاق">✕</button>
-      <div class="pic"><img id="mImg" alt="product"></div>
-      <div class="body">
-        <h3 id="mTitle" style="margin:0"></h3>
-        <div class="row" id="mCat"></div>
-        <div class="row" id="mDesc"></div>
-        <div class="row" id="mPrice" style="font-weight:800"></div>
-        <div class="actions">
-          <button class="btn primary" id="mAdd">أضف إلى السلة</button>
-          <a class="btn" id="mWhats" target="_blank" rel="noopener">اطلب الان</a>
+    <nav class="nav">
+        <div class="wrap">
+          <button id="openMenu" class="icon-btn menu-icon" aria-label="التصنيفات">☰</button>
+            <button id="themeToggle" class="icon-btn" aria-label="تبديل الوضع">🌙</button>
+            <a class="brand" href="#home">
+                <img src="/images/cat/logo.jpg" alt="الشاوِيش للعطور" onerror="this.src='/images/cat/logo.jpg'">
+                <span class="title">الشاوِيش للعطور</span>
+            </a>
+            
+            <div class="nav-actions">
+                <button id="langToggle" class="icon-btn" aria-label="תמחלל לשפה">AR</button>
+                <button class="icon-btn cart-btn" id="openCart" aria-label="السلة">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </button>
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
+    </nav>
 
-  <!-- CART DRAWER -->
-  <aside class="drawer" id="drawer" aria-hidden="true">
-    <header>
-      <strong>السلة</strong>
-      <button class="icon-btn" id="closeCart" aria-label="إغلاق">إغلاق</button>
+    <aside class="side-drawer" id="sideDrawer" aria-hidden="true">
+        <div class="drawer-content">
+            <header class="drawer-header">
+                <strong>التصنيفات</strong>
+                <button id="closeMenu" class="icon-btn" aria-label="إغلاق">✕</button>
+            </header>
+            <nav class="drawer-nav" role="navigation">
+                <div class="drawer-chips">
+                    <a href="#catalog" class="chip active" data-cat="all">الكل</a>
+                    <a href="#catalog" class="chip" data-cat="women">عطور للنساء</a>
+                    <a href="#catalog" class="chip" data-cat="men">عطور للرجال</a>
+                    <a href="#catalog" class="chip" data-cat="air">معطرات الجو</a>
+                    <a href="#catalog" class="chip" data-cat="cream">كريم</a>
+                    <a href="#catalog" class="chip" data-cat="maklotim">مكلوتيم</a>
+                    <a href="#catalog" class="chip" data-cat="elctro">اجهزة</a>
+                    <a href="#catalog" class="chip" data-cat="mabakher">مباخر</a>
+                </div>
+            </nav>
+        </div>
+    </aside>
+
+    <div class="backdrop" id="menuBackdrop" aria-hidden="true"></div>
+
+    <header id="home" class="hero">
+        <div>
+            <h1>عطور تحكي قصة</h1>
+        </div>
     </header>
-    <div class="items" id="cartItems"></div>
-    <footer>
-      <div style="display:flex;justify-content:space-between">
-        <span>المجموع:</span>
-        <strong id="cartTotal">₪0</strong>
-      </div>
-      <a class="btn primary" id="checkoutBtn" target="_blank" rel="noopener">
-        طلب عبر واتساب
-      </a>
-    </footer>
-  </aside>
 
-  <!-- Contact Inline Overlay -->
-  <div id="contactOverlay" class="contact-overlay" aria-hidden="true">
-    <div class="contact-sheet" role="dialog" aria-modal="true" aria-labelledby="contactTitle">
-      <header>
-        <strong id="contactTitle">تواصل معنا</strong>
-        <button class="contact-close" id="closeContact" aria-label="إغلاق">✕</button>
-      </header>
-      <div class="content" id="contactContent">جارٍ التحميل…</div>
+    <div class="slider" id="heroCarousel" aria-label="منتجات مميزة">
+        <button class="s-nav prev" type="button" aria-label="السابق">‹</button>
+        <div class="s-track" id="heroTrack" tabindex="0" role="list"></div>
+        <button class="s-nav next" type="button" aria-label="التالي">›</button>
     </div>
-  </div>
 
-  <script src="assets/js/main.js?v=3"></script>
+    <main>
+        <div class="grid" id="grid" aria-live="polite"></div>
+    </main>
+
+    <div class="modal-backdrop" id="modal" aria-hidden="true">
+        <div class="modal" role="dialog" aria-modal="true">
+            <button class="close-x" id="closeModal" aria-label="إغلاق">✕</button>
+            <div class="pic"><img id="mImg" alt="product"></div>
+            <div class="body">
+                <h3 id="mTitle" style="margin:0"></h3>
+                <div class="row" id="mCat"></div>
+                <div class="row" id="mDesc"></div>
+                <div class="row" id="mPrice" style="font-weight:800"></div>
+                <div class="actions">
+                    <button class="btn primary" id="mAdd">أضف إلى السلة</button>
+                    <a class="btn" id="mWhats" target="_blank" rel="noopener">اطلب الان</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <aside class="drawer" id="drawer" aria-hidden="true">
+        <header>
+            <strong>السلة</strong>
+            <button class="icon-btn" id="closeCart" aria-label="إغلاق">إغلاق</button>
+        </header>
+        <div class="items" id="cartItems"></div>
+        <footer>
+            <div style="display:flex;justify-content:space-between">
+                <span>المجموع:</span>
+                <strong id="cartTotal">₪0</strong>
+            </div>
+            <a class="btn primary" id="checkoutBtn" target="_blank" rel="noopener">طلب عبر واتساب</a>
+        </footer>
+    </aside>
+
+    <div id="contactOverlay" class="contact-overlay" aria-hidden="true">
+        <div class="contact-sheet" role="dialog" aria-modal="true" aria-labelledby="contactTitle">
+            <header>
+                <strong id="contactTitle">تواصل معنا</strong>
+                <button class="contact-close" id="closeContact" aria-label="إغلاق">✕</button>
+            </header>
+        </div>
+    </div>
+    
+    <footer>© <span id="year"></span> الشاوِيش للعطور — כל الحقوق محفوظة.</footer>
+    
+    <script src="assets/js/main.js?v=5"></script>
 </body>
 </html>
